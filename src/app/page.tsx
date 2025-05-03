@@ -1,103 +1,210 @@
+import React from "react";
 import Image from "next/image";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
+      {/* Hero Section */}
+      <div className="flex items-center justify-between mb-10">
+        <div className="flex justify-center flex-col">
+          <div className="mb-3">
+            <span className="text-xl lg:text-4xl">Welcome to my</span>
+            <br />
+            <span className="lg:text-6xl text-3xl italic font-bold">
+              Portofolio
+            </span>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <span className="lg:text-[1.3rem] text-[1rem]">
+            From this website you will know more about me! :)
+          </span>
+          <div className="mt-5">
+            <a href="#aboutMe" className="border px-3 rounded-[25px] py-3">
+              Who am I?
+            </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Image
+          src="/img/foto-santai-1.png"
+          alt="Image Description"
+          width={400}
+          height={400}
+          className="w-[40%] h-[40%] lg:w-[30%] lg:h-[30%] rounded-[15px]"
+        />
+      </div>
+
+      {/* About Me */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-10">
+        {/* Image */}
+        <div className="w-full flex justify-center">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/img/foto-gaya-2.png"
+            alt="Image Description"
+            width={300}
+            height={300}
+            className="max-w-[300px] rounded-[15px]"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+
+        {/* Text */}
+        <div className="w-full flex justify-center text-center flex-col">
+          <span className="lg:text-4xl text-2xl">Hello there!</span>
+          <span className="lg:text-lg text-sm">
+            My name’s Surya Ario Pratama
+            <br />
+            But you can call me sur :)
+            <br />
+            I’m currently a student from
+            <br />
+            University of Indo Global Mandiri
+            <br />
+            Majoring in Informatics Engineering.
+          </span>
+        </div>
+      </div>
+
+      {/* Hard Skill */}
+      <div className="mb-8">
+        <h2 className="text-center text-2xl font-bold mb-8">
+          Skill/Tech stack
+        </h2>
+        <div className="flex flex-wrap justify-center gap-6 mb-8">
+          {/* Card 1 */}
+          <div className="w-40 flex flex-col relative">
+            <div className="border rounded-t-lg h-40 w-full"></div>
+            <div className="border border-t-0 rounded-b-lg py-2 text-center">
+              Coming soon
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="w-40 flex flex-col relative">
+            <div className="border rounded-t-lg h-40 w-full"></div>
+            <div className="border border-t-0 rounded-b-lg py-2 text-center">
+              Coming soon
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="w-40 flex flex-col relative">
+            <div className="border rounded-t-lg h-40 w-full"></div>
+            <div className="border border-t-0 rounded-b-lg py-2 text-center">
+              Coming soon
+            </div>
+            <div className="absolute left-[110%]">
+              {/* Hamburger */}
+              <button className="absolute bg-black text-white p-2 rounded-md hover:bg-gray-800 transition">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+
+              {/* Content that appears on click */}
+              <div className="absolute top-11 bg-white border p-4 rounded shadow w-20 z-10">
+                Hello World! 👋🔥
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <button className="border rounded-full px-8 py-2 hover:bg-gray-50 transition-colors">
+            Coming soon
+          </button>
+        </div>
+      </div>
+
+      {/* Soft Skill */}
+      <div className="mb-8">
+        <h2 className="text-center text-2xl font-bold mb-8">Soft Skill</h2>
+        <div className="flex flex-wrap justify-center gap-6 mb-8">
+          {/* Card 1 */}
+          <div className="w-40 flex flex-col">
+            <div className="border rounded-t-lg h-40 w-full"></div>
+            <div className="border border-t-0 rounded-b-lg py-2 text-center">
+              Coming soon
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="w-40 flex flex-col">
+            <div className="border rounded-t-lg h-40 w-full"></div>
+            <div className="border border-t-0 rounded-b-lg py-2 text-center">
+              Coming soon
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="w-40 flex flex-col">
+            <div className="border rounded-t-lg h-40 w-full"></div>
+            <div className="border border-t-0 rounded-b-lg py-2 text-center">
+              Coming soon
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center">
+          <button className="border rounded-full px-8 py-2 hover:bg-gray-50 transition-colors">
+            Expand
+          </button>
+        </div>
+      </div>
+
+      {/* Experience */}
+      <div className="mb-8 grid">
+        <span className="text-2xl font-bold mb-4 block">Experience</span>
+        <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+          <span className="col-span-4">
+            Event Lead – UI/UX Design Workshop: “Interactive UI & User-Friendly
+            UX”
+          </span>
+          <span className="flex items-center justify-end">2025</span>
+        </div>
+
+        <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+          <span className="col-span-4">Head of Teknova (IT) division</span>
+          <span className="flex items-center justify-end">2025</span>
+        </div>
+
+        <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+          <span className="col-span-4">
+            Participant in Bank Indonesia Hackathon
+          </span>
+          <span className="flex items-center justify-end">2024</span>
+        </div>
+      </div>
+
+      {/* Project */}
+      <div className="mb-8">
+        <span className="text-2xl font-bold mb-4 block">Project</span>
+        <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+          <span className="col-span-4">Coming soon</span>
+          <span className="flex items-center justify-end">Coming soon</span>
+        </div>
+
+        <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+          <span className="col-span-4">Coming soon</span>
+          <span className="flex items-center justify-end">Coming soon</span>
+        </div>
+
+        <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+          <span className="col-span-4">Coming soon</span>
+          <span className="flex items-center justify-end">Coming soon</span>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Home;
