@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const Home = () => {
-  const [likeStatus, setLikeStatus] = useState(false);
   const [nama, setNama] = useState("");
   const [message, setMessage] = useState("");
 
@@ -27,7 +26,6 @@ const Home = () => {
         setMessage(data.messageAlreadyLiked); // Mengatur pesan yang diterima dari API
       } else {
         // Jika tidak ada pesanAlreadyLiked, berarti ini adalah like pertama
-        setLikeStatus(true); // Mengubah status like
         setMessage("Terima kasih sudah like!"); // Menampilkan pesan terima kasih
       }
     } else {
