@@ -1,32 +1,51 @@
-'use client';
+"use client";
 import Image from "next/image";
 import React, { useState } from "react";
 
 const Home = () => {
-  const [nama, setNama] = useState('')
-  const [success, setSuccess] = useState(false)
+  // const [nama, setNama] = useState('')
+  // const [success, setSuccess] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    // hati hati!!!
-    // nama folder api harus sama 
-    const res = await fetch('/api/like', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nama })
-    })
-    const data = await res.json()
-    if (data.success) {
-      setSuccess(true)
-      setNama('')
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   // hati hati!!!
+  //   // nama folder api harus sama
+  //   const res = await fetch('/api/like', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ nama })
+  //   })
+  //   const data = await res.json()
+  //   if (data.success) {
+  //     setSuccess(true)
+  //     setNama('')
+  //   }
+  // }
+  const [liked, setLiked] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Fungsi untuk meng-handle like button
+  const handleLike = async () => {
+    setLoading(true); // Menandakan sedang memproses request
+
+    try {
+      const res = await fetch("/api/like", { method: "POST" });
+
+      if (res.ok) {
+        setLiked(!liked); // Toggle like status
+      } else {
+        console.error("Terjadi kesalahan saat menyimpan like");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false); // Selesai proses
     }
-  }
-
+  };
 
   return (
     <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
-      
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+      {/* <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
       <input
         type="text"
         value={nama}
@@ -41,8 +60,27 @@ const Home = () => {
         Like!
       </button>
       {success && <p className="text-green-600">Terima kasih sudah like!</p>}
-    </form>
+    </form> */}
+      <div className="flex items-center justify-between mb-10">
+        <div className="flex flex-col items-center">
+          <span className="text-xl lg:text-4xl mb-4">
+            Welcome to my Portofolio
+          </span>
+          <span className="text-lg mb-8">I hope you like it!</span>
 
+          <button
+            onClick={handleLike}
+            className={`px-4 py-2 rounded ${
+              liked ? "bg-blue-500" : "bg-gray-300"
+            }`}
+            disabled={loading}
+          >
+            {liked ? "Liked" : "Like"}
+          </button>
+
+          {loading && <p className="mt-4 text-gray-500">Processing...</p>}
+        </div>
+      </div>
       {/* Hero Section */}
       <div className="flex items-center justify-between mb-10">
         <div className="flex justify-center flex-col">
