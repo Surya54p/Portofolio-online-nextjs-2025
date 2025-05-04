@@ -3,84 +3,41 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 const Home = () => {
-  // const [nama, setNama] = useState('')
-  // const [success, setSuccess] = useState(false)
+  const [likeStatus, setLikeStatus] = useState(false);
+  const [nama, setNama] = useState("");
+  const [message, setMessage] = useState("");
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault()
-  //   // hati hati!!!
-  //   // nama folder api harus sama
-  //   const res = await fetch('/api/like', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ nama })
-  //   })
-  //   const data = await res.json()
-  //   if (data.success) {
-  //     setSuccess(true)
-  //     setNama('')
-  //   }
-  // }
-  const [liked, setLiked] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  // Fungsi untuk meng-handle like button
-  const handleLike = async () => {
-    setLoading(true); // Menandakan sedang memproses request
+    // mengambil data (FETCH)
+    const res = await fetch("/api/like", {
+      // Kirim permintaan (request) ke endpoint API '/api/like' dengan metode POST
+      method: "POST", // Gunakan metode HTTP POST karena kita mengirim data (bukan sekadar mengambil)
+      headers: { "Content-Type": "application/json" }, // Header ini memberi tahu server bahwa data yang dikirim berupa JSON
+      body: JSON.stringify({ nama }), // Data dikirim dalam bentuk JSON. Di sini kita kirim object `{ nama: 'isian dari input' }`
+    }); // 👈 Ini input
 
-    try {
-      const res = await fetch("/api/like", { method: "POST" });
+    const data = await res.json(); // 👈 Ini output
 
-      if (res.ok) {
-        setLiked(!liked); // Toggle like status
+    if (data.status) {
+      // Jika status berhasil
+      // Tampilkan pesan jika nama sudah tercatat sebagai "like"
+      if (data.nameAlreadyLiked) {
+        setMessage(data.messageAlreadyLiked); // Mengatur pesan yang diterima dari API
       } else {
-        console.error("Terjadi kesalahan saat menyimpan like");
+        // Jika tidak ada pesanAlreadyLiked, berarti ini adalah like pertama
+        setLikeStatus(true); // Mengubah status like
+        setMessage("Terima kasih sudah like!"); // Menampilkan pesan terima kasih
       }
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false); // Selesai proses
+    } else {
+      setMessage("Terjadi kesalahan, coba lagi nanti."); // Menampilkan pesan kesalahan jika status false
     }
+    setNama("");
   };
 
   return (
     <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
-      {/* <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-      <input
-        type="text"
-        value={nama}
-        onChange={(e) => setNama(e.target.value)}
-        placeholder="Masukkan namamu untuk like"
-        className="border px-4 py-2 rounded hover:shadow-md transition-shadow"
-      />
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
-      >
-        Like!
-      </button>
-      {success && <p className="text-green-600">Terima kasih sudah like!</p>}
-    </form> */}
-      <div className="flex items-center justify-between mb-10">
-        <div className="flex flex-col items-center">
-          <span className="text-xl lg:text-4xl mb-4">
-            Welcome to my Portofolio
-          </span>
-          <span className="text-lg mb-8">I hope you like it!</span>
-
-          <button
-            onClick={handleLike}
-            className={`px-4 py-2 rounded ${
-              liked ? "bg-blue-500" : "bg-gray-300"
-            }`}
-            disabled={loading}
-          >
-            {liked ? "Liked" : "Like"}
-          </button>
-
-          {loading && <p className="mt-4 text-gray-500">Processing...</p>}
-        </div>
-      </div>
       {/* Hero Section */}
       <div className="flex items-center justify-between mb-10">
         <div className="flex justify-center flex-col">
@@ -196,7 +153,7 @@ const Home = () => {
         </div>
 
         <div className="flex justify-center">
-          <button className="border rounded-full px-8 py-2 hover:bg-gray-50 transition-colors">
+          <button className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]">
             Coming soon
           </button>
         </div>
@@ -232,7 +189,7 @@ const Home = () => {
         </div>
 
         <div className="flex justify-center">
-          <button className="border rounded-full px-8 py-2 hover:bg-gray-50 transition-colors">
+          <button className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]">
             Expand
           </button>
         </div>
@@ -280,8 +237,28 @@ const Home = () => {
           <span className="flex items-center justify-end">Coming soon</span>
         </div>
       </div>
+      {/* form like */}
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center gap-4"
+        method="post"
+      >
+        <input
+          type="text"
+          value={nama}
+          onChange={(e) => setNama(e.target.value)}
+          placeholder="Input nama untuk like"
+          className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]"
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]"
+        >
+          Like
+        </button>
+        {message && <p className="text-green-600">{message}</p>}
+      </form>
     </div>
   );
 };
-
 export default Home;
