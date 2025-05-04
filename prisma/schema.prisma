@@ -6,7 +6,8 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
-model Rating {
-  ip   String @id
-  like Int
+model Like {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  createdAt DateTime @default(now())
 }

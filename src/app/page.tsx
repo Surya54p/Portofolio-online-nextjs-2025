@@ -1,9 +1,48 @@
-import React from "react";
+'use client';
 import Image from "next/image";
+import React, { useState } from "react";
 
 const Home = () => {
+  const [nama, setNama] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    // hati hati!!!
+    // nama folder api harus sama 
+    const res = await fetch('/api/like', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nama })
+    })
+    const data = await res.json()
+    if (data.success) {
+      setSuccess(true)
+      setNama('')
+    }
+  }
+
+
   return (
     <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
+      
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+      <input
+        type="text"
+        value={nama}
+        onChange={(e) => setNama(e.target.value)}
+        placeholder="Masukkan namamu untuk like"
+        className="border px-4 py-2 rounded hover:shadow-md transition-shadow"
+      />
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+      >
+        Like!
+      </button>
+      {success && <p className="text-green-600">Terima kasih sudah like!</p>}
+    </form>
+
       {/* Hero Section */}
       <div className="flex items-center justify-between mb-10">
         <div className="flex justify-center flex-col">
