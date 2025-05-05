@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const { nama } = await req.json();
-  console.log("Data nama yang diterima:", nama);  // Atau debugger;
+  console.log("Data nama yang diterima:", nama);  
 
   if (!nama) {
     return new Response(
@@ -14,28 +14,25 @@ export async function POST(req: Request) {
   }
 
   try {
-    // Cek apakah nama sudah ada dalam database menggunakan findFirst
     const existingLike = await prisma.like.findFirst({
       where: { nama },
     });
 
     if (existingLike) {
-      // Jika nama sudah ada, tampilkan pesan bahwa sudah "like"
       return new Response(
         JSON.stringify({
-          status: true, // Operasi berhasil
-          nameAlreadyLiked: true, // Nama sudah ada di database
+          status: true,
+          nameAlreadyLiked: true,
           messageAlreadyLiked: "Nama anda tercatat sudah like!",
         }),
         { status: 200 }
       );
     } else {
-      // Jika nama belum ada, simpan ke database sebagai "Like"
       const like = await prisma.like.create({ data: { nama } });
       return new Response(
         JSON.stringify({
-          nameAlreadyLiked: false, // Nama belum ada di database
-          status: true, // Operasi berhasil
+          nameAlreadyLiked: false, 
+          status: true,
           messageLike: "Terimakasih sudah like!",
         }),
         { status: 200 }
