@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const { nama } = await req.json();
-  console.log("Data nama yang diterima:", nama);  
+  console.log("Data nama yang diterima:", nama);
 
   if (!nama) {
     return new Response(
@@ -27,17 +27,16 @@ export async function POST(req: Request) {
         }),
         { status: 200 }
       );
-    } else {
-      const like = await prisma.like.create({ data: { nama } });
-      return new Response(
-        JSON.stringify({
-          nameAlreadyLiked: false, 
-          status: true,
-          messageLike: "Terimakasih sudah like!",
-        }),
-        { status: 200 }
-      );
     }
+    await prisma.like.create({ data: { nama } });
+    return new Response(
+      JSON.stringify({
+        nameAlreadyLiked: false,
+        status: true,
+        messageLike: "Terimakasih sudah like!",
+      }),
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Gagal memproses:", error);
     return new Response(
