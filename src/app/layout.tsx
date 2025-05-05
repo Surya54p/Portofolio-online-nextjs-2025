@@ -1,3 +1,5 @@
+// src/app/layout.tsx
+
 import { ReactNode } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -8,7 +10,7 @@ interface LayoutProps {
   title?: string;
 }
 
-export function Layout({ children, title = "defaultTitle" }: LayoutProps) {
+const Layout = ({ children, title = "defaultTitle" }: LayoutProps) => {
   return (
     <html lang="en">
       <head>
@@ -25,4 +27,6 @@ export function Layout({ children, title = "defaultTitle" }: LayoutProps) {
       </body>
     </html>
   );
-}
+};
+
+export default Layout;
