@@ -4,7 +4,6 @@ import { ReactNode } from "react";
 import Navbar from "./components/Navbar"; 
 import Footer from "./components/Footer"; 
 import "./globals.css";
-import '../css/basic.css';
 
 interface LayoutProps {
   children: ReactNode;
