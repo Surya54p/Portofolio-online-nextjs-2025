@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-// import poloygon1 from "img/Polygon 1.png"
+// import poloygon1 from "img/Polygon 1.webp"
 const Home = () => {
   const [nama, setNama] = useState("");
   const [message, setMessage] = useState("");
@@ -39,13 +39,13 @@ const Home = () => {
       {/* Hero Section */}
       
       {/* <img
-        src="img/Polygon 1.png"
+        src="img/Polygon 1.webp"
         alt=""
         className="objectPosition-1 absolute animate-rotateRight"
         width={100}
       />
       <img
-        src="img/Polygon 1.png"
+        src="img/Polygon 1.webp"
         alt=""
         className="objectPosition-1 absolute animate-rotateLeft"
         width={100}
@@ -70,7 +70,7 @@ const Home = () => {
           </div>
         </div>
         <Image
-          src="/img/foto-santai-1.png"
+          src="/foto-santai-1.webp"
           alt="Image Description"
           width={400}
           height={400}
@@ -83,7 +83,7 @@ const Home = () => {
         {/* Image */}
         <div className="w-full flex justify-center">
           <Image
-            src="/img/foto-gaya-2.png"
+            src="/foto-gaya-2.webp"
             alt="Image Description"
             width={300}
             height={300}
