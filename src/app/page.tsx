@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
+
 const Home = () => {
   const [nama, setNama] = useState("");
   const [message, setMessage] = useState("");

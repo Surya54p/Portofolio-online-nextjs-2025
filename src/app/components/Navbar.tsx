@@ -67,11 +67,7 @@ export default function Navbar() {
               Home
             </Link>
           </li>
-          <li>
-            <Link href="/like" className={navLinkClass("/like")}>
-              Like
-            </Link>
-          </li>
+          
           <li>
             <Link href="/portofolio" className={navLinkClass("/portofolio")}>
               Portofolio
@@ -90,11 +86,6 @@ export default function Navbar() {
         <li>
           <Link href="/" className={navLinkClass("/")}>
             Home
-          </Link>
-        </li>
-        <li>
-          <Link href="/like" className={navLinkClass("/like")}>
-            Like
           </Link>
         </li>
         <li>
