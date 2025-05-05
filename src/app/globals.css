@@ -51,30 +51,6 @@ body {
   animation: gradientShift 6s linear infinite;
 }
 
-/* @keyframes borderGradientShift {
-  0% {
-    border-image-source: linear-gradient(90deg, white, black);
-    border-image-slice: 1;
-  }
-  50% {
-    border-image-source: linear-gradient(180deg, black, white);
-    border-image-slice: 1;
-  }
-  100% {
-    border-image-source: linear-gradient(90deg, white, black);
-    border-image-slice: 1;
-  }
-}
-
-.border-gradient-animate {
-  position: relative;
-  padding: 20px;
-  border-width: 5px;
-  border-style: solid;
-  border-image-source: linear-gradient(90deg, white, black);
-  border-image-slice: 1;
-  animation: borderGradientShift 6s linear infinite;
-} */
 @keyframes rotateRight {
   0% {
     transform: rotate(0deg);
