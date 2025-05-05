@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 export async function POST(req: Request) {
   const { nama } = await req.json();
   console.log("Data nama yang diterima:", nama);
+  console.log("DATABASE_URL =", process.env.DATABASE_URL);
 
   if (!nama) {
     return new Response(
