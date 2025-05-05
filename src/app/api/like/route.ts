@@ -49,3 +49,15 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function GET() {
+  const totalLikes = await prisma.like.count({
+    where: {
+      nama: { not: '' }, // Hanya yang ada nama
+    },
+  });
+
+  return new Response(JSON.stringify({ totalLikes }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}

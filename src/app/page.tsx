@@ -1,11 +1,13 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const [nama, setNama] = useState("");
   const [message, setMessage] = useState("");
+  const [totalLikes, setTotalLikes] = useState<number | null>(null);
 
+  // POST like
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -29,9 +31,26 @@ const Home = () => {
     setNama("");
   };
 
+  // Get like
+  useEffect(() => {
+    const fetchLikes = async () => {
+      const response = await fetch("/api/like");
+      const data = await response.json();
+      setTotalLikes(data.totalLikes);
+    };
+
+    fetchLikes();
+  }, []);
+
   return (
     <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
+      <div>
+        <div className="border rounded flex   w-fit ">
+          <div className="px-2 py-1 bg-black text-white">Total Likes </div>
+          <div className="px-2 py-1">{totalLikes !== null ? totalLikes : "Loading..."}</div>
+        </div>
+      </div>
       <div className="flex items-center justify-between mb-10">
         <div className="flex justify-center flex-col">
           <div className="mb-3">
