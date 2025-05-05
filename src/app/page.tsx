@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-
+// import poloygon1 from "img/Polygon 1.png"
 const Home = () => {
   const [nama, setNama] = useState("");
   const [message, setMessage] = useState("");
@@ -26,10 +26,10 @@ const Home = () => {
         setMessage(data.messageAlreadyLiked); // Mengatur pesan yang diterima dari API
       } else {
         // Jika tidak ada pesanAlreadyLiked, berarti ini adalah like pertama
-        setMessage("Terima kasih sudah like!"); // Menampilkan pesan terima kasih
+        setMessage(data.messageLike); // Menampilkan pesan terima kasih
       }
     } else {
-      setMessage("Terjadi kesalahan, coba lagi nanti."); // Menampilkan pesan kesalahan jika status false
+      setMessage(data.error); // Menampilkan pesan kesalahan jika status false
     }
     setNama("");
   };
@@ -37,6 +37,19 @@ const Home = () => {
   return (
     <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
+      
+      {/* <img
+        src="img/Polygon 1.png"
+        alt=""
+        className="objectPosition-1 absolute animate-rotateRight"
+        width={100}
+      />
+      <img
+        src="img/Polygon 1.png"
+        alt=""
+        className="objectPosition-1 absolute animate-rotateLeft"
+        width={100}
+      /> */}
       <div className="flex items-center justify-between mb-10">
         <div className="flex justify-center flex-col">
           <div className="mb-3">
@@ -254,7 +267,18 @@ const Home = () => {
         >
           Like
         </button>
-        {message && <p className="text-green-600">{message}</p>}
+        {/* {message && <p className="text-green-600">{message}</p>} */}
+        {message && (
+          <p
+            className={`text-gradient-animate ${
+              message === "Nama anda kosong!"
+                ? "bg-gradient-to-r from-white to-black"
+                : "bg-gradient-to-r from-white to-green-600"
+            }`}
+          >
+            {message}
+          </p>
+        )}
       </form>
     </div>
   );

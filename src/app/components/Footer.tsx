@@ -3,7 +3,7 @@ import Image from 'next/image';
 const Footer = () => {
   return (
     <footer className="flex justify-center">
-      <div className="w-[80%] border-t border-x border-gray-700 rounded-t h-58 p-16 flex flex-row justify-between items-center">
+      <div className="w-[80%]  border-t border-x border-gray-700 rounded-t h-58 p-16 flex flex-row justify-between items-center">
         <div className="flex flex-col justify-center gap-2">
           {/* Branding dan Deskripsi Singkat */}
           <div>

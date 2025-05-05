@@ -4,10 +4,11 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   const { nama } = await req.json();
+  console.log("Data nama yang diterima:", nama);  // Atau debugger;
 
   if (!nama) {
     return new Response(
-      JSON.stringify({ status: false, error: "Nama wajib diisi" }),
+      JSON.stringify({ status: false, error: "Nama wajib diisi!" }),
       { status: 400 }
     );
   }
@@ -35,7 +36,7 @@ export async function POST(req: Request) {
         JSON.stringify({
           nameAlreadyLiked: false, // Nama belum ada di database
           status: true, // Operasi berhasil
-          like, // Data like yang baru saja dibuat
+          messageLike: "Terimakasih sudah like!",
         }),
         { status: 200 }
       );

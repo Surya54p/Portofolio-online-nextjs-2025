@@ -27,3 +27,84 @@ body {
   color: var(--foreground);
   font-family: var(--font-lora), Helvetica, sans-serif;
 }
+
+/* Animasi untuk merubah warna dan ukuran font */
+@keyframes gradientShift {
+  0% {
+    background-position: 150% 0%;
+  }
+
+  50% {
+    background-position: 0% 0%;
+  }
+
+  100% {
+    background-position: -150% 0%;
+  }
+}
+
+.text-gradient-animate {
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientShift 6s linear infinite;
+}
+
+/* @keyframes borderGradientShift {
+  0% {
+    border-image-source: linear-gradient(90deg, white, black);
+    border-image-slice: 1;
+  }
+  50% {
+    border-image-source: linear-gradient(180deg, black, white);
+    border-image-slice: 1;
+  }
+  100% {
+    border-image-source: linear-gradient(90deg, white, black);
+    border-image-slice: 1;
+  }
+}
+
+.border-gradient-animate {
+  position: relative;
+  padding: 20px;
+  border-width: 5px;
+  border-style: solid;
+  border-image-source: linear-gradient(90deg, white, black);
+  border-image-slice: 1;
+  animation: borderGradientShift 6s linear infinite;
+} */
+@keyframes rotateRight {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateLeft {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-rotateRight {
+  animation: rotateRight 10s linear infinite;
+}
+
+.animate-rotateLeft {
+  animation: rotateLeft 10s linear infinite;
+}
+
+.objectPosition-1 {
+  left: 20%;
+  top: 16%;
+}
+
