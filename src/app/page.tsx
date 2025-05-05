@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-// import poloygon1 from "img/Polygon 1.webp"
 const Home = () => {
   const [nama, setNama] = useState("");
   const [message, setMessage] = useState("");
@@ -9,27 +8,22 @@ const Home = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // mengambil data (FETCH)
     const res = await fetch("/api/like", {
-      // Kirim permintaan (request) ke endpoint API '/api/like' dengan metode POST
-      method: "POST", // Gunakan metode HTTP POST karena kita mengirim data (bukan sekadar mengambil)
-      headers: { "Content-Type": "application/json" }, // Header ini memberi tahu server bahwa data yang dikirim berupa JSON
-      body: JSON.stringify({ nama }), // Data dikirim dalam bentuk JSON. Di sini kita kirim object `{ nama: 'isian dari input' }`
-    }); // 👈 Ini input
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nama }),
+    });
 
-    const data = await res.json(); // 👈 Ini output
+    const data = await res.json();
 
     if (data.status) {
-      // Jika status berhasil
-      // Tampilkan pesan jika nama sudah tercatat sebagai "like"
       if (data.nameAlreadyLiked) {
-        setMessage(data.messageAlreadyLiked); // Mengatur pesan yang diterima dari API
+        setMessage(data.messageAlreadyLiked);
       } else {
-        // Jika tidak ada pesanAlreadyLiked, berarti ini adalah like pertama
-        setMessage(data.messageLike); // Menampilkan pesan terima kasih
+        setMessage(data.messageLike);
       }
     } else {
-      setMessage(data.error); // Menampilkan pesan kesalahan jika status false
+      setMessage(data.error);
     }
     setNama("");
   };
@@ -37,19 +31,6 @@ const Home = () => {
   return (
     <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
-      
-      {/* <img
-        src="img/Polygon 1.webp"
-        alt=""
-        className="objectPosition-1 absolute animate-rotateRight"
-        width={100}
-      />
-      <img
-        src="img/Polygon 1.webp"
-        alt=""
-        className="objectPosition-1 absolute animate-rotateLeft"
-        width={100}
-      /> */}
       <div className="flex items-center justify-between mb-10">
         <div className="flex justify-center flex-col">
           <div className="mb-3">
