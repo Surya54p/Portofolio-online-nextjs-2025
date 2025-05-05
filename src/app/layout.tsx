@@ -1,23 +1,17 @@
 // src/app/layout.tsx
 
-import { ReactNode } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./globals.css";
 
-interface LayoutProps {
-  children: ReactNode;
-  title?: string;
-}
-
-const Layout = ({ children, title = "defaultTitle" }: LayoutProps) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-        <title>{title}</title>
+        <title>My App</title>
       </head>
 
       <body className="min-h-screen flex flex-col">
@@ -30,3 +24,4 @@ const Layout = ({ children, title = "defaultTitle" }: LayoutProps) => {
 };
 
 export default Layout;
+
