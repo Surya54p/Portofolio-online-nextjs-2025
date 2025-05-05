@@ -1,17 +1,9 @@
 // src/app/layout.tsx
 
 import { ReactNode } from "react";
-import Navbar from "./components/Navbar"; // Sesuaikan dengan path komponen Navbar
-import Footer from "./components/Footer"; // Sesuaikan dengan path komponen Footer
-import { Lora, Noto_Sans, Quicksand } from "next/font/google";
+import Navbar from "./components/Navbar"; 
+import Footer from "./components/Footer"; 
 import "./globals.css";
-
-const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
-const notoSans = Noto_Sans({ subsets: ["latin"], variable: "--font-noto" });
-const quicksand = Quicksand({
-  subsets: ["latin"],
-  variable: "--font-quicksand",
-});
 
 interface LayoutProps {
   children: ReactNode;

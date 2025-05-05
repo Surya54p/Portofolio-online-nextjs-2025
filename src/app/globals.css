@@ -4,22 +4,6 @@
   --background: #ffffff;
   --foreground: #171717;
   --font-lora: 'Lora', serif;
-  --font-noto: 'Noto Sans', sans-serif;
-  --font-quicksand: 'Quicksand', sans-serif;
-}
-/* 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-} */
-
-@media (prefers-color-scheme: dark) {
-  /* :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  } */
 }
 
 body {
@@ -28,7 +12,6 @@ body {
   font-family: var(--font-lora), Helvetica, sans-serif;
 }
 
-/* Animasi untuk merubah warna dan ukuran font */
 @keyframes gradientShift {
   0% {
     background-position: 150% 0%;
