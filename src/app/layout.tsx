@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import Navbar from "./components/Navbar"; 
 import Footer from "./components/Footer"; 
 import "./globals.css";
+import '../css/basic.css';
 
 interface LayoutProps {
   children: ReactNode;
@@ -17,8 +18,6 @@ const Layout = ({ children, title = "defaultTitle" }: LayoutProps) => {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <link rel="stylesheet" href="/css/basic.css" />
         <title>{title}</title>
       </head>
 
