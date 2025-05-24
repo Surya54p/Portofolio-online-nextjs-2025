@@ -30,5 +30,23 @@
     "prisma": "^6.7.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "short-profile": {
+    "name": "Surya Ario Pratama",
+    "short-name": "surya",
+    "contacts": {
+      "whatsapp": "0822-8618-5976",
+      "email": "suryaarioprrama@gmail.com",
+      "instagram": "surya54p_"
+    },
+    "what-i-can-do": {
+      "website": {
+        "front-end": "(react, tailwind)",
+        "back-end": "(laravel, nextjs)"
+      },
+      "design": {
+        "UI/UX design" : "wire-frame, mockup, responsif"
+      }
+    }
   }
 }
