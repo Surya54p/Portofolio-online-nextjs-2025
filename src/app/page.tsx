@@ -111,19 +111,19 @@ const Home = () => {
         <div className="flex flex-wrap justify-center gap-6 mb-8">
           {/* Card 1 */}
           <div className="w-40 flex flex-col relative">
-            <img className="border rounded-t-lg h-40 object-contain" src="/laravel-logo.png" alt="Laravel Logo" />
+            <Image className="border rounded-t-lg h-40 object-contain" src="/laravel-logo.png" alt="Laravel Logo" />
             <div className="border border-t-0 rounded-b-lg py-2 text-center">Laravel</div>
           </div>
 
           {/* Card 2 */}
           <div className="w-40 flex flex-col relative">
-            <img className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
+            <Image className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
             <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
           </div>
 
           {/* Card 3 */}
           <div className="w-40 flex flex-col relative">
-            <img className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
+            <Image className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
             <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
           </div>
         </div>
@@ -141,19 +141,19 @@ const Home = () => {
         <div className="flex flex-wrap justify-center gap-6 mb-8">
           {/* Card 1 */}
           <div className="w-40 flex flex-col">
-             <img className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
+             <Image className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
             <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
           </div>
 
           {/* Card 2 */}
           <div className="w-40 flex flex-col">
-             <img className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
+             <Image className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
             <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
           </div>
 
           {/* Card 3 */}
           <div className="w-40 flex flex-col">
-             <img className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
+             <Image className="border rounded-t-lg h-40 object-contain"  src="/still-under-construction.png"  alt="Logo Placeholder" />
             <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
           </div>
         </div>
