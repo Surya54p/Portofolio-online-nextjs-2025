@@ -38,12 +38,14 @@ export async function POST(req: Request) {
       }),
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gagal memproses:", error);
+    console.error("Error details:", error.message, error.stack);
     return new Response(
       JSON.stringify({
         status: false,
         error: "Gagal menyimpan atau memeriksa nama",
+        details: error.message,
       }),
       { status: 500 }
     );
