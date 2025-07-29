@@ -1,4 +1,3 @@
-import Link from "next/link";
 import AboutCard from "../components/AboutCard";
 export default function About() {
   return (
@@ -9,10 +8,10 @@ export default function About() {
         <h5 className="text-[28px]">Discover what I’m passionate about!</h5>
       </div>
       <div>
-        My name is Surya Ario, but you can call me Surya. I'm currently a student at Indo Global Mandiri University,
-        majoring in Informatics Engineering (Teknik Informatika). During my studies, I've been learning various topics
+        My name is Surya Ario, but you can call me Surya. I&apos;m currently a student at Indo Global Mandiri University,
+        majoring in Informatics Engineering (Teknik Informatika). During my studies, I&apos;ve been learning various topics
         in the field of technology, such as machine learning, game development using Roblox Studio, and website
-        development. I'm interested in the world of websites, including front-end, back-end, and even UI/UX design.
+        development. I&apos;m interested in the world of websites, including front-end, back-end, and even UI/UX design.
       </div>
       <AboutCard
         title="Websites"
