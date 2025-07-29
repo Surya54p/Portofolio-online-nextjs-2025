@@ -1,6 +1,5 @@
 "use client";
 
-import { FaChevronDown } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
@@ -27,7 +26,7 @@ export default function SwiperCard({ images, ukuran = 200 }: cardSwiperProps) {
           disableOnInteraction: false,
         }}
       >
-        {images.map((img, index) => (
+        {images.map((img) => (
           <SwiperSlide>
             <Image src={img.src} width={ukuran} height={ukuran} alt={img.alt} className="rounded-lg object-cover" />
           </SwiperSlide>

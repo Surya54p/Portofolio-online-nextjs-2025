@@ -2,16 +2,16 @@
 
 import InformationCard from "../components/InformationCard";
 export default function Portofolio() {
-  const image = [
-    { src: "/foto-gaya-2.webp", alt: "Foto 1" },
-    { src: "/foto-santai-1.webp", alt: "Foto 2" },
-    { src: "/foto-santai-1.webp", alt: "Logo" },
-  ];
-  const image2 = [
-    { src: "/foto-santai-1.webp", alt: "Foto 1" },
-    { src: "/foto-santai-1.webp", alt: "Foto 2" },
-    { src: "/foto-santai-1.webp", alt: "Logo" },
-  ];
+  // const image = [
+  //   { src: "/foto-gaya-2.webp", alt: "Foto 1" },
+  //   { src: "/foto-santai-1.webp", alt: "Foto 2" },
+  //   { src: "/foto-santai-1.webp", alt: "Logo" },
+  // ];
+  // const image2 = [
+  //   { src: "/foto-santai-1.webp", alt: "Foto 1" },
+  //   { src: "/foto-santai-1.webp", alt: "Foto 2" },
+  //   { src: "/foto-santai-1.webp", alt: "Logo" },
+  // ];
 
   const cardData = [
     {
