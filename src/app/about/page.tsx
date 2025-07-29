@@ -15,7 +15,7 @@ export default function About() {
       </div>
       <AboutCard
         title="Websites"
-        content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
+        content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est1."
       />
       <AboutCard
         title="Machine Learning"
