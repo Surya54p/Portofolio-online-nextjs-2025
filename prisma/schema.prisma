@@ -1,14 +1,14 @@
 generator client {
   provider = "prisma-client-js"
-    output   = "./node_modules/.prisma/client"
-
+  output   = "./node_modules/.prisma/client"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url  	    = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
+/// We could not retrieve columns for the underlying table. Either it has none or you are missing rights to see them. Please check your privileges.
 model Like {
   id        Int      @id @default(autoincrement())
   nama      String
