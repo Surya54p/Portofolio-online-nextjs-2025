@@ -43,7 +43,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
+    <main className="flex-grow w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
       <div>
         <div className="border rounded flex   w-fit ">
@@ -61,8 +61,8 @@ const Home = () => {
 
           <span className="lg:text-[1.3rem] text-[1rem]">From this website you will know more about me! :)</span>
           <div className="mt-5">
-            <a href="#aboutMe" className="border px-3 rounded-[25px] py-3">
-              Who am I?
+            <a href="about" className="border px-3 rounded-[25px] py-3">
+              About me
             </a>
           </div>
         </div>
@@ -266,7 +266,8 @@ const Home = () => {
           </p>
         )}
       </form>
-    </div>
+    </main>
   );
 };
+      
 export default Home;
