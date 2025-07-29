@@ -1,8 +1,4 @@
 "use client";
 export default function portofolio() {
-    return (
-        <div>
-            hello 
-        </div>
-    )
+  return <div>hello</div>;
 }
