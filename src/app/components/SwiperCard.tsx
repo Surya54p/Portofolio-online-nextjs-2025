@@ -26,8 +26,8 @@ export default function SwiperCard({ images, ukuran = 200 }: cardSwiperProps) {
           disableOnInteraction: false,
         }}
       >
-        {images.map((img) => (
-          <SwiperSlide>
+        {images.map((img, index) => (
+          <SwiperSlide key={index}>
             <Image src={img.src} width={ukuran} height={ukuran} alt={img.alt} className="rounded-lg object-cover" />
           </SwiperSlide>
         ))}
