@@ -1,10 +1,18 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import MiniCard from "./components/miniCard";
+import BasicButton from "./components/BasicButton";
+import { toast } from "react-hot-toast";
+import { boolean } from "drizzle-orm/gel-core";
 
 const Home = () => {
   const [nama, setNama] = useState("");
-  const [message, setMessage] = useState("");
+  const [toastMsg, setToastMsg] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState<boolean>(true); // <-- ini
+
+  // const [message, setMessage] = useState("");
   const [totalLikes, setTotalLikes] = useState<number | null>(null);
 
   // POST like
@@ -18,15 +26,19 @@ const Home = () => {
     });
 
     const data = await res.json();
+    // console.log(data);
 
     if (data.status) {
-      if (data.nameAlreadyLiked) {
-        setMessage(data.messageAlreadyLiked);
+      if (data.nameEmpty) {
+        showCustomToast(data.message, data.status);
+        return;
+      } else if (data.nameAlreadyLiked) {
+        showCustomToast(data.message, data.status);
       } else {
-        setMessage(data.messageLike);
+        showCustomToast(data.message, data.status);
       }
     } else {
-      setMessage(data.error);
+      showCustomToast(data.message, data.status);
     }
     setNama("");
   };
@@ -42,6 +54,20 @@ const Home = () => {
     fetchLikes();
   }, []);
 
+  const showCustomToast = (message: string, status: boolean) => {
+    setToastMsg(message);
+    setToastType(status); // bisa hijau atau merah
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  const minicardDefault = [
+    {
+      src: "still-under-construction.png",
+      alt: "loroem",
+      title: "titel 1",
+    },
+  ];
   return (
     <main className="flex-grow w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
@@ -67,7 +93,7 @@ const Home = () => {
           </div>
         </div>
         <Image
-          src="/foto-santai-1.webp"
+          src="/img/foto-santai-1.webp"
           alt="Image Description"
           width={400}
           height={400}
@@ -80,7 +106,7 @@ const Home = () => {
         {/* Image */}
         <div className="w-full flex justify-center">
           <Image
-            src="/foto-gaya-2.webp"
+            src="/img/foto-gaya-2.webp"
             alt="Image Description"
             width={300}
             height={300}
@@ -110,46 +136,20 @@ const Home = () => {
         <h2 className="text-center text-2xl font-bold mb-8">Skill/Tech stack</h2>
         <div className="flex flex-wrap justify-center gap-6 mb-8">
           {/* Card 1 */}
-          <div className="w-40 flex flex-col">
-            <Image
-              className="border rounded-t-lg object-contain"
-              src="/still-under-construction.png"
-              alt="Logo Placeholder"
-              width={160} // w-40 = 160px
-              height={160} // h-40 = 160px
-            />
-            <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
-          </div>
 
-          {/* Card 2 */}
-          <div className="w-40 flex flex-col">
-            <Image
-              className="border rounded-t-lg object-contain"
-              src="/still-under-construction.png"
-              alt="Logo Placeholder"
-              width={160} // w-40 = 160px
-              height={160} // h-40 = 160px
-            />
-            <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="w-40 flex flex-col">
-            <Image
-              className="border rounded-t-lg object-contain"
-              src="/still-under-construction.png"
-              alt="Logo Placeholder"
-              width={160} // w-40 = 160px
-              height={160} // h-40 = 160px
-            />
-            <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
-          </div>
+          <MiniCard information={minicardDefault} />
+          <MiniCard information={minicardDefault} />
+          <MiniCard information={minicardDefault} />
+          <MiniCard information={minicardDefault} />
         </div>
 
         <div className="flex justify-center">
-          <button className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]">
-            Coming soon
-          </button>
+          <BasicButton
+            className="mt-4 hover:bg-blue-500 transition hover:text-white"
+            onClick={() => console.log("clicked!")}
+          >
+            See more
+          </BasicButton>
         </div>
       </div>
 
@@ -158,46 +158,19 @@ const Home = () => {
         <h2 className="text-center text-2xl font-bold mb-8">Soft Skill</h2>
         <div className="flex flex-wrap justify-center gap-6 mb-8">
           {/* Card 1 */}
-          <div className="w-40 flex flex-col">
-            <Image
-              className="border rounded-t-lg object-contain"
-              src="/still-under-construction.png"
-              alt="Logo Placeholder"
-              width={160} // w-40 = 160px
-              height={160} // h-40 = 160px
-            />
-            <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="w-40 flex flex-col">
-            <Image
-              className="border rounded-t-lg object-contain"
-              src="/still-under-construction.png"
-              alt="Logo Placeholder"
-              width={160} // w-40 = 160px
-              height={160} // h-40 = 160px
-            />
-            <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="w-40 flex flex-col">
-            <Image
-              className="border rounded-t-lg object-contain"
-              src="/still-under-construction.png"
-              alt="Logo Placeholder"
-              width={160} // w-40 = 160px
-              height={160} // h-40 = 160px
-            />
-            <div className="border border-t-0 rounded-b-lg py-2 text-center">Coming soon</div>
-          </div>
+          <MiniCard information={minicardDefault} />
+          <MiniCard information={minicardDefault} />
+          <MiniCard information={minicardDefault} />
+          <MiniCard information={minicardDefault} />
         </div>
 
         <div className="flex justify-center">
-          <button className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]">
-            Expand
-          </button>
+          <BasicButton
+            className="mt-4 hover:bg-blue-500 transition hover:text-white"
+            onClick={() => console.log("clicked!")}
+          >
+            See more
+          </BasicButton>
         </div>
       </div>
 
@@ -224,13 +197,13 @@ const Home = () => {
       <div className="mb-8">
         <span className="text-2xl font-bold mb-4 block">Project</span>
         <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-          <span className="col-span-4">Coming soon</span>
-          <span className="flex items-center justify-end">Coming soon</span>
+          <span className="col-span-4">Website Pendaftarakan Skripsi Teknik Informatika UIGM (proyek KP)</span>
+          <span className="flex items-center justify-end">2025</span>
         </div>
 
         <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-          <span className="col-span-4">Coming soon</span>
-          <span className="flex items-center justify-end">Coming soon</span>
+          <span className="col-span-4">Bank Soal Kating</span>
+          <span className="flex items-center justify-end">2024</span>
         </div>
 
         <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
@@ -245,16 +218,16 @@ const Home = () => {
           value={nama}
           onChange={(e) => setNama(e.target.value)}
           placeholder="Input nama untuk like"
-          className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]"
+          className="px-6 py-3 bg-[#f9f9f9]  rounded-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
         />
         <button
           type="submit"
-          className="px-4 py-2 rounded border border-gray-300 shadow-[-4px_5px_0px_rgba(0,0,0,0.25)] transition-all transform focus:translate-x-[-4px] focus:translate-y-[4px] focus:shadow-[0_0_0_0_rgba(0,0,0,0)]"
+          className="px-6 py-3 bg-[#f9f9f9]  rounded-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
         >
           Like
         </button>
         {/* {message && <p className="text-green-600">{message}</p>} */}
-        {message && (
+        {/* {message && (
           <p
             className={`text-gradient-animate ${
               message === "Nama anda kosong!"
@@ -264,10 +237,18 @@ const Home = () => {
           >
             {message}
           </p>
-        )}
+        )} */}
       </form>
+      {showToast && (
+        <div
+          className={`toast-anim border-2 px-4 py-2 rounded
+    ${toastType ? "bg-green-100 text-green-800 border-green-500" : "bg-red-100 text-red-800 border-red-500"}
+  `}
+        >
+          {toastMsg}
+        </div>
+      )}
     </main>
   );
 };
-      
 export default Home;

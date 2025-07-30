@@ -1,4 +1,4 @@
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -9,12 +9,19 @@ export async function POST(req: Request) {
   console.log("Data nama yang diterima:", nama);
   console.log("DATABASE_URL =", process.env.DATABASE_URL);
 
-  if (!nama) {
-    return new Response(
-      JSON.stringify({ status: false, error: "Nama wajib diisi!" }),
-      { status: 400 }
-    );
-  }
+ if (nama == null || nama == "") {
+  return new Response(
+    JSON.stringify({
+      status: false,
+      nameEmpty: true,
+      message: "Nama jangan lupa diisi dong 😁",
+    }),
+    {
+      status: 400,
+    }
+  );
+}
+
 
   try {
     const existingLike = await prisma.like.findFirst({
@@ -24,9 +31,9 @@ export async function POST(req: Request) {
     if (existingLike) {
       return new Response(
         JSON.stringify({
-          status: true,
+          status: false,
           nameAlreadyLiked: true,
-          messageAlreadyLiked: "Nama anda tercatat sudah like!",
+          message: "Nama anda tercatat sudah like! 🔥",
         }),
         { status: 200 }
       );
@@ -36,7 +43,7 @@ export async function POST(req: Request) {
       JSON.stringify({
         nameAlreadyLiked: false,
         status: true,
-        messageLike: "Terimakasih sudah like!",
+        message: "Terimakasih sudah like!",
       }),
       { status: 200 }
     );
@@ -45,7 +52,7 @@ export async function POST(req: Request) {
     return new Response(
       JSON.stringify({
         status: false,
-        error: "Gagal menyimpan atau memeriksa nama",
+        message: "Gagal menyimpan atau memeriksa nama",
       }),
       { status: 500 }
     );
@@ -55,11 +62,11 @@ export async function POST(req: Request) {
 export async function GET() {
   const totalLikes = await prisma.like.count({
     where: {
-      nama: { not: '' }, // Hanya yang ada nama
+      nama: { not: "" }, // Hanya yang ada nama
     },
   });
 
   return new Response(JSON.stringify({ totalLikes }), {
-    headers: { 'Content-Type': 'application/json' },
+    headers: { "Content-Type": "application/json" },
   });
 }

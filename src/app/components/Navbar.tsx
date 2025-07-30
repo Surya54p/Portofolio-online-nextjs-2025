@@ -15,9 +15,13 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 mb-5 sticky top-0 z-50">
+
       {/* Mobile Top Bar */}
       <div className="flex items-center justify-between lg:hidden">
-        <div className="text-xl font-bold text-black">My Portofolio</div>
+        <div className="flex items-start flex-col ">
+          <div className="text-[20px]">Surya Ario Pratama</div>
+          <div className="text-[15px] text-gray-600">Website | Machine Learning | UI/UX</div>
+        </div>
         <button onClick={() => setOpen(!open)} className="text-black focus:outline-none">
           {/* Hamburger & Close */}
           {open ? (
@@ -42,44 +46,38 @@ export default function Navbar() {
             </svg>
           )}
         </button>
+        {/* Mobile Menu */}
+        {open && (
+          <ul className="lg:hidden absolute top-full left-0 right-0 w-full bg-white shadow-md flex flex-col gap-4 px-6 py-4 text-black font-medium z-50">
+            <li>
+              <Link href="/" className={navLinkClass("/")}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/portofolio" className={navLinkClass("/portofolio")}>
+                Portofolio
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className={navLinkClass("/about")}>
+                About
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
 
-      {/* Mobile Menu */}
-      {open && (
-        <ul className="absolute top-full left-0 right-0 w-full bg-white shadow-md flex flex-col gap-4 px-6 py-4 lg:hidden text-black font-medium z-50">
-          <li>
-            <Link href="/" className={navLinkClass("/")}>
-              Home
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/portofolio" className={navLinkClass("/portofolio")}>
-              Portofolio
-            </Link>
-          </li>
-          <li>
-            <Link href="/about" className={navLinkClass("/about")}>
-              About
-            </Link>
-          </li>
-        </ul>
-      )}
-
+      
+      
       {/* Desktop Menu */}
       <div className="flex justify-between items-center ">
-        <div className=" w-fit my-auto flex items-center gap-3">
-          <Image
-            src="/logoS.webp" // tanpa import, cukup path dari folder /public
-            alt="Logo"
-            width={45}
-            height={45}
-            className="bg-[#212121] p-2 rounded-full"
-          />
-          <div className="flex items-start flex-col ">
+        {/* Logo dan Nama - hanya muncul di desktop */}
+        <div className="hidden lg:flex w-fit my-auto items-center gap-3">
+          <Image src="/img/logoS.webp" alt="Logo" width={45} height={45} className="bg-[#212121] p-2 rounded-full" />
+          <div className="flex items-start flex-col">
             <div className="text-[20px]">Surya Ario Pratama</div>
             <div className="text-[15px] text-gray-600">Website | Machine Learning | UI/UX</div>
-
           </div>
         </div>
         <div className=" w-fit">

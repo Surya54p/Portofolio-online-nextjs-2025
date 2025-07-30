@@ -28,7 +28,7 @@ const Footer = () => {
         <div className="relative w-40 h-40">
           <div className="absolute w-28 h-40 top-0 left-1/2 -translate-x-1/2 z-30">
             <Image
-              src="/bank-soal-1.webp"
+              src="/img/bank-soal-1.webp"
               alt="Bank Soal"
               width={112} 
               height={160} 
@@ -38,7 +38,7 @@ const Footer = () => {
 
           <div className="absolute w-28 h-40 top-2 left-1/2 -translate-x-1/2 z-20">
             <Image
-              src="/foodie-1.webp"
+              src="/img/foodie-1.webp"
               alt="Foodie"
               width={112} 
               height={160} 
@@ -48,7 +48,7 @@ const Footer = () => {
 
           <div className="absolute w-28 h-40 top-4 left-1/2 -translate-x-1/2 z-10">
             <Image
-              src="/wireframe-1.webp"
+              src="/img/wireframe-1.webp"
               alt="Wireframe"
               width={112} 
               height={160}
