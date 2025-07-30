@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+// import Image from "next/image";
 import InformationCard from "../components/InformationCard";
 export default function Portofolio() {
   // const image = [
