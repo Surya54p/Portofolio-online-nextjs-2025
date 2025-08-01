@@ -1,4 +1,4 @@
-// import ".../globals.css";
+import "@/app/globals.css";
 import AdminNavbar from "@/app/components/AdminNavbar";
 export const metadata = {
   title: "Admin Panel",

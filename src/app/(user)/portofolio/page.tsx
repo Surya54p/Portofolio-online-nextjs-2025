@@ -1,6 +1,6 @@
 "use client";
 // import Image from "next/image";
-import InformationCard from "../components/InformationCard";
+import InformationCard from "@/app/components/InformationCard";
 export default function Portofolio() {
   // const image = [
   //   { src: "/foto-gaya-2.webp", alt: "Foto 1" },

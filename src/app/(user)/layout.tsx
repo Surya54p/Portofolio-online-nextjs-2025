@@ -1,7 +1,7 @@
 // app/layout.tsx
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "../globals.css";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import "@/app/globals.css";
 // import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 
