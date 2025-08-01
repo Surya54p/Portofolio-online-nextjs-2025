@@ -1,8 +1,8 @@
 // app/layout.tsx
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import "../globals.css";
+// import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        <Toaster position="top-center" reverseOrder={false} />
+        {/* <Toaster position="top-center" reverseOrder={false} /> */}
         <Navbar />
         {children}
         <Footer />
@@ -22,3 +22,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+ 

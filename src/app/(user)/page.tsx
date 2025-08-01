@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import MiniCard from "./components/miniCard";
-import BasicButton from "./components/BasicButton";
+import MiniCard from "../components/miniCard";
+import BasicButton from "../components/BasicButton";
 // import { toast } from "react-hot-toast";
 // import { boolean } from "drizzle-orm/gel-core";
 
