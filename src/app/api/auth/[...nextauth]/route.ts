@@ -1,7 +1,13 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt"; // untuk cek password
+
+const prisma = new PrismaClient();
 
 const handler = NextAuth({
+  debug: true, // Tambah ini
+
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -10,25 +16,36 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = {
-          id: "1",
-          name: "Admin",
-          email: "admin@email.com",
-          password: "rahasia123", // ganti ini nanti
-        };
+        console.log("🔐 Login attempt:", credentials);
 
-        if (
-          credentials?.email === user.email &&
-          credentials?.password === user.password
-        ) {
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-          };
+        if (!credentials?.email || !credentials?.password) {
+          console.log("❌ Missing credentials");
+          return null;
         }
 
-        return null;
+        const admin = await prisma.admin.findUnique({
+          where: { email: credentials.email },
+        });
+
+        if (!admin) {
+          console.log("❌ Admin not found");
+          return null;
+        }
+
+        const isValidPassword = await bcrypt.compare(credentials.password, admin.password);
+
+        if (!isValidPassword) {
+          console.log("❌ Invalid password");
+          return null;
+        }
+
+        console.log("✅ Login success:", admin.email);
+
+        return {
+          id: admin.id,
+          name: admin.name,
+          email: admin.email,
+        };
       },
     }),
   ],
@@ -37,6 +54,7 @@ const handler = NextAuth({
   },
   session: {
     strategy: "jwt",
+    maxAge: 2 * 60 * 60, // <-- 2 jam (dalam detik)
   },
   secret: process.env.NEXTAUTH_SECRET,
 });

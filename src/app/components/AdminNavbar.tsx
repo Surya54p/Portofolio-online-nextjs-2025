@@ -6,6 +6,8 @@ import { useState } from "react";
 import clsx from "clsx";
 import Image from "next/image";
 
+import { signOut } from "next-auth/react";
+
 export default function AdminNavbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -15,7 +17,13 @@ export default function AdminNavbar() {
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 mb-5 sticky top-0 z-50">
-
+ <h1 className="text-xl font-bold">Admin Panel</h1>
+      <button
+        onClick={() => signOut({ callbackUrl: "/login" })}
+        className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded"
+      >
+        Logout
+      </button>
       {/* Mobile Top Bar */}
       <div className="flex items-center justify-between lg:hidden">
         <div className="flex items-start flex-col ">

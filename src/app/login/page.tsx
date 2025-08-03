@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { signIn } from "next-auth/react";
 import { useState } from "react";
@@ -7,10 +7,13 @@ import { useRouter } from "next/navigation";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
 
-  const handleLogin = async (e: any) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const res = await signIn("credentials", {
       redirect: false,
@@ -18,37 +21,57 @@ export default function LoginPage() {
       password,
     });
 
+    setLoading(false);
+
     if (res?.ok) {
-      router.push("/admin"); // arahkan ke halaman admin
+      router.push("/admin");
     } else {
       alert("Login gagal");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <form onSubmit={handleLogin} className="bg-white p-8 rounded shadow">
-        <h1 className="text-2xl mb-4">Login</h1>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="block mb-2 border px-4 py-2 w-full"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="block mb-4 border px-4 py-2 w-full"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 w-full"
-        >
-          Login
-        </button>
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <form onSubmit={handleLogin} className="w-full max-w-md">
+        <fieldset className="border border-black rounded-lg p-6 relative">
+          <legend className="text-3xl font-serif px-2">Login Admin</legend>
+
+          <label htmlFor="email" className="block mb-1 mt-4 font-medium">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="w-full mb-4 p-3 border border-gray-300 rounded"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <label htmlFor="password" className="block mb-1 font-medium">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="w-full mb-6 p-3 border border-gray-300 rounded"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="focus:outline-none focus:ring-2 focus:ring-black w-full bg-black text-white py-3 rounded hover:opacity-90 transition flex items-center justify-center"
+          >
+            {loading ? (
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+            ) : (
+              "Login"
+            )}
+          </button>
+        </fieldset>
       </form>
     </div>
   );
