@@ -28,7 +28,7 @@ import path from "path";
 const prisma = new PrismaClient();
 
 export async function seedAdmin() {
-  const filePath = path.resolve(__dirname, "../../dataSeed/admin.json");
+  const filePath = path.resolve(__dirname, "../dataSeed/admin.json");
 
   if (!fs.existsSync(filePath)) {
     console.warn("⚠️ admin.json not found. Skipping admin seed.");

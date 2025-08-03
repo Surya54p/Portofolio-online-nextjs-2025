@@ -6,7 +6,7 @@ import path from "path";
 const prisma = new PrismaClient();
 
 export async function seedLike() {
-  const filePath = path.resolve(__dirname, "../../dataSeed/likes.json");
+  const filePath = path.resolve(__dirname, "../dataSeed/likes.json");
 
   if (!fs.existsSync(filePath)) {
     console.warn("⚠️ likes.json not found. Skipping admin seed.");

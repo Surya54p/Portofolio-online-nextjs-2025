@@ -6,10 +6,10 @@ import path from "path";
 const prisma = new PrismaClient();
 
 export async function seedViewers() {
-  const filePath = path.resolve(__dirname, "../../dataSeed/viewers.json");
+  const filePath = path.resolve(__dirname, "../dataSeed/viewers.json");
 
   if (!fs.existsSync(filePath)) {
-    console.warn("⚠️ portofolios.json not found. Skipping admin seed.");
+    console.warn("⚠️ viewers.json not found. Skipping admin seed.");
     return;
   }
 

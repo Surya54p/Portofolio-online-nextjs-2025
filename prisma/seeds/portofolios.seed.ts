@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function seedPortofolios() {
   
-    const filePath = path.resolve(__dirname, "../../dataSeed/portofolios.json");
+  const filePath = path.resolve(__dirname, "../dataSeed/portofolios.json");
   
     if (!fs.existsSync(filePath)) {
       console.warn("⚠️ portofolios.json not found. Skipping admin seed.");
