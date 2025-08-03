@@ -1,9 +1,13 @@
 import { seedAdmin } from "./seeds/admin.seed";
 import { seedLike } from "./seeds/like.seed";
+import { seedViewers } from "./seeds/viewers.seed";
+import { seedPortofolios } from "./seeds/portofolios.seed";
 
 async function main() {
   await seedAdmin();
   await seedLike();
+  await seedViewers();
+  await seedPortofolios();
 }
 
 main()

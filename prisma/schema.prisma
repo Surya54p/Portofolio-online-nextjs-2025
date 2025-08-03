@@ -6,6 +6,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model Admin {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -14,8 +15,23 @@ model Admin {
   role      String   @default("admin")
   createdAt DateTime @default(now())
 }
+
 model Like {
   id        Int      @id @default(autoincrement())
   nama      String
+  createdAt DateTime @default(now())
+}
+
+model Viewers {
+  id        Int      @id @default(autoincrement())
+  device      String
+  createdAt DateTime @default(now())
+}
+
+model Portofolios {
+  id        Int      @id @default(autoincrement())
+  title     String
+  summary   String
+  category  String
   createdAt DateTime @default(now())
 }

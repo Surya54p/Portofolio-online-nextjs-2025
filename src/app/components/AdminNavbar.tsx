@@ -5,109 +5,109 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import clsx from "clsx";
 import Image from "next/image";
-
 import { signOut } from "next-auth/react";
 
-export default function AdminNavbar() {
+export default function SidebarNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
   const navLinkClass = (href: string) =>
-    clsx("rounded-full px-5 py-2 navBar", pathname === href ? "bg-black text-white" : "text-black");
+    clsx(
+      "block px-4 py-2 rounded hover:bg-gray-200 transition",
+      pathname === href ? "bg-black text-white" : "text-gray-800"
+    );
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 mb-5 sticky top-0 z-50">
- <h1 className="text-xl font-bold">Admin Panel</h1>
-      <button
-        onClick={() => signOut({ callbackUrl: "/login" })}
-        className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded"
-      >
-        Logout
-      </button>
-      {/* Mobile Top Bar */}
-      <div className="flex items-center justify-between lg:hidden">
-        <div className="flex items-start flex-col ">
-          <div className="text-[20px]">Welcome Admin</div>
-          <div className="text-[15px] text-gray-600">Have a good day sir!</div>
+    <div className="flex min-h-screen w-fit ">
+      {/* Sidebar - Desktop */}
+      <aside className="hidden lg:flex flex-col  bg-white shadow-lg p-4 sticky top-0 h-screen z-40">
+        <div className="flex items-center gap-3 mb-8">
+          <Image
+            src="/img/logoS.webp"
+            alt="Logo"
+            width={45}
+            height={45}
+            className="bg-[#212121] p-2 rounded-full"
+          />
+          <div>
+            <div className="text-lg font-semibold">Welcome Back sir!</div>
+            <div className="text-sm text-gray-600">Have a good day</div>
+          </div>
         </div>
-        <button onClick={() => setOpen(!open)} className="text-black focus:outline-none">
-          {/* Hamburger & Close */}
+        <nav className="flex-1">
+          <Link href="/admin/dashboard" className={navLinkClass("/")}>
+            Dashboard
+          </Link>
+          <Link href="/portofolio" className={navLinkClass("/portofolio")}>
+            Portofolio
+          </Link>
+          <Link href="/about" className={navLinkClass("/about")}>
+            About
+          </Link>
+        </nav>
+        <button
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          Logout
+        </button>
+      </aside>
+
+      {/* Mobile - Hamburger */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <button onClick={() => setOpen(!open)} className="text-black">
           {open ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}
         </button>
-        {/* Mobile Menu */}
-        {open && (
-          <ul className="lg:hidden absolute top-full left-0 right-0 w-full bg-white shadow-md flex flex-col gap-4 px-6 py-4 text-black font-medium z-50">
-            <li>
-              <Link href="/" className={navLinkClass("/")}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/portofolio" className={navLinkClass("/portofolio")}>
-                Portofolio
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className={navLinkClass("/about")}>
-                About
-              </Link>
-            </li>
-          </ul>
-        )}
       </div>
 
-      
-      
-      {/* Desktop Menu */}
-      <div className="flex justify-between items-center ">
-        {/* Logo dan Nama - hanya muncul di desktop */}
-        <div className="hidden lg:flex w-fit my-auto items-center gap-3">
-          <Image src="/img/logoS.webp" alt="Logo" width={45} height={45} className="bg-[#212121] p-2 rounded-full" />
-          <div className="flex items-start flex-col">
-            <div className="text-[20px]">Welcome Admin</div>
-            <div className="text-[15px] text-gray-600">ave a good day sir!</div>
+      {/* Mobile Sidebar Drawer */}
+      <div
+        className={clsx(
+          "lg:hidden fixed top-0 left-0 h-full w-64 bg-white shadow-md z-40 transform transition-transform duration-300",
+          open ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        <div className="flex items-center gap-3 p-4 border-b">
+          <Image
+            src="/img/logoS.webp"
+            alt="Logo"
+            width={40}
+            height={40}
+            className="bg-[#212121] p-2 rounded-full"
+          />
+          <div>
+            <div className="text-lg font-semibold">Welcome Admin</div>
+            <div className="text-sm text-gray-600">Have a good day sir!</div>
           </div>
         </div>
-        <div className=" w-fit">
-          <ul className="hidden  lg:flex gap-5 items-center justify-end my-3 text-black font-medium">
-            <li>
-              <Link href="/" className={navLinkClass("/")}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/portofolio" className={navLinkClass("/portofolio")}>
-                Portofolio
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className={navLinkClass("/about")}>
-                About
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <nav className="p-4">
+          <Link href="/" className={navLinkClass("/")}>
+            Home
+          </Link>
+          <Link href="/portofolio" className={navLinkClass("/portofolio")}>
+            Portofolio
+          </Link>
+          <Link href="/about" className={navLinkClass("/about")}>
+            About
+          </Link>
+        </nav>
+        <button
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="mx-4 my-2 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          Logout
+        </button>
       </div>
-    </nav>
+
+      {/* Main Content */}
+    </div>
   );
 }
