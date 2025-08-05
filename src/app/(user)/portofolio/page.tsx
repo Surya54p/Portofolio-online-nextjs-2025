@@ -1,9 +1,9 @@
 "use client";
 import InformationCard from "@/app/components/InformationCard";
 import InformationCardSkeleton from "@/app/components/skeleton/informationCardSkeleton";
-import { setuid } from "process";
+// import { setuid } from "process";
 import { useEffect, useState } from "react";
-import { FaLeaf } from "react-icons/fa";
+// import { FaLeaf } from "react-icons/fa";
 
 // type Info = {
 //   id: number;
@@ -62,9 +62,8 @@ export default function Portofolio() {
         // setPortofolioCategory(dataPortofolioCategory);
         setPortfolios(dataPortfolios);
         setCategories(dataCategories);
-        
-      } catch (eror) {
-        console.log("⚠️eror fetching data");
+      } catch (error) {
+        console.error("⚠️ Error fetching data:", error);
       } finally {
         setLoading(false);
       }

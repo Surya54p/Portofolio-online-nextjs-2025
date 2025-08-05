@@ -2,7 +2,7 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import "@/app/globals.css";
-import LoadingModal from "../components/loading/loadingModal";
+// import LoadingModal from "../components/loading/loadingModal";
 // import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 
