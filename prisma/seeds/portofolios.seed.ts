@@ -18,17 +18,27 @@ export async function seedPortofolios() {
     const portofolioSeed = JSON.parse(fileContent);
   
   for (const item of portofolioSeed) {
-    await prisma.portofolios.upsert({
-      where: { id: item.id },
-      update: {},
-      create: {
-        id: item.id,
-        title: item.title,
-        summary: item.summary,
-        category: item.category,
-        createdAt: new Date(item.createdAt),
-      },
-    });
-  }
+  await prisma.portofolios.upsert({
+    where: { id: item.id },
+    update: {
+      src: item.src,
+      title: item.title,
+      stack: item.stack,
+      summary: item.summary,
+      categoryId: item.categoryId, // ✅ ini yang benar
+      // createdAt: new Date(item.createdAt),
+    },
+    create: {
+      src: item.src,
+      id: item.id,
+      title: item.title,
+      stack: item.stack,
+      summary: item.summary,
+      categoryId: item.categoryId, // ✅ ini yang benar
+      // createdAt: new Date(item.createdAt),
+    },
+  });
+}
+
   console.log("✅ Portofolios seed selesai");
 }

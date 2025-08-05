@@ -24,14 +24,28 @@ model Like {
 
 model Viewers {
   id        Int      @id @default(autoincrement())
-  device      String
+  device    String
   createdAt DateTime @default(now())
 }
 
 model Portofolios {
   id        Int      @id @default(autoincrement())
+  src       String?
   title     String
+  stack     String[]
   summary   String
-  category  String
   createdAt DateTime @default(now())
+
+  // Relasi ke kategori
+  category   PortofolioCategory? @relation(fields: [categoryId], references: [id])
+  categoryId Int?
+}
+
+model PortofolioCategory {
+  id  Int           @id @default(autoincrement())
+  name        String        @unique
+  description String?
+  order       Int?
+  portofolios Portofolios[] // relasi ke item portofolio
+  createdAt   DateTime      @default(now())
 }

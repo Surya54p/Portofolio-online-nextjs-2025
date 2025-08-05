@@ -11,6 +11,7 @@ const Home = () => {
   const [toastMsg, setToastMsg] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [toastType, setToastType] = useState<boolean>(true); // <-- ini
+  const [loading, setLoading] = useState(false);
 
   // const [message, setMessage] = useState("");
   const [totalLikes, setTotalLikes] = useState<number | null>(null);
@@ -50,6 +51,7 @@ const Home = () => {
       const data = await response.json();
       setTotalLikes(data.totalLikes);
     };
+  setLoading(true);
 
     fetchLikes();
   }, []);
