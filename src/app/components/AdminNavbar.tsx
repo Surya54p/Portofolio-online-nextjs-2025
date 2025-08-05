@@ -22,13 +22,7 @@ export default function SidebarNav() {
       {/* Sidebar - Desktop */}
       <aside className="hidden lg:flex flex-col  bg-white shadow-lg p-4 sticky top-0 h-screen z-40">
         <div className="flex items-center gap-3 mb-8">
-          <Image
-            src="/img/logoS.webp"
-            alt="Logo"
-            width={45}
-            height={45}
-            className="bg-[#212121] p-2 rounded-full"
-          />
+          <Image src="/img/logoS.webp" alt="Logo" width={45} height={45} className="bg-[#212121] p-2 rounded-full" />
           <div>
             <div className="text-lg font-semibold">Welcome Back sir!</div>
             <div className="text-sm text-gray-600">Have a good day</div>
@@ -38,10 +32,10 @@ export default function SidebarNav() {
           <Link href="/admin/dashboard" className={navLinkClass("/")}>
             Dashboard
           </Link>
-          <Link href="/portofolio" className={navLinkClass("/portofolio")}>
+          <Link href="/admin/portofolio" className={navLinkClass("/portofolio")}>
             Portofolio
           </Link>
-          <Link href="/about" className={navLinkClass("/about")}>
+          <Link href="/admin/about" className={navLinkClass("/about")}>
             About
           </Link>
         </nav>
@@ -76,26 +70,20 @@ export default function SidebarNav() {
         )}
       >
         <div className="flex items-center gap-3 p-4 border-b">
-          <Image
-            src="/img/logoS.webp"
-            alt="Logo"
-            width={40}
-            height={40}
-            className="bg-[#212121] p-2 rounded-full"
-          />
+          <Image src="/img/logoS.webp" alt="Logo" width={40} height={40} className="bg-[#212121] p-2 rounded-full" />
           <div>
             <div className="text-lg font-semibold">Welcome Admin</div>
             <div className="text-sm text-gray-600">Have a good day sir!</div>
           </div>
         </div>
-        <nav className="p-4">
-          <Link href="/" className={navLinkClass("/")}>
-            Home
+        <nav className="flex-1">
+          <Link href="/admin/dashboard" className={navLinkClass("/")}>
+            Dashboard
           </Link>
-          <Link href="/portofolio" className={navLinkClass("/portofolio")}>
+          <Link href="/admin/portofolio" className={navLinkClass("/portofolio")}>
             Portofolio
           </Link>
-          <Link href="/about" className={navLinkClass("/about")}>
+          <Link href="/admin/about" className={navLinkClass("/about")}>
             About
           </Link>
         </nav>
