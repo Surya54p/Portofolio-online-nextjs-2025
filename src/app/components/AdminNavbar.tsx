@@ -29,7 +29,7 @@ export default function SidebarNav() {
           </div>
         </div>
         <nav className="flex-1">
-          <Link href="/admin/dashboard" className={navLinkClass("/")}>
+          <Link href="/admin" className={navLinkClass("/")}>
             Dashboard
           </Link>
           <Link href="/admin/portofolio" className={navLinkClass("/portofolio")}>
@@ -77,7 +77,7 @@ export default function SidebarNav() {
           </div>
         </div>
         <nav className="flex-1">
-          <Link href="/admin/dashboard" className={navLinkClass("/")}>
+          <Link href="/admin" className={navLinkClass("/")}>
             Dashboard
           </Link>
           <Link href="/admin/portofolio" className={navLinkClass("/portofolio")}>

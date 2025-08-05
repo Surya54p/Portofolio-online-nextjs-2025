@@ -21,7 +21,7 @@ export default function Dashboard() {
       setTotalViewers(dataViewers.totalViewersAPI);
     };
     const fetchPortofolios = async () => {
-      const response = await fetch("/api/portofolios");
+      const response = await fetch("/api/portofolios/count");
       const dataPortofolios = await response.json();
       setTotalPortofolios(dataPortofolios.totalPortofoliosAPI);
     };
