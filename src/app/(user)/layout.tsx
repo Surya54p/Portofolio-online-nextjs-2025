@@ -2,6 +2,7 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import "@/app/globals.css";
+import LoadingModal from "../components/loading/loadingModal";
 // import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
+        {/* <LoadingModal /> 👈 Tempatkan di sini, di atas konten */}
         {/* <Toaster position="top-center" reverseOrder={false} /> */}
         <Navbar />
         {children}
@@ -22,4 +24,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
- 

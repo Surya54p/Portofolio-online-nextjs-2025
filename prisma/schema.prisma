@@ -42,7 +42,7 @@ model Portofolios {
 }
 
 model PortofolioCategory {
-  id  Int           @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String        @unique
   description String?
   order       Int?

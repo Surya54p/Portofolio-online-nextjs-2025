@@ -15,7 +15,6 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 mb-5 sticky top-0 z-50">
-
       {/* Mobile Top Bar */}
       <div className="flex items-center justify-between lg:hidden">
         <div className="flex items-start flex-col ">
@@ -50,17 +49,17 @@ export default function Navbar() {
         {open && (
           <ul className="lg:hidden absolute top-full left-0 right-0 w-full bg-white shadow-md flex flex-col gap-4 px-6 py-4 text-black font-medium z-50">
             <li>
-              <Link href="/" className={navLinkClass("/")}>
+              <Link href="/" className={navLinkClass("/")} onClick={() => setOpen(false)}>
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/portofolio" className={navLinkClass("/portofolio")}>
+              <Link href="/portofolio" className={navLinkClass("/portofolio")} onClick={() => setOpen(false)}>
                 Portofolio
               </Link>
-            </li>
+            </li>   
             <li>
-              <Link href="/about" className={navLinkClass("/about")}>
+              <Link href="/about" className={navLinkClass("/about")} onClick={() => setOpen(false)}>
                 About
               </Link>
             </li>
@@ -68,8 +67,6 @@ export default function Navbar() {
         )}
       </div>
 
-      
-      
       {/* Desktop Menu */}
       <div className="flex justify-between items-center ">
         {/* Logo dan Nama - hanya muncul di desktop */}
