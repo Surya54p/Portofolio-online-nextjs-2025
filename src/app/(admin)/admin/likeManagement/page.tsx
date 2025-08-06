@@ -3,5 +3,9 @@
 // import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-  return <div>Like information</div>;
+  return (
+    <div>
+      <span className="text-[26px] italic">Like Management</span>
+    </div>
+  );
 }

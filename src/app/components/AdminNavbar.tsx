@@ -32,11 +32,11 @@ export default function SidebarNav() {
           <Link href="/admin" className={navLinkClass("/")}>
             Dashboard
           </Link>
-          <Link href="/admin/portofolio" className={navLinkClass("/portofolio")}>
-            Portofolio
+          <Link href="/admin/portofolioManagement" className={navLinkClass("/portofolio")}>
+            Portofolio Management
           </Link>
-          <Link href="/admin/about" className={navLinkClass("/about")}>
-            About
+          <Link href="/admin/likeManagement" className={navLinkClass("/likeManagement")}>
+            Like Management
           </Link>
         </nav>
         <button
@@ -83,8 +83,8 @@ export default function SidebarNav() {
           <Link href="/admin/portofolio" className={navLinkClass("/portofolio")}>
             Portofolio
           </Link>
-          <Link href="/admin/about" className={navLinkClass("/about")}>
-            About
+          <Link href="/admin/likeManagement" className={navLinkClass("/likeManagement")}>
+            Like Management
           </Link>
         </nav>
         <button
