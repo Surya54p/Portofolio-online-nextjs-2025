@@ -1,7 +1,11 @@
 "use client";
 import PrimaryButton from "@/app/components/primaryButton";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
+type categoryPorto = {
+  id: number;
+  name: string;
+};
 export default function Dashboard() {
   const [modalAddPortofolio, setModalPortofolio] = useState(false);
   const [modalAddCategoryPortofolio, setModalAddCategoryPortofolio] = useState(false);
@@ -11,11 +15,27 @@ export default function Dashboard() {
   const handleOpenModalPortCate = () => setModalAddCategoryPortofolio(true);
   const handleCloseModalPortCate = () => setModalAddCategoryPortofolio(false);
 
-  // const [selectedStack, setSelectedStack] = useState<string[]>([]);
-  // const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedOptions = Array.from(e.target.selectedOptions, (opt) => opt.value);
-  //   setSelectedStack(selectedOptions);
-  // };
+  const [portoCategory, setPortoCategory] = useState<categoryPorto[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await fetch("/api/portofoliosCategory/getNamePortofolioCategory");
+        const data = await response.json();
+        console.log("✅ API Response:", data); // <<-- tes di console
+
+        setPortoCategory(data);
+      } catch (erorr) {
+        console.log("⚠️ Eror", erorr);
+      }
+    };
+    fetchCategory();
+  }, []);
+  const handleChangeSelectPortoCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value);
+  };
+
   const allOptions = ["Laravel", "MySQL", "Tailwind", "React JS", "Bootstrap"];
   const [selectedStack, setSelectedStack] = useState<string[]>([]);
 
@@ -57,13 +77,33 @@ export default function Dashboard() {
           <form action="" className=" rounded-lg flex flex-col gap-4">
             <div className="rounded-lg flex flex-col gap-4">
               <div>
-                <span>Nama portofolio</span>
+                <span>Portofolio Title</span>
                 <input type="text" className="border border-gray-400 p-2 rounded-lg w-full" />
               </div>
+
               <div>
                 <span>Summary</span>
                 <input type="text" className="border border-gray-400 p-2 rounded-lg w-full" />
-              </div>{" "}
+              </div>
+
+              <div>
+                <span>Portofolio Category</span>
+                <select
+                  className="border border-gray-400 p-2 rounded-lg w-full"
+                  value={selectedCategory}
+                  onChange={handleChangeSelectPortoCategory}
+                >
+                  <option value="" disabled>
+                    Select option
+                  </option>
+                  {portoCategory.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div>
                 <div>
                   <span className="block mb-1 font-semibold">Stack</span>
