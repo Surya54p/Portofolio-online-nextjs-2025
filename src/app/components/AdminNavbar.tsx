@@ -13,8 +13,10 @@ export default function SidebarNav() {
 
   const navLinkClass = (href: string) =>
     clsx(
-      "block px-4 py-2 rounded hover:bg-gray-200 transition",
-      pathname === href ? "bg-black text-white" : "text-gray-800"
+      "block px-4 py-2 rounded transition",
+      pathname === href
+        ? "bg-blue-500 text-white" // warna latar biru + teks putih saat aktif
+        : "text-gray-800 hover:bg-gray-200" // warna normal
     );
 
   return (
@@ -28,14 +30,14 @@ export default function SidebarNav() {
             <div className="text-sm text-gray-600">Have a good day</div>
           </div>
         </div>
-        <nav className="flex-1">
-          <Link href="/admin" className={navLinkClass("/")}>
+        <nav className="flex-1 flex flex-col gap-2">
+          <Link href="/admin" className={navLinkClass("/admin")}>
             Dashboard
           </Link>
-          <Link href="/admin/portofolioManagement" className={navLinkClass("/portofolio")}>
+          <Link href="/admin/portofolioManagement" className={navLinkClass("/admin/portofolioManagement")}>
             Portofolio Management
           </Link>
-          <Link href="/admin/likeManagement" className={navLinkClass("/likeManagement")}>
+          <Link href="/admin/likeManagement" className={navLinkClass("/admin/likeManagement")}>
             Like Management
           </Link>
         </nav>

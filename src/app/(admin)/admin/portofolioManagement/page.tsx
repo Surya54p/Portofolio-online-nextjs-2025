@@ -1,50 +1,51 @@
 "use client";
+import { POST } from "@/app/api/like/route";
 import PrimaryButton from "@/app/components/primaryButton";
+// import { error } from "console";
+import { isResolvedLazyResult } from "next/dist/server/lib/lazy-result";
+import { title } from "process";
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type categoryPorto = {
   id: number;
   name: string;
 };
+
 export default function Dashboard() {
+  // State: Modal
   const [modalAddPortofolio, setModalPortofolio] = useState(false);
   const [modalAddCategoryPortofolio, setModalAddCategoryPortofolio] = useState(false);
-  // useEffect
+
+  // State: Kategori Portofolio
+  const [portoCategory, setPortoCategory] = useState<categoryPorto[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  // State: Form Utama
+  const [title, setTitle] = useState("");
+  const [summary, setSummary] = useState("");
+
+  // State: Stack Teknologi
+  const allOptions = ["Laravel", "MySQL", "Tailwind", "React JS", "Bootstrap"];
+  const [selectedStack, setSelectedStack] = useState<string[]>([]);
+
+  // State: Upload Gambar
+  const [preview, setPreview] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  // Handler: Modal
   const handleOpenModal = () => setModalPortofolio(true);
   const handleCloseModal = () => setModalPortofolio(false);
   const handleOpenModalPortCate = () => setModalAddCategoryPortofolio(true);
   const handleCloseModalPortCate = () => setModalAddCategoryPortofolio(false);
 
-  const [portoCategory, setPortoCategory] = useState<categoryPorto[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const response = await fetch("/api/portofoliosCategory/getNamePortofolioCategory");
-        const data = await response.json();
-        console.log("✅ API Response:", data); // <<-- tes di console
-
-        setPortoCategory(data);
-      } catch (erorr) {
-        console.log("⚠️ Eror", erorr);
-      }
-    };
-    fetchCategory();
-  }, []);
-  const handleChangeSelectPortoCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCategory(e.target.value);
-  };
-
-  const allOptions = ["Laravel", "MySQL", "Tailwind", "React JS", "Bootstrap"];
-  const [selectedStack, setSelectedStack] = useState<string[]>([]);
-
+  // Handler: Stack Pilihan
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     if (value && !selectedStack.includes(value)) {
       setSelectedStack([...selectedStack, value]);
     }
-    // Reset select ke default
     e.target.value = "";
   };
 
@@ -53,6 +54,119 @@ export default function Dashboard() {
   };
 
   const availableOptions = allOptions.filter((opt) => !selectedStack.includes(opt));
+
+  // Handler: Kategori Pilihan
+  const handleChangeSelectPortoCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  // Fetch: Data Kategori Portofolio
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await fetch("/api/portofoliosCategory/getNamePortofolioCategory");
+        const data = await response.json();
+        console.log("✅ API Response:", data);
+        setPortoCategory(data);
+      } catch (erorr) {
+        console.log("⚠️ Eror", erorr);
+      }
+    };
+    fetchCategory();
+  }, []);
+
+  // Handler: Drag and Drop Gambar
+  const handleFile = (file: File) => {
+    if (file && file.type.startsWith("image/")) {
+      const imgUrl = URL.createObjectURL(file);
+      setPreview(imgUrl);
+      setSelectedFile(file);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) handleFile(file);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleFile(file);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  // Handler: Submit Form
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("summary", summary);
+    formData.append("categoryId", selectedCategory); // Make sure backend expects "categoryId"
+    selectedStack.forEach((item) => {
+      formData.append("stack", JSON.stringify(selectedStack));
+    });
+    if (selectedFile) {
+      formData.append("file", selectedFile);
+    }
+
+    try {
+      const response = await fetch("/api/POST/portofolios", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Gagal submit data portofolio");
+      }
+
+      const result = await response.json();
+      console.log("✅ Submit sukses:", result);
+
+      // ✅ Tutup modal
+      handleCloseModal();
+
+      // ✅ Reset form
+      setTitle("");
+      setSummary("");
+      setSelectedStack([]);
+      setSelectedFile(null);
+      setPreview("");
+      setSelectedCategory("");
+
+      // ✅ Tampilkan SweetAlert sukses
+      Swal.fire({
+        icon: "success",
+        title: "Sukses!",
+        text: "Portofolio berhasil ditambahkan.",
+        timer: 2000,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.error("❌ Submit error:", error);
+
+      // ❌ SweetAlert gagal
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Terjadi kesalahan saat submit.",
+      });
+    }
+  };
+
+  // --------------------------------------
+  // PAGE VIEW
+  // --------------------------------------
 
   return (
     <div>
@@ -66,26 +180,74 @@ export default function Dashboard() {
     </div>
   );
 
+  // --------------------------------------
+  // MODALS PORTOFOLIO
+  // --------------------------------------
+
   function RenderModalAddPortofolios() {
     if (!modalAddPortofolio) return null;
 
     return (
       <div className="fixed inset-0 bg-gray-100/50  flex items-center justify-center z-50">
-        <div className="bg-white p-6 rounded shadow-lg w-[800px] border border-gray-400 flex flex-col gap-4">
-          <h2 className="text-xl font-bold mb-1">Tambah Portofolio</h2>
-          <p className="italic">Isi form dibawah</p>
-          <form action="" className=" rounded-lg flex flex-col gap-4">
+        <div className="bg-white p-6 rounded shadow-lg w-[800px] border border-gray-400 flex flex-col max-h-[90vh]">
+          <div className="mb-3">
+            <div
+              className="flex justify-between items-center 
+          "
+            >
+              <h2 className="text-[32px] font-bold ">Tambah Portofolio</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                onClick={handleCloseModal}
+              >
+                <path
+                  fill="none"
+                  stroke="#000"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M18 6L6 18M6 6l12 12"
+                />
+              </svg>
+            </div>
+            <p className="italic">Isi form dibawah</p>
+          </div>
+          {/*
+          -------------------------
+          FORM INPUT
+          -------------------------
+          */}
+          <form
+            action="POST"
+            onSubmit={handleSubmit}
+            className=" rounded-lg flex flex-col gap-4 max-h-[90vh] overflow-y-auto pb-3"
+          >
             <div className="rounded-lg flex flex-col gap-4">
               <div>
+                {/* title */}
                 <span>Portofolio Title</span>
-                <input type="text" className="border border-gray-400 p-2 rounded-lg w-full" />
+                <input
+                  name="title"
+                  value={title}
+                  type="text"
+                  className="border border-gray-400 p-2 rounded-lg w-full"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
               </div>
-
+              {/* summary */}
               <div>
                 <span>Summary</span>
-                <input type="text" className="border border-gray-400 p-2 rounded-lg w-full" />
+                <textarea
+                  name="summary"
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
+                  className="border border-gray-400 p-2 rounded-lg w-full h-[150px]"
+                />
               </div>
-
+              {/* porto category */}
               <div>
                 <span>Portofolio Category</span>
                 <select
@@ -103,10 +265,10 @@ export default function Dashboard() {
                   ))}
                 </select>
               </div>
-
+              {/* STACK */}
               <div>
                 <div>
-                  <span className="block mb-1 font-semibold">Stack</span>
+                  <span className=" mb-1 ">Stack</span>
                   <select
                     className="border border-gray-400 p-2 rounded-lg w-full"
                     onChange={handleChange}
@@ -122,7 +284,6 @@ export default function Dashboard() {
                     ))}
                   </select>
                 </div>
-
                 {selectedStack.length > 0 && (
                   <div className="flex flex-wrap gap-2 mt-2">
                     {selectedStack.map((item) => (
@@ -135,10 +296,14 @@ export default function Dashboard() {
                           onClick={() => handleRemove(item)}
                           className="text-red-500 hover:text-red-700 font-bold ml-2"
                         >
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24">
                             <path
-                              fill="#EF4444"
-                              d="M7.5 1h9v3H22v2h-2.029l-.5 17H4.529l-.5-17H2V4h5.5zm2 3h5V3h-5zM6.03 6l.441 15h11.058l.441-15zm3.142 3.257L12 12.086l2.828-2.829l1.415 1.415l-2.829 2.828l2.829 2.828l-1.415 1.415L12 14.914l-2.828 2.829l-1.415-1.415l2.829-2.828l-2.829-2.828z"
+                              fill="none"
+                              stroke="#EF4444"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M18 6L6 18M6 6l12 12"
                             />
                           </svg>
                         </button>
@@ -147,16 +312,43 @@ export default function Dashboard() {
                   </div>
                 )}
               </div>
+              {/* gambar */}
+              <div>
+                <p>Gambar</p>
+                <div
+                  onDrop={handleDrop}
+                  onDragOver={handleDragOver}
+                  onDragLeave={handleDragLeave}
+                  className={`p-4 border-2 border-dashed rounded-lg text-center cursor-pointer transition ${
+                    isDragging ? "bg-blue-100 border-blue-400" : "bg-white border-gray-400"
+                  }`}
+                >
+                  <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" id="fileInput" />
+                  <label htmlFor="fileInput" className="block text-gray-600">
+                    Drag gambar ke sini atau klik untuk pilih
+                  </label>
+
+                  {preview && (
+                    <div className="mt-4">
+                      <img src={preview} alt="Preview" className="w-40 rounded mx-auto" />
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="flex justify-between">
-              <PrimaryButton buttonText="Tutup" onClick={handleCloseModal} />
-              <PrimaryButton buttonText="Add Portfolio" />
+              <PrimaryButton buttonText="Close" onClick={handleCloseModal} />
+              <PrimaryButton buttonText="Submit" type="submit" />
             </div>
           </form>
         </div>
       </div>
     );
   }
+
+  // --------------------------------------
+  // MODALS PORTOFOLIO CATEGORY
+  // --------------------------------------
 
   function renderModalAddPortofoliosCategory() {
     if (!modalAddCategoryPortofolio) return null;
