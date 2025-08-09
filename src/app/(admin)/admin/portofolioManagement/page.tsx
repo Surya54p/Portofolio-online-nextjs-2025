@@ -1,9 +1,9 @@
 "use client";
-import { POST } from "@/app/api/like/route";
+// import { POST } from "@/app/api/like/route";
 import PrimaryButton from "@/app/components/primaryButton";
 // import { error } from "console";
-import { isResolvedLazyResult } from "next/dist/server/lib/lazy-result";
-import { title } from "process";
+// import { isResolvedLazyResult } from "next/dist/server/lib/lazy-result";
+// import { title } from "process";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -113,9 +113,7 @@ export default function Dashboard() {
     formData.append("title", title);
     formData.append("summary", summary);
     formData.append("categoryId", selectedCategory); // Make sure backend expects "categoryId"
-    selectedStack.forEach((item) => {
-      formData.append("stack", JSON.stringify(selectedStack));
-    });
+    formData.append("stack", JSON.stringify(selectedStack));
     if (selectedFile) {
       formData.append("file", selectedFile);
     }
