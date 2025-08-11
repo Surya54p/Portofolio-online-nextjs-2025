@@ -112,9 +112,9 @@ export default function Dashboard() {
     const formData = new FormData();
 
     if (selectedFile) {
-      const ext = selectedFile.name.split(".").pop(); // ambil ekstensi
-      const uniqueName = crypto.randomUUID() + "." + ext; // bikin nama unik
-      formData.append("src", uniqueName); // kirim nama file unik
+      // const ext = selectedFile.name.split(".").pop(); // ambil ekstensi
+      // const uniqueName = crypto.randomUUID() + "." + ext; // bikin nama unik
+      // formData.append("src", uniqueName); // kirim nama file unik
       formData.append("file", selectedFile); // file asli
     }
 
