@@ -130,7 +130,9 @@ export default function Dashboard() {
       });
 
       if (!response.ok) {
-        throw new Error("Gagal submit data portofolio");
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Server error detail:", errorData);
+        throw new Error(`Gagal submit data portofolio: ${errorData.error || "Unknown error"}`);
       }
 
       const result = await response.json();
