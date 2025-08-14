@@ -30,10 +30,19 @@ export async function POST(req: Request) {
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
 
     // Upload file ke Supabase Storage (bucket: bucket-images)
-    const { error: uploadError } = await supabase.storage.from("bucket-images").upload(fileName, file, {
-      cacheControl: "3600",
-      upsert: false,
-    });
+    // const { error: uploadError } = await supabase.storage.from("bucket-images").upload(fileName, file, {
+    //   cacheControl: "3600",
+    //   upsert: false,
+    // });
+
+    // if (uploadError) {
+    //   return NextResponse.json({ error: uploadError.message }, { status: 500 });
+    // }
+    // Ambil file data dari FormData
+    const fileData = await file.arrayBuffer(); // arrayBuffer dari File
+    const { error: uploadError } = await supabase.storage
+      .from("bucket-images")
+      .upload(fileName, new Uint8Array(fileData), { cacheControl: "3600", upsert: false });
 
     if (uploadError) {
       return NextResponse.json({ error: uploadError.message }, { status: 500 });
