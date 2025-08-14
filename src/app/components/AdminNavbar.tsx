@@ -82,7 +82,7 @@ export default function SidebarNav() {
           <Link href="/admin" className={navLinkClass("/")}>
             Dashboard
           </Link>
-          <Link href="/admin/portofolio" className={navLinkClass("/portofolio")}>
+          <Link href="/admin/portofolioManagement" className={navLinkClass("/admin/portofolioManagement")}>
             Portofolio
           </Link>
           <Link href="/admin/likeManagement" className={navLinkClass("/likeManagement")}>

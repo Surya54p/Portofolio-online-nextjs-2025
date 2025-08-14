@@ -1,19 +1,8 @@
 "use client";
 import InformationCard from "@/app/components/InformationCard";
 import InformationCardSkeleton from "@/app/components/skeleton/informationCardSkeleton";
-// import { setuid } from "process";
 import { useEffect, useState } from "react";
-// import { FaLeaf } from "react-icons/fa";
 
-// type Info = {
-//   id: number;
-//   src: string;
-//   title: string;
-//   summary: string; // 🔥 ini bukan "content"
-//   category: string;
-//   stack: string[];
-//   createdAt: string;
-// };
 interface Info {
   id: number;
   src: string;
@@ -29,15 +18,12 @@ interface Category {
   description: string;
   order: number;
 }
+
 export default function Portofolio() {
-  // const [webData, setWebData] = useState([]);
-  // const [uiuxData, setUiuxData] = useState([]);
-  // const [machineLearningData, setMachineLearningData] = useState([]);
   const [portfolios, setPortfolios] = useState<Info[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
 
   const [loading, setLoading] = useState(true);
-  // const [portofolioCategory, setPortofolioCategory] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,16 +36,7 @@ export default function Portofolio() {
         const resCategories = await fetch("/api/portofoliosCategory");
         const dataCategories = await resCategories.json();
 
-        // const sortedCategories = dataCategories.sort((a: Category, b: Category) => a.order - b.order);
-        // data portofolio
-        // const websites = data.filter((item: any) => item.category === "Web Development");
-        // const uiux = data.filter((item: any) => item.category === "UI/UX");
-        // const machineLearning = data.filter((item: any) => item.category === "Machine Learning");
-
-        // setWebData(websites);
-        // setUiuxData(uiux);
-        // setMachineLearningData(machineLearning);
-        // setPortofolioCategory(dataPortofolioCategory);
+        // console.log(dataPortfolios);
         setPortfolios(dataPortfolios);
         setCategories(dataCategories);
       } catch (error) {

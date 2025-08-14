@@ -29,7 +29,7 @@ model Viewers {
 }
 
 model Portofolios {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(cuid())
   src       String?
   title     String
   stack     String[]

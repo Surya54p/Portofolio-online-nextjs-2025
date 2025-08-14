@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { createClient } from "@supabase/supabase-js";
+import { error } from "console";
 
 const prisma = new PrismaClient();
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
 
 export async function POST(req: Request) {
   try {
@@ -32,21 +30,17 @@ export async function POST(req: Request) {
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
 
     // Upload file ke Supabase Storage (bucket: bucket-images)
-    const { error: uploadError } = await supabase.storage
-      .from("bucket-images")
-      .upload(fileName, file, {
-        cacheControl: "3600",
-        upsert: false,
-      });
+    const { error: uploadError } = await supabase.storage.from("bucket-images").upload(fileName, file, {
+      cacheControl: "3600",
+      upsert: false,
+    });
 
     if (uploadError) {
       return NextResponse.json({ error: uploadError.message }, { status: 500 });
     }
 
     // Ambil public URL file
-    const { data: publicUrlData } = supabase.storage
-      .from("bucket-images")
-      .getPublicUrl(fileName);
+    const { data: publicUrlData } = supabase.storage.from("bucket-images").getPublicUrl(fileName);
 
     const imageUrl = publicUrlData.publicUrl;
 
@@ -62,7 +56,8 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(result, { status: 201 });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

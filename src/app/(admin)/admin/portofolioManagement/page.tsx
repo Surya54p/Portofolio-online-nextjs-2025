@@ -66,10 +66,10 @@ export default function Dashboard() {
       try {
         const response = await fetch("/api/portofoliosCategory/getNamePortofolioCategory");
         const data = await response.json();
-        console.log("✅ API Response:", data);
+        // console.log("✅ API Response:", data);
         setPortoCategory(data);
       } catch (erorr) {
-        console.log("⚠️ Eror", erorr);
+        // console.log("⚠️ Eror", erorr);
       }
     };
     fetchCategory();
@@ -136,7 +136,7 @@ export default function Dashboard() {
       }
 
       const result = await response.json();
-      console.log("✅ Submit sukses:", result);
+      // console.log("✅ Submit sukses:", result);
 
       // ✅ Tutup modal
       handleCloseModal();

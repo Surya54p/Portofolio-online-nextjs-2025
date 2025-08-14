@@ -25,7 +25,7 @@ export default function InformationCard({ info }: CardProps) {
   return (
     <div className="w-[300px] h-fit rounded-xl overflow-hidden border shadow bg-white">
       <div className="relative h-[200px] w-full">
-        <Image src={`/img/${info.src}`} alt={info.title} fill className="object-cover" />
+        <Image src={info.src} alt={info.title} fill className="object-cover" />
       </div>
 
       <div className="p-4">
