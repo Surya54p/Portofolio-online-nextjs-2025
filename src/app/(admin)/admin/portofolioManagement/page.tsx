@@ -69,7 +69,7 @@ export default function Dashboard() {
         // console.log("✅ API Response:", data);
         setPortoCategory(data);
       } catch (erorr) {
-        // console.log("⚠️ Eror", erorr);
+        console.log("⚠️ Eror", erorr);
       }
     };
     fetchCategory();
@@ -135,7 +135,7 @@ export default function Dashboard() {
         throw new Error(`Gagal submit data portofolio: ${errorData.error || "Unknown error"}`);
       }
 
-      const result = await response.json();
+      // const result = await response.json();
       // console.log("✅ Submit sukses:", result);
 
       // ✅ Tutup modal

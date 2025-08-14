@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { createClient } from "@supabase/supabase-js";
-import { error } from "console";
+// import { error } from "console";
 
 const prisma = new PrismaClient();
 
