@@ -38,8 +38,8 @@ export async function GET() {
 // simpan data
 export async function POST(req: Request) {
   const { nama } = await req.json();
-  console.log("Data nama yang diterima:", nama);
-  console.log("DATABASE_URL =", process.env.DATABASE_URL);
+  console.log("✅ Data nama yang diterima:", nama);
+  // console.log("DATABASE_URL =", process.env.DATABASE_URL);
 
   if (nama == null || nama == "") {
     return new Response(
