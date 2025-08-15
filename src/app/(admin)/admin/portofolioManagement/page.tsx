@@ -1,7 +1,7 @@
 "use client";
 // import { POST } from "@/app/api/like/route";
 import PrimaryButton from "@/app/components/primaryButton";
-import { PortofolioCategory, Portofolios } from "@prisma/client";
+import {  Portofolios } from "@prisma/client";
 // import { error } from "console";
 // import { isResolvedLazyResult } from "next/dist/server/lib/lazy-result";
 // import { title } from "process";
