@@ -7,10 +7,21 @@ const prisma = new PrismaClient();
 // ambil data total likes
 // export async function GET() {
 //   try {
-//     const total_likes = await prisma.likes.count(); 
+//     const total_likes = await prisma.likes.count();
 //   }
 // }
-
+function generateId() {
+  const now = new Date();
+  return (
+    "LK" +
+    now.getFullYear().toString() +
+    String(now.getMonth() + 1).padStart(2, "0") +
+    String(now.getDate()).padStart(2, "0") +
+    String(now.getHours()).padStart(2, "0") +
+    String(now.getMinutes()).padStart(2, "0") +
+    String(now.getSeconds()).padStart(2, "0")
+  );
+}
 
 export async function GET() {
   const totalLikes = await prisma.like.count({
@@ -23,7 +34,6 @@ export async function GET() {
     headers: { "Content-Type": "application/json" },
   });
 }
-
 
 // simpan data
 export async function POST(req: Request) {
@@ -59,7 +69,7 @@ export async function POST(req: Request) {
         { status: 200 }
       );
     }
-    await prisma.like.create({ data: { nama } });
+    await prisma.like.create({ data: { id: generateId(), nama } });
     return new Response(
       JSON.stringify({
         nameAlreadyLiked: false,
