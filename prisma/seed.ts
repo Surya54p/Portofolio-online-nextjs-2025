@@ -1,7 +1,7 @@
 import { seedAdmin } from "./seeds/admin.seed";
 import { seedLike } from "./seeds/like.seed";
 import { seedViewers } from "./seeds/viewers.seed";
-import { seedPortofolios } from "./seeds/portofolios.seed";
+// import { seedPortofolios } from "./seeds/portofolios.seed";
 import { seedPortfolioCategory } from "./seeds/portofoliosCategory.seed";
 
 async function main() {
@@ -9,7 +9,7 @@ async function main() {
   await seedLike();
   await seedViewers();
   await seedPortfolioCategory();
-  await seedPortofolios();
+  // await seedPortofolios();
 }
 
 main()

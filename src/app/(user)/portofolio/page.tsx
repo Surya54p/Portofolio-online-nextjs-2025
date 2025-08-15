@@ -53,7 +53,7 @@ export default function Portofolio() {
       <div className="text-center font-semibold  text-[48px]">My Portofolio</div>
       {/* section */}
       {loading ? (
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 items-start justify-items-center">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 items-start justify-items-center">
           <InformationCardSkeleton />
           <InformationCardSkeleton />
           <InformationCardSkeleton />
@@ -87,7 +87,7 @@ function Section({ title, description, data }: { title: string; description: str
           {description}
         </fieldset>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 items-start justify-items-center">
+      <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 items-start justify-items-center">
         {data.map((info, index: number) => (
           <InformationCard
             key={index}
