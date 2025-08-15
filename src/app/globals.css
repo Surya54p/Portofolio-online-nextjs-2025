@@ -77,19 +77,24 @@ body {
     opacity: 0;
     transform: translate(-50%, -200%);
   }
+
   20% {
     opacity: 1;
     transform: translate(-50%, -50%);
   }
+
   40% {
     transform: translate(-48%, -47%);
   }
+
   60% {
     transform: translate(-52%, -53%);
   }
+
   80% {
     transform: translate(-50%, -48%);
   }
+
   100% {
     transform: translate(-50%, -50%);
   }
@@ -108,3 +113,18 @@ body {
   animation: toastEnterFloat 4s ease-in-out forwards;
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: inline-block;
+  min-width: 100%;
+  animation: marquee 15s linear infinite;
+}

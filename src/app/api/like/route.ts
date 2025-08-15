@@ -24,13 +24,12 @@ function generateId() {
 }
 
 export async function GET() {
-  const totalLikes = await prisma.like.count({
-    where: {
-      nama: { not: "" }, // Hanya yang ada nama
-    },
+  const likes = await prisma.like.findMany({
+    select: { id: true, nama: true },
+    orderBy: { createdAt: "desc" },
   });
-
-  return new Response(JSON.stringify({ totalLikes }), {
+  console.log(likes);
+  return new Response(JSON.stringify({ totalLikes: likes.length, likes }), {
     headers: { "Content-Type": "application/json" },
   });
 }

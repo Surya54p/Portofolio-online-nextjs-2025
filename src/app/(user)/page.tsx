@@ -5,7 +5,7 @@ import MiniCard from "../components/miniCard";
 import BasicButton from "../components/BasicButton";
 // import { toast } from "react-hot-toast";
 // import { boolean } from "drizzle-orm/gel-core";
-
+import LikeMarquee from "../components/LikeMarquee";
 const Home = () => {
   const [nama, setNama] = useState("");
   const [toastMsg, setToastMsg] = useState("");
@@ -51,7 +51,7 @@ const Home = () => {
       const data = await response.json();
       setTotalLikes(data.totalLikes);
     };
-  // setLoading(true);
+    // setLoading(true);
 
     fetchLikes();
   }, []);
@@ -250,7 +250,9 @@ const Home = () => {
           {toastMsg}
         </div>
       )}
+      <LikeMarquee />
     </main>
   );
 };
+
 export default Home;
