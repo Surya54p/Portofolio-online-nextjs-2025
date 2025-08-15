@@ -17,7 +17,7 @@ model Admin {
 }
 
 model Like {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(cuid())
   nama      String
   createdAt DateTime @default(now())
 }
