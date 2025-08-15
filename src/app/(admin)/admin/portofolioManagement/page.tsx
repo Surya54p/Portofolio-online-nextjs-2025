@@ -1,6 +1,7 @@
 "use client";
 // import { POST } from "@/app/api/like/route";
 import PrimaryButton from "@/app/components/primaryButton";
+import { PortofolioCategory, Portofolios } from "@prisma/client";
 // import { error } from "console";
 // import { isResolvedLazyResult } from "next/dist/server/lib/lazy-result";
 // import { title } from "process";
@@ -40,6 +41,8 @@ export default function Dashboard() {
   const handleOpenModalPortCate = () => setModalAddCategoryPortofolio(true);
   const handleCloseModalPortCate = () => setModalAddCategoryPortofolio(false);
 
+  const [portofolioCategoryManagementTable, setPortofolioCategoryManagementTable] = useState<Portofolios[]>([]);
+
   // Handler: Stack Pilihan
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -64,8 +67,13 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
+        // Fetch api
         const response = await fetch("/api/portofoliosCategory/getNamePortofolioCategory");
+        const responsePortofolioCategoryManagement = await fetch("/api/adminAPI/portofolioCategoryManagement");
+        // Decode json
         const data = await response.json();
+        const dataPortofolioCategoryManagement = await responsePortofolioCategoryManagement.json();
+        setPortofolioCategoryManagementTable(dataPortofolioCategoryManagement);
         // console.log("✅ API Response:", data);
         setPortoCategory(data);
       } catch (erorr) {
@@ -182,6 +190,54 @@ export default function Dashboard() {
       </div>
       {RenderModalAddPortofolios()}
       {renderModalAddPortofoliosCategory()}
+      {/* 
+      TABEL AKSI
+      */}
+      <div className="shadow-xl overflow-x-auto rounded-2xl border-t border-l border-r ">
+        <table className=" border-collapse table-fixed w-full ">
+          <colgroup>
+            <col className="w-[15%]" /> {/* title */}
+            <col className="w-[25%]" /> {/* src */}
+            <col className="w-[15%]" /> {/* stack */}
+            <col className="w-[25%]" /> {/* summary */}
+            <col className="w-[10%]" /> {/* createdAt */}
+            <col className="w-[10%]" /> {/* action */}
+          </colgroup>
+
+          <thead>
+            <tr className="border-b ">
+              <th className=" px-2 py-3">title</th>
+              <th className=" px-2 py-1">src</th>
+              <th className=" px-2 py-1">stack</th>
+              <th className=" px-2 py-1">summary</th>
+              <th className=" px-2 py-1">createdAt</th>
+              <th className=" px-2 py-1">action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {portofolioCategoryManagementTable.map((item) => (
+              <tr key={item.id}>
+                <td className="border-b border-gray-900 px-2 py-10 break-words">{item.title}</td>
+                <td className="border-b border-gray-900 px-2 py-1 break-words max-w-[250px]">{item.src}</td>
+                <td className="border-b border-gray-900 px-2 py-1 break-words">
+                  {Array.isArray(item.stack) ? item.stack.join(", ") : item.stack}
+                </td>
+                <td className="border-b border-gray-900 px-2 py-1 break-words">{item.summary}</td>
+                <td className="border-b border-gray-900 px-2 py-1">{new Date(item.createdAt).toLocaleDateString()}</td>
+                <td className="border-b border-gray-900 px-2 py-1">
+                  <div className="flex flex-row gap-2">
+                    <button className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm">
+                      Edit
+                    </button>
+                    <button className="bg-red-500 hover:bg-red-500 text-white px-3 py-1 rounded text-sm">Hapus</button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 
