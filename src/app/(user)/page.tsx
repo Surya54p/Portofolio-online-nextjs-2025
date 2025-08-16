@@ -207,20 +207,20 @@ const Home = () => {
       {/*
       CARD LIKE
       */}
-      <div className="flex flex-row border border-gray-300 rounded-xl justify-between items-center mb-8 py-10 px-10">
-        <div className="flex flex-col items-start w-100">
-          <span className="text-2xl font-bold mb-4 block">Like kalau kamu suka🚀</span>
+      <div className="flex flex-col lg:flex-row  border border-gray-300 rounded-xl justify-between items-center mb-8 py-10 px-10">
+        <div className="flex flex-col items-start w-fit mb-5 lg:mb-0 lg:w-100">
+          <span className="text-2xl font-bold mb-3 block">Like kalau kamu suka🚀</span>
           <span>Kalau kamu mau kasih like masukin aja namamu, kalau komentar boleh pribadi lewat ig @surya54p_ 😁</span>
         </div>
         {/* form like */}
 
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 " method="post">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full " method="post">
           <input
             type="text"
             value={nama}
             onChange={(e) => setNama(e.target.value)}
             placeholder="Input nama untuk like"
-            className="px-6 py-3 bg-[#fff]  rounded-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
+            className="px-6 py-3 bg-[#fff]  rounded-full w-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
           />
           <PrimaryButton type="submit" buttonText="Submit" className="w-full" />
 

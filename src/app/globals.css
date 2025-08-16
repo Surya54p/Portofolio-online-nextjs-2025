@@ -112,7 +112,7 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   animation: toastEnterFloat 4s ease-in-out forwards;
 }
-/* 
+
 @keyframes marquee {
   0% {
     transform: translateY(0%);
@@ -184,14 +184,14 @@ body {
   100% {
     transform: translateY(0%);
   }
-} */
-@keyframes marquee-horizontal {
+}
+/* @keyframes marquee-horizontal {
   0%   { transform: translateX(-150%); }
   100% { transform: translateX(50vw); }
 }
 
 .animate-marquee-horizontal {
   animation: marquee-horizontal 20s linear infinite;
-  animation-fill-mode: backwards; /* penting: biar sebelum jalan animasi tetap ikut 0% */
+  animation-fill-mode: backwards; 
   will-change: transform, opacity;
-}
+} */
