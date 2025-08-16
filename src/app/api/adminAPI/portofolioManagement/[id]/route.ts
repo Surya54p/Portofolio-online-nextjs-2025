@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 // import { error } from "console";
 // import { ST } from "next/dist/shared/lib/utils";
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
+// import { NextRequest } from "next/server";
 const prisma = new PrismaClient();
 
 export async function GET() {
