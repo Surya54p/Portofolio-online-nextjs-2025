@@ -11,17 +11,18 @@ export async function GET() {
 }
 
 
-export async function DELETE(
-  req: Request,
-  context: { params: { id: string } }
-) {
-  const { id } = context.params;
+export async function DELETE(req: Request, context: unknown) {
+  // tipekan manual di dalam
+  const { id } = (context as { params: { id: string } }).params;
 
   try {
     await prisma.portofolios.delete({ where: { id } });
     return NextResponse.json({ message: "Deleted successfully" });
-  } catch (err: unknown) {
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+  } catch (err) {
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: "Unknown error" }, { status: 500 });
   }
-
 }
+
