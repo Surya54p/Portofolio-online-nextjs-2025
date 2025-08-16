@@ -177,7 +177,7 @@ export default function Dashboard() {
     }
   };
 
-  async function deleteData(id: String) {
+  async function deleteData(id: string) {
     // if(!confirm)
     const respon = await fetch(`/api/adminAPI/portofolioManagement/${id}`, {
       method: "DELETE",
