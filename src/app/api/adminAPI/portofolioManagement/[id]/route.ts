@@ -9,10 +9,15 @@ export async function GET() {
   const data = await prisma.portofolios.findMany({});
   return NextResponse.json(data);
 }
+interface Context {
+  params: {
+    id: string;
+  };
+}
 
-export async function DELETE(req: NextRequest, context: any) { 
-  const { params } = context;
-  const id: string = params.id; // primitive type string
+export async function DELETE(req: NextRequest, context: Context) {
+  const { id } = context.params;
+  // const id: string = params.id; // primitive type string
 
   try {
     await prisma.portofolios.delete({ where: { id: String(id) } });
