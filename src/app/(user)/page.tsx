@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import MiniCard from "../components/miniCard";
 import BasicButton from "../components/BasicButton";
+import PrimaryButton from "../components/primaryButton";
 // import { toast } from "react-hot-toast";
 // import { boolean } from "drizzle-orm/gel-core";
 import LikeMarquee from "../components/LikeMarquee";
@@ -146,12 +147,7 @@ const Home = () => {
         </div>
 
         <div className="flex justify-center">
-          <BasicButton
-            className="mt-4 hover:bg-blue-500 transition hover:text-white"
-            onClick={() => console.log("clicked!")}
-          >
-            See more
-          </BasicButton>
+          <PrimaryButton buttonText="See more" />
         </div>
       </div>
 
@@ -167,12 +163,7 @@ const Home = () => {
         </div>
 
         <div className="flex justify-center">
-          <BasicButton
-            className="mt-4 hover:bg-blue-500 transition hover:text-white"
-            onClick={() => console.log("clicked!")}
-          >
-            See more
-          </BasicButton>
+          <PrimaryButton buttonText="See more" />
         </div>
       </div>
 
@@ -213,23 +204,28 @@ const Home = () => {
           <span className="flex items-center justify-end">Coming soon</span>
         </div>
       </div>
-      {/* form like */}
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 mb-8" method="post">
-        <input
-          type="text"
-          value={nama}
-          onChange={(e) => setNama(e.target.value)}
-          placeholder="Input nama untuk like"
-          className="px-6 py-3 bg-[#f9f9f9]  rounded-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
-        />
-        <button
-          type="submit"
-          className="px-6 py-3 bg-[#f9f9f9]  rounded-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
-        >
-          Like
-        </button>
-        {/* {message && <p className="text-green-600">{message}</p>} */}
-        {/* {message && (
+      {/*
+      CARD LIKE
+      */}
+      <div className="flex flex-row border border-gray-300 rounded-xl justify-between items-center mb-8 py-10 px-10">
+        <div className="flex flex-col items-start w-100">
+          <span className="text-2xl font-bold mb-4 block">Like kalau kamu suka🚀</span>
+          <span>Kalau kamu mau kasih like masukin aja namamu, kalau komentar boleh pribadi lewat ig @surya54p_ 😁</span>
+        </div>
+        {/* form like */}
+
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 " method="post">
+          <input
+            type="text"
+            value={nama}
+            onChange={(e) => setNama(e.target.value)}
+            placeholder="Input nama untuk like"
+            className="px-6 py-3 bg-[#fff]  rounded-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
+          />
+          <PrimaryButton type="submit" buttonText="Submit" className="w-full" />
+
+          {/* {message && <p className="text-green-600">{message}</p>} */}
+          {/* {message && (
           <p
             className={`text-gradient-animate ${
               message === "Nama anda kosong!"
@@ -240,7 +236,9 @@ const Home = () => {
             {message}
           </p>
         )} */}
-      </form>
+        </form>
+      </div>
+
       {showToast && (
         <div
           className={`toast-anim border-2 px-4 py-2 rounded

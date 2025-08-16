@@ -112,7 +112,7 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
   animation: toastEnterFloat 4s ease-in-out forwards;
 }
-
+/* 
 @keyframes marquee {
   0% {
     transform: translateY(0%);
@@ -137,6 +137,7 @@ body {
   display: inline-block;
   animation: marquee 35s linear infinite;
 }
+
 .animate-marquee2 {
   display: inline-block;
   animation: marquee2 35s linear infinite;
@@ -148,7 +149,7 @@ body {
 
 .marqueVertical-container {
   overflow: hidden;
-  height: 8rem; /* bisa disesuaikan */
+  height: 8rem;
   position: relative;
 }
 
@@ -160,6 +161,7 @@ body {
 .animate-marqueeVertical {
   animation: marqueeVertical 30s linear infinite;
 }
+
 .animate-marqueeVertical2 {
   animation: marqueeVertical2 30s linear infinite;
 }
@@ -168,16 +170,28 @@ body {
   0% {
     transform: translateY(0%);
   }
+
   100% {
-    transform: translateY(-50%); /* karena item digandakan */
+    transform: translateY(-50%);
   }
 }
+
 @keyframes marqueeVertical2 {
   0% {
     transform: translateY(-50%);
   }
+
   100% {
-    transform: translateY(0%); /* karena item digandakan */
+    transform: translateY(0%);
   }
+} */
+@keyframes marquee-horizontal {
+  0%   { transform: translateX(-150%); }
+  100% { transform: translateX(50vw); }
 }
 
+.animate-marquee-horizontal {
+  animation: marquee-horizontal 20s linear infinite;
+  animation-fill-mode: backwards; /* penting: biar sebelum jalan animasi tetap ikut 0% */
+  will-change: transform, opacity;
+}
