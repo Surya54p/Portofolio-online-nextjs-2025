@@ -207,14 +207,14 @@ const Home = () => {
       {/*
       CARD LIKE
       */}
-      <div className="flex flex-col lg:flex-row  border border-gray-300 rounded-xl justify-between items-center mb-8 py-10 px-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 border border-gray-300 rounded-xl mb-8 py-8 px-10 gap-5">
+  {/* Kiri: teks */}
         <div className="flex flex-col items-start w-fit mb-5 lg:mb-0 lg:w-100">
           <span className="text-2xl font-bold mb-3 block">Like kalau kamu suka🚀</span>
           <span>Kalau kamu mau kasih like masukin aja namamu, kalau komentar boleh pribadi lewat ig @surya54p_ 😁</span>
         </div>
         {/* form like */}
-
-        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 w-full " method="post">
+        <form onSubmit={handleSubmit} className="flex flex-col grid- items-center gap-4 w-full  " method="post">
           <input
             type="text"
             value={nama}
@@ -223,19 +223,6 @@ const Home = () => {
             className="px-6 py-3 bg-[#fff]  rounded-full w-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
           />
           <PrimaryButton type="submit" buttonText="Submit" className="w-full" />
-
-          {/* {message && <p className="text-green-600">{message}</p>} */}
-          {/* {message && (
-          <p
-            className={`text-gradient-animate ${
-              message === "Nama anda kosong!"
-                ? "bg-gradient-to-r from-white to-black"
-                : "bg-gradient-to-r from-white to-green-600"
-            }`}
-          >
-            {message}
-          </p>
-        )} */}
         </form>
       </div>
 

@@ -23,11 +23,16 @@ export default function LikeMarquee() {
   }, []);
 
   return (
-    <div className="flex flex-col border border-gray-300 rounded-xl justify-between items-center mb-3 px-2 py-3 sm:mb-8 sm:px-6 sm:py-4 ">
-      <span className="text-2xl font-bold mb-4  text-center block">Gracias yang sudah support!🔥</span>
+    <div className="flex flex-col md:flex-row border md:items-center border-gray-300 rounded-xl justify-between  mb-3 py-8 px-10 sm:mb-8 sm:px-6 sm:py-4 ">
+
+      <div className=" mb-4 block">
+        <span className="text-2xl font-bold ">Gracias </span> <br />
+        Terimakasih buat kamu yang sudah support!🔥
+      </div>
+
       <div className="flex flex-row">
         <div className="marqueVertical-container h-32 overflow-hidden relative">
-          <div className="marqueVertical animate-marqueeVertical">
+          <div className="marqueVertical animate-marqueeVertical text-center">
             {likes.concat(likes).map((like, index) => (
               <span key={index} className="mx-10 text-lg font-medium text-gray-700">
                 {like.nama}
@@ -36,7 +41,7 @@ export default function LikeMarquee() {
           </div>
         </div>
         <div className="marqueVertical-container h-32 overflow-hidden relative">
-          <div className="marqueVertical animate-marqueeVertical2">
+          <div className="marqueVertical animate-marqueeVertical2 text-center">
             {likes.concat(likes).map((like, index) => (
               <span key={index} className="mx-10 text-lg font-medium text-gray-700">
                 {like.nama}
