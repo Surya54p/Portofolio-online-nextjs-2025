@@ -1,34 +1,33 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import MiniCard from "../components/miniCard";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 // import BasicButton from "../components/BasicButton";
 import PrimaryButton from "../components/primaryButton";
 // import { toast } from "react-hot-toast";
 // import { boolean } from "drizzle-orm/gel-core";
 import LikeMarquee from "../components/LikeMarquee";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Home = () => {
   const [nama, setNama] = useState("");
   const [toastMsg, setToastMsg] = useState("");
   const [showToast, setShowToast] = useState(false);
-  const [toastType, setToastType] = useState<boolean>(true); // <-- ini
-  // const [loading, setLoading] = useState(false);
-
-  // const [message, setMessage] = useState("");
+  const [toastType, setToastType] = useState<boolean>(true);
   const [totalLikes, setTotalLikes] = useState<number | null>(null);
 
   // POST like
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     const res = await fetch("/api/like", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nama }),
     });
-
     const data = await res.json();
-    // console.log(data);
 
     if (data.status) {
       if (data.nameEmpty) {
@@ -53,13 +52,12 @@ const Home = () => {
       setTotalLikes(data.totalLikes);
     };
     // setLoading(true);
-
     fetchLikes();
   }, []);
 
   const showCustomToast = (message: string, status: boolean) => {
     setToastMsg(message);
-    setToastType(status); // bisa hijau atau merah
+    setToastType(status);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
   };
@@ -71,6 +69,34 @@ const Home = () => {
       title: "titel 1",
     },
   ];
+  const hardContainerRef = useRef<HTMLDivElement>(null);
+  const softContainerRef = useRef<HTMLDivElement>(null);
+
+  const hardCardsRef = useRef<HTMLDivElement[]>([]);
+  const softCardsRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    if (hardCardsRef.current.length && hardContainerRef.current) {
+      gsap.from(hardCardsRef.current, {
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 1,
+        scrollTrigger: { trigger: hardContainerRef.current, start: "top 80%", end: "top 20%", scrub: true ,markers:true},
+      });
+    }
+
+    if (softCardsRef.current.length && softContainerRef.current) {
+      gsap.from(softCardsRef.current, {
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        duration: 1,
+        scrollTrigger: { trigger: softContainerRef.current, start: "top 80%", end: "top 20%", scrub: true, markers:true },
+      });
+    }
+  }, []);
+
   return (
     <main className="flex-grow w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
@@ -135,33 +161,42 @@ const Home = () => {
       </div>
 
       {/* Hard Skill */}
-      <div className="mb-8">
-        <h2 className="text-center text-2xl font-bold mb-8">Skill/Tech stack</h2>
+      <div ref={hardContainerRef} className="mb-8">
+        <h2 className="text-center text-2xl font-bold mb-8">Skill / Tech stack</h2>
+
         <div className="flex flex-wrap justify-center gap-6 mb-8">
-          {/* Card 1 */}
-
-          <MiniCard information={minicardDefault} />
-          <MiniCard information={minicardDefault} />
-          <MiniCard information={minicardDefault} />
-          <MiniCard information={minicardDefault} />
+          {[0, 1, 2, 3].map((_, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                if (el) hardCardsRef.current[i] = el; // TypeScript safe
+              }}
+            >
+              <MiniCard information={minicardDefault} />
+            </div>
+          ))}
         </div>
-
         <div className="flex justify-center">
           <PrimaryButton buttonText="See more" />
         </div>
       </div>
 
       {/* Soft Skill */}
-      <div className="mb-8">
+      <div ref={softContainerRef} className="mb-8">
         <h2 className="text-center text-2xl font-bold mb-8">Soft Skill</h2>
-        <div className="flex flex-wrap justify-center gap-6 mb-8">
-          {/* Card 1 */}
-          <MiniCard information={minicardDefault} />
-          <MiniCard information={minicardDefault} />
-          <MiniCard information={minicardDefault} />
-          <MiniCard information={minicardDefault} />
-        </div>
 
+        <div className="flex flex-wrap justify-center gap-6 mb-8">
+          {[0, 1, 2, 3].map((_, i) => (
+            <div
+              key={i}
+              ref={(el) => {
+                if (el) softCardsRef.current[i] = el; // TypeScript safe
+              }}
+            >
+              <MiniCard information={minicardDefault} />
+            </div>
+          ))}
+        </div>
         <div className="flex justify-center">
           <PrimaryButton buttonText="See more" />
         </div>
@@ -207,8 +242,8 @@ const Home = () => {
       {/*
       CARD LIKE
       */}
-    <div className="grid grid-cols-1 lg:grid-cols-2 border border-gray-300 rounded-xl mb-8 py-8 px-10 gap-5">
-  {/* Kiri: teks */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 border border-gray-300 rounded-xl mb-8 py-8 px-10 gap-5">
+        {/* Kiri: teks */}
         <div className="flex flex-col items-start w-fit mb-5 lg:mb-0 lg:w-100">
           <span className="text-2xl font-bold mb-3 block">Like kalau kamu suka🚀</span>
           <span>Kalau kamu mau kasih like masukin aja namamu, kalau komentar boleh pribadi lewat ig @surya54p_ 😁</span>
