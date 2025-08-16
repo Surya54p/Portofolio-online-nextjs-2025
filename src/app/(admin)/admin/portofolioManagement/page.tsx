@@ -1,7 +1,7 @@
 "use client";
 // import { POST } from "@/app/api/like/route";
 import PrimaryButton from "@/app/components/primaryButton";
-import {  Portofolios } from "@prisma/client";
+import { Portofolios } from "@prisma/client";
 // import { error } from "console";
 // import { isResolvedLazyResult } from "next/dist/server/lib/lazy-result";
 // import { title } from "process";
@@ -177,6 +177,19 @@ export default function Dashboard() {
     }
   };
 
+  async function deleteData(id: String) {
+    // if(!confirm)
+    const respon = await fetch(`/api/adminAPI/portofolioManagement/${id}`, {
+      method: "DELETE",
+    });
+    // console.log({ id });
+    const data = await respon.json();
+    if (respon.ok) {
+      alert("deleted");
+    } else {
+      alert("gagal " + data.error);
+    }
+  }
   // --------------------------------------
   // PAGE VIEW
   // --------------------------------------
@@ -194,14 +207,20 @@ export default function Dashboard() {
       TABEL AKSI
       */}
       <div className="shadow-xl overflow-x-auto rounded-2xl border-t border-l border-r ">
-        <table className=" border-collapse table-fixed w-full ">
+        <table className=" border-collapse table-fixed    md:w-full">
           <colgroup>
-            <col className="w-[15%]" /> {/* title */}
-            <col className="w-[25%]" /> {/* src */}
-            <col className="w-[15%]" /> {/* stack */}
-            <col className="w-[25%]" /> {/* summary */}
-            <col className="w-[10%]" /> {/* createdAt */}
-            <col className="w-[10%]" /> {/* action */}
+            {/* title */}
+            <col className="w-[15%]" />
+            {/* src */}
+            <col className="w-[25%]" />
+            {/* stack */}
+            <col className="w-[15%]" />
+            {/* summary */}
+            <col className="w-[25%]" />
+            {/* createdAt */}
+            <col className="w-[10%]" />
+            {/* action */}
+            <col className="w-[10%]" />
           </colgroup>
 
           <thead>
@@ -219,18 +238,29 @@ export default function Dashboard() {
             {portofolioCategoryManagementTable.map((item) => (
               <tr key={item.id}>
                 <td className="border-b border-gray-900 px-2 py-10 break-words">{item.title}</td>
+
                 <td className="border-b border-gray-900 px-2 py-1 break-words max-w-[250px]">{item.src}</td>
+
                 <td className="border-b border-gray-900 px-2 py-1 break-words">
                   {Array.isArray(item.stack) ? item.stack.join(", ") : item.stack}
                 </td>
+
                 <td className="border-b border-gray-900 px-2 py-1 break-words">{item.summary}</td>
+
                 <td className="border-b border-gray-900 px-2 py-1">{new Date(item.createdAt).toLocaleDateString()}</td>
+
                 <td className="border-b border-gray-900 px-2 py-1">
                   <div className="flex flex-row gap-2">
                     <button className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm">
                       Edit
                     </button>
-                    <button className="bg-red-500 hover:bg-red-500 text-white px-3 py-1 rounded text-sm">Hapus</button>
+
+                    <button
+                      className="bg-red-500 hover:bg-red-500 text-white px-3 py-1 rounded text-sm"
+                      onClick={() => deleteData(item.id)}
+                    >
+                      Hapus
+                    </button>
                   </div>
                 </td>
               </tr>

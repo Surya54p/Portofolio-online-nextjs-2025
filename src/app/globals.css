@@ -115,16 +115,69 @@ body {
 
 @keyframes marquee {
   0% {
-    transform: translateX(0%);
+    transform: translateY(0%);
   }
 
   100% {
-    transform: translateX(-50%);
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes marquee2 {
+  0% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(0%);
   }
 }
 
 .animate-marquee {
   display: inline-block;
-  min-width: 100%;
-  animation: marquee 15s linear infinite;
+  animation: marquee 35s linear infinite;
 }
+.animate-marquee2 {
+  display: inline-block;
+  animation: marquee2 35s linear infinite;
+}
+
+
+
+
+
+.marqueVertical-container {
+  overflow: hidden;
+  height: 8rem; /* bisa disesuaikan */
+  position: relative;
+}
+
+.marqueVertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.animate-marqueeVertical {
+  animation: marqueeVertical 30s linear infinite;
+}
+.animate-marqueeVertical2 {
+  animation: marqueeVertical2 30s linear infinite;
+}
+
+@keyframes marqueeVertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%); /* karena item digandakan */
+  }
+}
+@keyframes marqueeVertical2 {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%); /* karena item digandakan */
+  }
+}
+

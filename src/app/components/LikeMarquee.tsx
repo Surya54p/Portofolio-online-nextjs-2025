@@ -23,15 +23,26 @@ export default function LikeMarquee() {
   }, []);
 
   return (
-    <div className="">
-      <span>Gracias yang sudah support!🔥</span>
-      <div className="overflow-hidden whitespace-nowrap border-y my-5  border-gray-300 bg-white flex flex-row ">
-        <div className="inline-block animate-marquee py-2 ">
-          {likes.concat(likes).map((like, index) => (
-            <span key={index} className="mx-10 text-lg font-medium text-gray-700">
-              {like.nama}
-            </span>
-          ))}
+    <div className="mb-8 ">
+      <span className="text-2xl font-bold mb-4  text-center block">Gracias yang sudah support!🔥</span>
+      <div className="flex flex-row">
+        <div className="marqueVertical-container h-32 overflow-hidden relative">
+          <div className="marqueVertical animate-marqueeVertical">
+            {likes.concat(likes).map((like, index) => (
+              <span key={index} className="mx-10 text-lg font-medium text-gray-700">
+                {like.nama}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="marqueVertical-container h-32 overflow-hidden relative">
+          <div className="marqueVertical animate-marqueeVertical2">
+            {likes.concat(likes).map((like, index) => (
+              <span key={index} className="mx-10 text-lg font-medium text-gray-700">
+                {like.nama}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </div>

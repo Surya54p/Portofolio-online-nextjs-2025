@@ -214,7 +214,7 @@ const Home = () => {
         </div>
       </div>
       {/* form like */}
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4" method="post">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 mb-8" method="post">
         <input
           type="text"
           value={nama}
