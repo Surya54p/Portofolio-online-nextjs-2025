@@ -75,28 +75,64 @@ const Home = () => {
   const hardCardsRef = useRef<HTMLDivElement[]>([]);
   const softCardsRef = useRef<HTMLDivElement[]>([]);
 
-  useEffect(() => {
-    if (hardCardsRef.current.length && hardContainerRef.current) {
-      gsap.from(hardCardsRef.current, {
+  hardCardsRef.current.forEach((card) => {
+    gsap.fromTo(
+      card,
+      {
+        rotationY: 0,
+        opacity: 0,
+        scale: 0.8,
+        transformPerspective: 800,
+        transformOrigin: "center",
+      },
+      {
+        rotationY: 360,
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card, // elemen ini yang jadi trigger
+          start: "top 80%", // mulai ketika 80% dari viewport
+          toggleActions: "play none none none",
+          // play=masuk viewport → mainkan animasi
+          // sisanya tetap idle
+          markers: true,
+        },
+      }
+    );
+  });
+
+  // }, []);
+  // }, []);
+
+  softCardsRef.current.forEach((card) => {
+    gsap.fromTo(
+      card,
+      {
         y: 50,
         opacity: 0,
-        stagger: 0.2,
+        ease: "power3.out",
+        stagger: 0.2, // animasi tiap item delay 0.2s
         duration: 1,
-        scrollTrigger: { trigger: hardContainerRef.current, start: "top 80%", end: "top 20%", scrub: true ,markers:true},
-      });
-    }
-
-    if (softCardsRef.current.length && softContainerRef.current) {
-      gsap.from(softCardsRef.current, {
-        y: 50,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 1,
-        scrollTrigger: { trigger: softContainerRef.current, start: "top 80%", end: "top 20%", scrub: true, markers:true },
-      });
-    }
-  }, []);
-
+      },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card, // elemen ini yang jadi trigger
+          start: "top 80%", // mulai ketika 80% dari viewport
+          toggleActions: "play none none none",
+          // play=masuk viewport → mainkan animasi
+          // sisanya tetap idle
+          markers: true,
+        },
+      }
+    );
+  });
   return (
     <main className="flex-grow w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
@@ -259,6 +295,7 @@ const Home = () => {
           />
           <PrimaryButton type="submit" buttonText="Submit" className="w-full" />
         </form>
+        
       </div>
 
       {showToast && (
