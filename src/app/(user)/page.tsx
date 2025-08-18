@@ -126,7 +126,7 @@ const Home = () => {
               trigger: card, // elemen ini yang jadi trigger
               start: "top 80%", // mulai ketika 80% dari viewport
               toggleActions: "play none none none",
-              markers: true,
+              // markers: true,
             },
           }
         );
@@ -158,7 +158,7 @@ const Home = () => {
             toggleActions: "play none none none",
             // play=masuk viewport → mainkan animasi
             // sisanya tetap idle
-            markers: true,
+            // markers: true,
           },
         }
       );

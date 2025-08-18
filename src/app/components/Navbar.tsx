@@ -14,7 +14,7 @@ export default function Navbar() {
     clsx("rounded-full px-5 py-2 navBar", pathname === href ? "bg-black text-white" : "text-black");
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 mb-5 sticky top-0 z-50">
+    <nav className="bg-white shadow-md px-6 py-4  sticky top-0 z-50">
       {/* Mobile Top Bar */}
       <div className="flex items-center justify-between lg:hidden">
         <div className="flex items-start flex-col ">
@@ -57,10 +57,20 @@ export default function Navbar() {
               <Link href="/portofolio" className={navLinkClass("/portofolio")} onClick={() => setOpen(false)}>
                 Portofolio
               </Link>
-            </li>   
+            </li>
             <li>
               <Link href="/about" className={navLinkClass("/about")} onClick={() => setOpen(false)}>
                 About
+              </Link>
+            </li>
+            <li>
+              <Link href="/sale" className={navLinkClass("/sale")} onClick={() => setOpen(false)}>
+                Sale
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className={navLinkClass("/contact")} onClick={() => setOpen(false)}>
+                Contact
               </Link>
             </li>
           </ul>
@@ -92,6 +102,16 @@ export default function Navbar() {
             <li>
               <Link href="/about" className={navLinkClass("/about")}>
                 About
+              </Link>
+            </li>
+            <li>
+              <Link href="/sale" className={navLinkClass("/sale")} onClick={() => setOpen(false)}>
+                Sale
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className={navLinkClass("/contact")} onClick={() => setOpen(false)}>
+                Contact
               </Link>
             </li>
           </ul>
