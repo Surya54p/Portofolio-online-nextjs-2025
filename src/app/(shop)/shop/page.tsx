@@ -1,6 +1,14 @@
+"use client";
 import PrimaryButton from "@/app/components/primaryButton";
+import { useRouter } from "next/navigation";
 
 export default function ShopPage() {
+  const router = useRouter();
+
+  const handleClick = (id: number) => {
+    router.push(`/shop/productDetail/${id}`); // navigasi ke halaman detail dengan id
+  };
+
   return (
     <main className="flex-grow w-[70%]  mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none ">
       <span className="text-2xl  text-[48px]">Product</span>
@@ -15,7 +23,11 @@ export default function ShopPage() {
         {Array.from({
           length: 10,
         }).map((_, i) => (
-          <div key={i} className="bg-gray-50 rounded-lg p-6 lg:grid lg:grid-cols-2  shadow-lg w-[555px] h-fit border border-gray-300">
+          <div
+            key={i}
+            className="bg-gray-50 rounded-lg p-6 lg:grid lg:grid-cols-2  shadow-lg w-[555px] h-fit border border-gray-300"
+            onClick={() => handleClick(i)}
+          >
             {/* Kiri: Info Produk */}
             <div className="flex flex-col justify-between pr-3">
               {/* Judul + Deskripsi */}
