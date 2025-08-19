@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
-export default function SaleSidebar() {
+export default function ShopSidebar() {
   const pathname = usePathname();
 
   const navLinkClass = (href: string) =>
@@ -16,7 +16,7 @@ export default function SaleSidebar() {
   return (
     <div className="flex">
       {/* Sidebar - Desktop */}
-      <aside className="hidden lg:flex flex-col bg-white shadow-lg p-4 sticky top-0 h-screen z-40">
+      <aside className="hidden lg:flex flex-col bg-white shadow-lg p-4 sticky top-[75px] h-screen z-40">
         <div className="flex items-center gap-3 mb-8">
           <div>
             <div className="text-lg font-semibold">Welcome to the shop!</div>
@@ -24,11 +24,14 @@ export default function SaleSidebar() {
           </div>
         </div>
         <nav className="flex-1 flex flex-col gap-2">
-          <Link href="/sale" className={navLinkClass("/sale")}>
+          <Link href="/shop" className={navLinkClass("/shop")}>
             Product
           </Link>
           <Link href="/contact" className={navLinkClass("/contact")}>
             Contact
+          </Link>
+          <Link href="/laporkanPage" className={navLinkClass("/laporkanPage")}>
+            Laporkan kesalahan
           </Link>
         </nav>
       </aside>
@@ -36,8 +39,8 @@ export default function SaleSidebar() {
       {/* Navbar - Mobile */}
       <nav className="lg:hidden w-full h-fit  bg-white shadow-md flex justify-around py-3 z-50 sticky top-0">
         <Link
-          href="/sale"
-          className={clsx("text-sm font-medium", pathname === "/sale" ? "text-blue-500" : "text-gray-700")}
+          href="/shop"
+          className={clsx("text-sm font-medium", pathname === "/shop" ? "text-blue-500" : "text-gray-700")}
         >
           Product
         </Link>
@@ -46,6 +49,12 @@ export default function SaleSidebar() {
           className={clsx("text-sm font-medium", pathname === "/contact" ? "text-blue-500" : "text-gray-700")}
         >
           Contact
+        </Link>
+        <Link
+          href="/laporkanPage"
+          className={clsx("text-sm font-medium", pathname === "/contact" ? "text-blue-500" : "text-gray-700")}
+        >
+          Laporkan kesalahan
         </Link>
       </nav>
     </div>

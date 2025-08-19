@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import clsx from "clsx";
 import Image from "next/image";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -64,8 +66,8 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="/sale" className={navLinkClass("/sale")} onClick={() => setOpen(false)}>
-                Sale
+              <Link href="/shop" className={navLinkClass("/shop")} onClick={() => setOpen(false)}>
+                shop
               </Link>
             </li>
             <li>
@@ -105,9 +107,36 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="/sale" className={navLinkClass("/sale")} onClick={() => setOpen(false)}>
-                Sale
-              </Link>
+              <Menu as="div" className="relative inline-block">
+                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+                  Shop
+                  <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <div className="py-1">
+                    <MenuItem>
+                      <a
+                        href="/shop"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Product
+                      </a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Laporkan masalah
+                      </a>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </Menu>
             </li>
             <li>
               <Link href="/contact" className={navLinkClass("/contact")} onClick={() => setOpen(false)}>

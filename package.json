@@ -17,6 +17,8 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.7",
+    "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.13.0",
     "@supabase/supabase-js": "^2.55.0",
     "bcrypt": "^6.0.0",
@@ -24,6 +26,7 @@
     "drizzle-orm": "^0.44.4",
     "gsap": "^3.13.0",
     "js-cookie": "^3.0.5",
+    "lucide-react": "^0.540.0",
     "mysql2": "^3.14.1",
     "next": "^15.3.1",
     "next-auth": "^4.24.11",
