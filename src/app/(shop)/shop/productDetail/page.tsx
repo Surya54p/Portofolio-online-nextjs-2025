@@ -6,7 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/componentsShadcn/ui/carousel";
-import { Sparkles } from "lucide-react";
+// import { Sparkles } from "lucide-react";
 
 export default function ProductDetail() {
   return (
