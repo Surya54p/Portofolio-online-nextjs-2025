@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(request: Request, context: { params: { id: string } }) {
+  const { id } = context.params;
 
-  const product = await prisma.product.findFirst({ where: { id } });
+  const product = await prisma.product.findUnique({ where: { id } });
 
   if (!product) {
     return NextResponse.json({ error: "Produk tidak ditemukan" }, { status: 404 });
