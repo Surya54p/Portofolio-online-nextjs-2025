@@ -3,7 +3,8 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: Request, context: { params: { id: string } }) {
+// export async function GET(request: Request, context: { params: { id: string } }) {
+export async function GET(request: Request, context: any) {
   const { id } = context.params;
 
   const product = await prisma.product.findUnique({ where: { id } });
