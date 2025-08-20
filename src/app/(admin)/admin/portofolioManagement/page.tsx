@@ -65,7 +65,7 @@ export default function Dashboard() {
 
   // Fetch: Data Kategori Portofolio
   useEffect(() => {
-    const fetchCategory = async () => {
+    const fetchCategory = async() => {
       try {
         // Fetch api
         const response = await fetch("/api/portofoliosCategory/getNamePortofolioCategory");
@@ -132,7 +132,7 @@ export default function Dashboard() {
     formData.append("stack", JSON.stringify(selectedStack));
 
     try {
-      const response = await fetch("/api/POST/portofolios", {
+      const response = await fetch("/api/portofolioManagement/post", {
         method: "POST",
         body: formData,
       });

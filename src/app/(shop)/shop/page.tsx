@@ -1,14 +1,35 @@
 "use client";
 import PrimaryButton from "@/app/components/primaryButton";
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useState } from "react";
+// type untuk menghindari any
+interface Product {
+  id: string;
+  name: string;
+  description?: string;
+  price?: number;
+  image?: string;
+  createdAt: string; // dari Prisma DateTime → jadi string waktu di-JSON
+}
 
 export default function ShopPage() {
-  const router = useRouter();
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const handleClick = (id: number) => {
-    router.push(`/shop/productDetail/${id}`); // navigasi ke halaman detail dengan id
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch("/api/product");
+      const data: Product[] = await res.json();
+      setProducts(data);
+    } catch (err) {
+      console.error("Gagal fetch product:", err);
+    } finally {
+      // setLoading(false);
+    }
   };
 
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
     <main className="flex-grow w-[70%]  mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none ">
       <span className="text-2xl  text-[48px]">Product</span>
@@ -20,19 +41,16 @@ export default function ShopPage() {
         {/* 
         card
          */}
-        {Array.from({
-          length: 10,
-        }).map((_, i) => (
+        {products.map((item) => (
           <div
-            key={i}
+            key={item.id}
             className="bg-gray-50 rounded-lg p-6 lg:grid lg:grid-cols-2  shadow-lg w-[555px] h-fit border border-gray-300"
-            onClick={() => handleClick(i)}
           >
             {/* Kiri: Info Produk */}
             <div className="flex flex-col justify-between pr-3">
               {/* Judul + Deskripsi */}
               <div className="w-full">
-                <h2 className="text-2xl font-ligt mb-2 truncate">Product Title</h2>
+                <h2 className="text-2xl font-ligt mb-2 truncate">{item.name}</h2>
                 <div className=" items-center justify-center rounded-lg overflow-hidden  lg:hidden">
                   <img
                     src="img/still-under-construction.png"
@@ -40,20 +58,12 @@ export default function ShopPage() {
                     className="object-contain w-full h-full"
                   />
                 </div>
-                <p className="text-gray-700 text-sm line-clamp-5 lg:mt-0 mt-5">
-                  Id cupidatat tempor dolor est pariatur id do nulla aliquip labore officia excepteur do. Lorem ipsum
-                  dolor sit amet consectetur adipisicing elit. Esse dicta accusamus omnis. Occaecat occaecat non est
-                  cupidatat duis quis. Commodo aliqua nisi ut fugiat id sint aliquip ullamco deserunt excepteur irure.
-                  Commodo culpa veniam nostrud in cupidatat cupidatat sint in sint. Laborum consequat eu ad ipsum
-                  incididunt. Culpa sunt ipsum id sit sunt ad ut reprehenderit. Deserunt consequat est labore eu
-                  consectetur cupidatat elit labore nisi officia mollit id. Laborum quis tempor incididunt sunt pariatur
-                  occaecat mollit duis ex exercitation occaecat adipisicing.
-                </p>
+                <p className="text-gray-700 text-sm line-clamp-5 lg:mt-0 mt-5">{item.description}</p>
               </div>
 
               {/* harga dan Tombol Buy */}
               <div className="flex flex-col gap-2 text-lg mt-2 lg:mt-0">
-                <span>Rp 2.000.000</span>
+                <span>Rp {item.price}</span>
                 <PrimaryButton buttonText="Buy" className="rounded-md" />
               </div>
             </div>

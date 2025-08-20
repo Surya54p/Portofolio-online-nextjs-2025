@@ -17,7 +17,7 @@ model Admin {
 }
 
 model Like {
-  id        String      @id @default(cuid())
+  id        String   @id @default(cuid())
   nama      String
   createdAt DateTime @default(now())
 }
@@ -48,4 +48,13 @@ model PortofolioCategory {
   order       Int?
   portofolios Portofolios[] // relasi ke item portofolio
   createdAt   DateTime      @default(now())
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  price       Int?
+  image       String?
+  createdAt   DateTime @default(now())
 }

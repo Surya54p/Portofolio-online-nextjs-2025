@@ -3,12 +3,13 @@ import { seedLike } from "./seeds/like.seed";
 import { seedViewers } from "./seeds/viewers.seed";
 // import { seedPortofolios } from "./seeds/portofolios.seed";
 import { seedPortfolioCategory } from "./seeds/portofoliosCategory.seed";
-
+import { seedProduct } from "./seeds/product.seed";
 async function main() {
   await seedAdmin();
   await seedLike();
   await seedViewers();
   await seedPortfolioCategory();
+  await seedProduct();
   // await seedPortofolios();
 }
 
