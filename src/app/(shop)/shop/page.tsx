@@ -24,7 +24,7 @@ export default function ShopPage() {
   }, []);
 
   return (
-    <main className="flex-grow w-[70%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
+    <main className="flex-grow w-[95%] lg:w-[70%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       <h1 className="text-[48px]">Product</h1>
 
       {/* Container Product */}

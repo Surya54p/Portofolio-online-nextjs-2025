@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import clsx from "clsx";
 import Image from "next/image";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
@@ -11,67 +11,85 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const menuRef = useRef<HTMLDivElement>(null);
+  // Tutup menu ketika klik di luar
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const navLinkClass = (href: string) =>
-    clsx("rounded-full px-5 py-2 navBar", pathname === href ? "bg-black text-white" : "text-black");
+    clsx(
+      "px-5 py-2 navBar  rounded-lg w-full block w-full  ",
+      pathname === href ? " border-none bg-black text-white" : "text-black "
+    );
 
   return (
     <nav className="bg-white shadow-md px-6 py-4  sticky top-0 z-50">
       {/* Mobile Top Bar */}
-      <div className="flex items-center justify-between lg:hidden">
-        <div className="flex items-start flex-col ">
-          <div className="text-[20px]">Surya Ario Pratama</div>
-          <div className="text-[15px] text-gray-600">Website | Machine Learning | UI/UX</div>
+      <div ref={menuRef} className="flex  flex-col lg:hidden ">
+        <div className="flex justify-between ">
+          <div className="flex items-start flex-col w-[90%]">
+            <div className="text-[20px]">Surya Ario Pratama</div>
+            <div className="text-[15px] text-gray-600">Website | Machine Learning | UI/UX</div>
+          </div>
+          <div className="  flex justify-center items-center   w-[10%]">
+            <button onClick={() => setOpen(!open)} className="text-black focus:outline-none ">
+              {/* Hamburger & Close */}
+              {open ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
-        <button onClick={() => setOpen(!open)} className="text-black focus:outline-none">
-          {/* Hamburger & Close */}
-          {open ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
-        </button>
         {/* Mobile Menu */}
         {open && (
-          <ul className="lg:hidden absolute top-full left-0 right-0 w-full bg-white shadow-md flex flex-col gap-4 px-6 py-4 text-black font-medium z-50">
+          <ul className="lg:hidden absolute top-full left-0 right-0 w-full bg-white shadow-md flex flex-col gap-2 px-4 pb-5 text-black font-medium z-50">
             <li>
-              <Link href="/" className={navLinkClass("/")} onClick={() => setOpen(false)}>
+              <Link href="/" className={`${navLinkClass("/")}`} onClick={() => setOpen(false)}>
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/portofolio" className={navLinkClass("/portofolio")} onClick={() => setOpen(false)}>
+              <Link href="/portofolio" className={`${navLinkClass("/portofolio")}`} onClick={() => setOpen(false)}>
                 Portofolio
               </Link>
             </li>
             <li>
-              <Link href="/about" className={navLinkClass("/about")} onClick={() => setOpen(false)}>
+              <Link href="/about" className={`${navLinkClass("/about")}`} onClick={() => setOpen(false)}>
                 About
               </Link>
             </li>
             <li>
-              <Link href="/shop" className={navLinkClass("/shop")} onClick={() => setOpen(false)}>
-                shop
+              <Link href="/shop" className={`${navLinkClass("/shop")}`} onClick={() => setOpen(false)}>
+                Shop
               </Link>
             </li>
             <li>
-              <Link href="/contact" className={navLinkClass("/contact")} onClick={() => setOpen(false)}>
+              <Link href="/contact" className={`${navLinkClass("/contact")}`} onClick={() => setOpen(false)}>
                 Contact
               </Link>
             </li>
