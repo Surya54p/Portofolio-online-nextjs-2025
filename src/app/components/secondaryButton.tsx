@@ -22,8 +22,8 @@ export default function PrimaryButton({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`px-6 py-3 rounded-full text-base font-medium border bg-blue-500 text-white border-gray-200 
-          hover:bg-blue-700 
+      className={`px-6 py-3 rounded-full text-base font-medium border bg-white border-blue-500 text-blue
+          hover:text-black hover:bg-gray-200
         transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
     >
       {buttonText}
