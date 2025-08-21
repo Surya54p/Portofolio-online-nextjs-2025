@@ -10,11 +10,12 @@ export const metadata = {
 export default function AdminRootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100 text-black">
+      <body className="bg-gray-100 text-black  lg:w-full">
         <div className="flex min-h-screen">
           <SidebarNav />
-          {/* <LoadingModal /> 👈 Tempatkan di sini, di atas konten */}
-          <main className="flex-1 p-10 ">{children}</main>
+          <main className="flex-1 p-10 ">
+            <div className=" w-[70%]">{children}</div>
+          </main>
         </div>
       </body>
     </html>
