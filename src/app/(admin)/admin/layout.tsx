@@ -13,8 +13,8 @@ export default function AdminRootLayout({ children }: { children: React.ReactNod
       <body className="bg-gray-100 text-black  lg:w-full">
         <div className="flex min-h-screen">
           <SidebarNav />
-          <main className="flex-1 p-10 ">
-            <div className="   w-[90%] lg:w-full">{children}</div>
+          <main className="flex-1 mt-12 px-3">
+            <div className=" lg:w-full">{children}</div>
           </main>
         </div>
       </body>

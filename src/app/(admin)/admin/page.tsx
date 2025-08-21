@@ -85,7 +85,7 @@ export default function Dashboard() {
       <div className="flex flex-col gap-4">
         <h1 className="lg:text-[36px] text-[26px] italic">Welcome back, admin! 🔥</h1>
         {/* card */}
-        <div className="flex flex-row justify-between gap-4 lg:justify-start  ">
+        <div className="flex flex-row justify-between gap-4 lg:justify-start  w-full ">
           <StatsCardList title="Likes" amount={loading ? "Loading..." : totalLikes} loading={loading} />
           <StatsCardList title="Portofolios" amount={loading ? "Loading..." : totalPortofolios} loading={loading} />
           <StatsCardList title="Viewers" amount={loading ? "Loading..." : totalViewers} loading={loading} />
@@ -94,12 +94,12 @@ export default function Dashboard() {
 
         {/* main content */}
         {/* table likes */}
-        <div className="grid lg:grid-cols-2   gap-1 ">
-          <div className="   p-4 bg-white rounded-md border border-gray-200 h-fit">
+        <div className="grid lg:grid-cols-2 grid-cols-1  gap-1 ">
+          <div className="p-4 bg-white rounded-md border border-gray-200  h-fit">
             {loading ? (
               <div>Loading ...</div>
             ) : (
-              <Table className="px-3 ">
+              <Table className="px-3 text-xs sm:text-sm lg:text-base ">
                 <TableCaption className="text-start text-black border-b mb-1 caption-top text-2xl ">
                   List of Likes from your viewer
                 </TableCaption>
@@ -132,7 +132,7 @@ export default function Dashboard() {
             )}
           </div>
           {/* table portofolios */}
-          <div className="  h-fit p-4 bg-white  rounded-md border border-gray-200">
+          <div className="h-fit p-4 bg-white  rounded-md border border-gray-200">
             {loading ? (
               <div>Loading ...</div>
             ) : (
