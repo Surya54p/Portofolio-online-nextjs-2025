@@ -14,7 +14,7 @@ export default function AdminRootLayout({ children }: { children: React.ReactNod
         <div className="flex min-h-screen">
           <SidebarNav />
           <main className="flex-1 p-10 ">
-            <div className=" w-[70%]">{children}</div>
+            <div className="   w-[90%] lg:w-full">{children}</div>
           </main>
         </div>
       </body>

@@ -7,6 +7,16 @@ import { Portofolios } from "@prisma/client";
 // import { title } from "process";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableFooter,
+} from "@/componentsShadcn/ui/table";
 
 type categoryPorto = {
   id: number;
@@ -65,7 +75,7 @@ export default function Dashboard() {
 
   // Fetch: Data Kategori Portofolio
   useEffect(() => {
-    const fetchCategory = async() => {
+    const fetchCategory = async () => {
       try {
         // Fetch api
         const response = await fetch("/api/portofoliosCategory/getNamePortofolioCategory");
@@ -206,67 +216,48 @@ export default function Dashboard() {
       {/* 
       TABEL AKSI
       */}
-      <div className="shadow-xl overflow-x-auto rounded-2xl border-t border-l border-r ">
-        <table className=" border-collapse table-fixed    md:w-full">
-          <colgroup>
-            {/* title */}
-            <col className="w-[15%]" />
-            {/* src */}
-            <col className="w-[25%]" />
-            {/* stack */}
-            <col className="w-[15%]" />
-            {/* summary */}
-            <col className="w-[25%]" />
-            {/* createdAt */}
-            <col className="w-[10%]" />
-            {/* action */}
-            <col className="w-[10%]" />
-          </colgroup>
+          <div className="   p-4 bg-white shadow-lg rounded-2xl">
+        <Table className="px-3">
+          <TableCaption>A list of your portofolios.</TableCaption>
 
-          <thead>
-            <tr className="border-b ">
-              <th className=" px-2 py-3">title</th>
-              <th className=" px-2 py-1">src</th>
-              <th className=" px-2 py-1">stack</th>
-              <th className=" px-2 py-1">summary</th>
-              <th className=" px-2 py-1">createdAt</th>
-              <th className=" px-2 py-1">action</th>
-            </tr>
-          </thead>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[15%]">Title</TableHead>
+              <TableHead className="w-[25%]">Src</TableHead>
+              <TableHead className="w-[15%]">Stack</TableHead>
+              <TableHead className="w-[25%]">Summary</TableHead>
+              <TableHead className="w-[10%]">Created At</TableHead>
+              <TableHead className="w-[10%]">Action</TableHead>
+            </TableRow>
+          </TableHeader>
 
-          <tbody>
+          <TableBody>
             {portofolioCategoryManagementTable.map((item) => (
-              <tr key={item.id}>
-                <td className="border-b border-gray-900 px-2 py-10 break-words">{item.title}</td>
-
-                <td className="border-b border-gray-900 px-2 py-1 break-words max-w-[250px]">{item.src}</td>
-
-                <td className="border-b border-gray-900 px-2 py-1 break-words">
+              <TableRow key={item.id}>
+                <TableCell className="px-2 py-2 break-words  truncate ">{item.title}</TableCell>
+                <TableCell className="px-2 py-2 break-words max-w-[250px] truncate ">{item.src}</TableCell>
+                <TableCell className="px-2 py-2 break-words  truncate ">
                   {Array.isArray(item.stack) ? item.stack.join(", ") : item.stack}
-                </td>
-
-                <td className="border-b border-gray-900 px-2 py-1 break-words">{item.summary}</td>
-
-                <td className="border-b border-gray-900 px-2 py-1">{new Date(item.createdAt).toLocaleDateString()}</td>
-
-                <td className="border-b border-gray-900 px-2 py-1">
+                </TableCell>
+                <TableCell className="px-2 py-2 break-words  truncate ">{item.summary}</TableCell>
+                <TableCell className="px-2 py-2 ">{new Date(item.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell className="px-2 py-2">
                   <div className="flex flex-row gap-2">
                     <button className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm">
                       Edit
                     </button>
-
                     <button
-                      className="bg-red-500 hover:bg-red-500 text-white px-3 py-1 rounded text-sm"
+                      className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
                       onClick={() => deleteData(item.id)}
                     >
                       Hapus
                     </button>
                   </div>
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );
