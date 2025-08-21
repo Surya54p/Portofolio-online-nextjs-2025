@@ -18,10 +18,26 @@ import {
   // TableFooter,
 } from "@/componentsShadcn/ui/table";
 
+interface PortofolioItem {
+  id: string;
+  title: string;
+  src: string | null; // ✅ bisa string atau null
+  stack: string[] | string;
+  summary: string;
+  createdAt: Date | string;
+}
+
 type categoryPorto = {
   id: number;
   name: string;
 };
+interface EditModalProps {
+  editModal: boolean;
+  editingItem: PortofolioItem | null;
+  handleChangeEditModal: (field: keyof PortofolioItem, value: string) => void;
+  handleSaveEditModal: () => void;
+  closeModal: () => void;
+}
 
 export default function Dashboard() {
   // State: Modal
@@ -51,6 +67,32 @@ export default function Dashboard() {
   const handleOpenModalPortCate = () => setModalAddCategoryPortofolio(true);
   const handleCloseModalPortCate = () => setModalAddCategoryPortofolio(false);
 
+  // edit modal
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const openModal = (item: PortofolioItem) => {
+    setEditingItem(item);
+    setIsEditModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsEditModalOpen(false);
+    setEditingItem(null);
+  };
+  const [editingItem, setEditingItem] = useState<PortofolioItem | null>(null);
+
+  const handleSaveEditModal = () => {
+    if (!editingItem) return;
+    // TODO: Kirim data ke backend pake fetch/axios
+    console.log("Update data:", editingItem);
+    closeModal();
+  };
+
+  const handleChangeEditModal = (field: keyof PortofolioItem, value: string) => {
+    if (!editingItem) return;
+    setEditingItem({ ...editingItem, [field]: value });
+  };
+
+  //
   const [portofolioCategoryManagementTable, setPortofolioCategoryManagementTable] = useState<Portofolios[]>([]);
 
   // Handler: Stack Pilihan
@@ -140,9 +182,8 @@ export default function Dashboard() {
     formData.append("summary", summary);
     formData.append("categoryId", selectedCategory); // Make sure backend expects "categoryId"
     formData.append("stack", JSON.stringify(selectedStack));
-
     try {
-      const response = await fetch("/api/portofolioManagement/post", {
+      const response = await fetch("/api/adminAPI/portofolioManagement/postData", {
         method: "POST",
         body: formData,
       });
@@ -216,7 +257,7 @@ export default function Dashboard() {
       {/* 
       TABEL AKSI
       */}
-          <div className="   p-4 bg-white shadow-lg rounded-2xl">
+      <div className="   p-4 bg-white shadow-lg rounded-2xl">
         <Table className="px-3">
           <TableCaption>A list of your portofolios.</TableCaption>
 
@@ -243,7 +284,10 @@ export default function Dashboard() {
                 <TableCell className="px-2 py-2 ">{new Date(item.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell className="px-2 py-2">
                   <div className="flex flex-row gap-2">
-                    <button className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm">
+                    <button
+                      className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm"
+                      onClick={() => openModal(item)}
+                    >
                       Edit
                     </button>
                     <button
@@ -258,9 +302,89 @@ export default function Dashboard() {
             ))}
           </TableBody>
         </Table>
+        <RenderModalEditPortofolios />
       </div>
     </div>
   );
+
+  // --------------------------------------
+  // MODALS edit
+  // --------------------------------------
+  function RenderModalEditPortofolios() {
+    if (!isEditModalOpen || !editingItem) return null;
+
+    return (
+      <div className="fixed inset-0 bg-gray-100/50 flex items-center justify-center z-50">
+        <div className="bg-white p-6 rounded shadow-lg w-[800px] border border-gray-400 flex flex-col max-h-[90vh]">
+          {/* HEADER */}
+          <div className="mb-3">
+            <div className="flex justify-between items-center">
+              <h2 className="text-[32px] font-bold">Edit Portofolio</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                onClick={closeModal}
+                className="cursor-pointer"
+              >
+                <path
+                  fill="none"
+                  stroke="#000"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M18 6L6 18M6 6l12 12"
+                />
+              </svg>
+            </div>
+            <p className="italic">Edit data portofolio di bawah</p>
+          </div>
+
+          {/* FORM */}
+          <form className="flex flex-col gap-3 flex-grow overflow-y-auto">
+            <input
+              type="text"
+              value={editingItem.title}
+              onChange={(e) => handleChangeEditModal("title", e.target.value)}
+              placeholder="Title"
+              className="border rounded px-3 py-2"
+            />
+            <input
+              type="text"
+              value={editingItem?.src ?? ""} // ✅ kalau null, jadi string kosong
+              onChange={(e) => handleChangeEditModal("src", e.target.value)}
+              placeholder="Source"
+              className="border rounded px-3 py-2"
+            />
+            <input
+              type="text"
+              value={Array.isArray(editingItem.stack) ? editingItem.stack.join(", ") : editingItem.stack}
+              onChange={(e) => handleChangeEditModal("stack", e.target.value)}
+              placeholder="Stack (pisahkan dengan koma)"
+              className="border rounded px-3 py-2"
+            />
+            <textarea
+              value={editingItem.summary}
+              onChange={(e) => handleChangeEditModal("summary", e.target.value)}
+              placeholder="Summary"
+              className="border rounded px-3 py-2"
+            />
+          </form>
+
+          {/* ACTION BUTTONS */}
+          <div className="flex justify-end gap-3 mt-4">
+            <button onClick={closeModal} className="px-4 py-2 bg-gray-300 rounded">
+              Batal
+            </button>
+            <button type="button" onClick={handleSaveEditModal} className="px-4 py-2 bg-blue-600 text-white rounded">
+              Simpan
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // --------------------------------------
   // MODALS PORTOFOLIO
