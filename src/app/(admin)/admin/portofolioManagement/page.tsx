@@ -15,7 +15,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  TableFooter,
+  // TableFooter,
 } from "@/componentsShadcn/ui/table";
 
 type categoryPorto = {
