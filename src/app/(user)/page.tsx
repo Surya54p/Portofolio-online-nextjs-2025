@@ -153,7 +153,7 @@ const Home = () => {
             trigger: el,
             start: "top 80%",
             toggleActions: "play none none reverse",
-            markers: true,
+            // markers: true,
           },
         }
       );
