@@ -21,6 +21,7 @@ query($from: DateTime!, $to: DateTime!) {
 }
 `;
 
+
 function startOfYearIso(year: number) {
   return new Date(Date.UTC(year, 0, 1)).toISOString();
 }

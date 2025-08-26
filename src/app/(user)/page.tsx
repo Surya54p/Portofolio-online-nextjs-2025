@@ -4,13 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import MiniCard from "../components/miniCard";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import BasicButton from "../components/BasicButton";
 import PrimaryButton from "../components/primaryButton";
-// import { toast } from "react-hot-toast";
-// import { boolean } from "drizzle-orm/gel-core";
 import LikeMarquee from "../components/LikeMarquee";
 import ContributionChart from "@/app/components/chart/ContributionChart";
-
+import TopLanguagesChart from "@/app/components/chart/TopLanguagePieChart";
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
@@ -316,6 +313,7 @@ const Home = () => {
           Hari-hari reboisasi:)
         </div>
         <ContributionChart />
+        <TopLanguagesChart/>
         <div className="">
           Untuk lihat lebih lengkap, kamu bisa kunjungi profil GitHub saya 🚀 
           <a
