@@ -14,11 +14,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col">
-        {/* <LoadingModal /> 👈 Tempatkan di sini, di atas konten */}
-        {/* <Toaster position="top-center" reverseOrder={false} /> */}
+      <body className=" flex flex-col">
         <Navbar />
-        {children}
+        <main className="min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>

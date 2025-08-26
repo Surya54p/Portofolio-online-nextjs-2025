@@ -12,6 +12,7 @@ import {
   TableRow,
   TableFooter,
 } from "@/componentsShadcn/ui/table";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
 interface likeInfo {
   id: string;
@@ -61,23 +62,36 @@ export default function Dashboard() {
       setTotalViewers(dataViewers.totalViewersAPI);
       setLoading(false);
     };
+
     const fetchPortofolios = async () => {
       const response = await fetch("/api/portofolios/count");
       const dataPortofolios = await response.json();
       setTotalPortofolios(dataPortofolios);
       setLoading(false);
     };
+
     const fetchAllDataTable = async () => {
       const respone = await fetch("/api/portofolios/allData");
       const data = await respone.json();
       setAllDataPortofolios(data);
       setLoading(false);
     };
+
     fetchAllDataTable();
     fetchPortofolios();
     fetchViewers();
     fetchLikes();
   }, []);
+
+  // Preprocess likes menjadi jumlah per tanggal
+  const likesChartData = Object.values(
+    infoLikes.reduce((acc: Record<string, { date: string; count: number }>, like) => {
+      const date = new Date(like.createdAt).toLocaleDateString();
+      if (!acc[date]) acc[date] = { date, count: 0 };
+      acc[date].count += 1; // hitung jumlah like per tanggal
+      return acc;
+    }, {})
+  );
 
   return (
     <div className="lg:w-full ">
@@ -90,8 +104,36 @@ export default function Dashboard() {
           <StatsCardList title="Portofolios" amount={loading ? "Loading..." : totalPortofolios} loading={loading} />
           <StatsCardList title="Viewers" amount={loading ? "Loading..." : totalViewers} loading={loading} />
         </div>
-        {/* card */}
+        {/* end of card */}
+        <div className="grid lg:grid-cols-3 w-full gap-6">
+          {/* Likes Chart */}
+          <div className="h-80">
+            {" "}
+            {/* kasih height eksplisit */}
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={likesChartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" /> {/* tanggal */}
+                <YAxis allowDecimals={false} /> {/* jumlah like */}
+                <Tooltip />
+                <Area type="monotone" dataKey="count" stroke="#8884d8" fill="#8884d8" /> {/* jumlah like */}
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
 
+          {/* Portofolios Chart */}
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={allDataPortofolios} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="createdAt" />
+                <YAxis allowDecimals={false} />
+                <Tooltip />
+                <Area type="monotone" dataKey="count" stroke="#ffc658" fill="#ffc658" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
         {/* main content */}
         {/* table likes */}
         <div className="grid lg:grid-cols-2 grid-cols-1  gap-1 ">

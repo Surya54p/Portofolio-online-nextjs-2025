@@ -79,6 +79,11 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
+              <Link href="/sertifikat" className={`${navLinkClass("/sertifikat")}`} onClick={() => setOpen(false)}>
+                Sertifikat
+              </Link>
+            </li>
+            <li>
               <Link href="/about" className={`${navLinkClass("/about")}`} onClick={() => setOpen(false)}>
                 About
               </Link>
@@ -117,6 +122,11 @@ export default function Navbar() {
             <li>
               <Link href="/portofolio" className={navLinkClass("/portofolio")}>
                 Portofolio
+              </Link>
+            </li>
+            <li>
+              <Link href="/sertifikat" className={`${navLinkClass("/sertifikat")}`} onClick={() => setOpen(false)}>
+                Sertifikat
               </Link>
             </li>
             <li>

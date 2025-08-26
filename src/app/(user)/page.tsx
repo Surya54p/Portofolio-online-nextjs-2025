@@ -9,6 +9,7 @@ import PrimaryButton from "../components/primaryButton";
 // import { toast } from "react-hot-toast";
 // import { boolean } from "drizzle-orm/gel-core";
 import LikeMarquee from "../components/LikeMarquee";
+import ContributionChart from "@/app/components/chart/ContributionChart";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -306,6 +307,11 @@ const Home = () => {
           <span className="col-span-4">Coming soon</span>
           <span className="flex items-center justify-end">Coming soon</span>
         </div>
+      </div>
+
+      {/* contribution chard github */}
+      <div>
+        <ContributionChart />
       </div>
       {/*
       CARD LIKE
