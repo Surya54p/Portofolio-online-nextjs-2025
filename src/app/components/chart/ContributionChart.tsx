@@ -22,7 +22,7 @@ export default function ContributionBarChart() {
   }, []);
 
   const getColor = (count: number) => {
-    if (count < 3) return "#bbf7d0"; // hijau muda
+    if (count < 3) return "#bbf770"; // hijau muda
     if (count < 6) return "#4ade80"; // hijau normal
     return "#166534"; // hijau tua
   };

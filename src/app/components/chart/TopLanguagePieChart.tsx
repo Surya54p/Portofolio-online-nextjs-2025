@@ -38,14 +38,13 @@ export default function TopLanguagesChart() {
 
   return (
     <div className="flex flex-col items-center ">
-      <h3 className="text-xl font-bold mb-4">🔥 Top Languages</h3>
       <PieChart width={400} height={350}>
         <Pie
           data={data}
           cx="50%"
           cy="50%"
           labelLine={false}
-          label={renderCustomizedLabel}
+          // label={renderCustomizedLabel}
           outerRadius={120}
           fill="#8884d8"
           dataKey="value"
