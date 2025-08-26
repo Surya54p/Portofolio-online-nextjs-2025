@@ -161,7 +161,10 @@ const Home = () => {
       // Parallax scroll (bergerak ke atas)
       gsap.fromTo(
         el,
-        { y: 0 },
+        {
+          y: 0,
+          opacity:1,
+         },
         {
           y: -200,
           opacity:0,
@@ -171,7 +174,7 @@ const Home = () => {
             start: "top top",
             end: "bottom top",
             scrub: true,
-            markers: true,
+            // markers: true,
           },
         }
       );
