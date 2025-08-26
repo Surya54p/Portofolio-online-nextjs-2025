@@ -9,20 +9,6 @@ interface LanguageData {
   color?: string;
 }
 
-// label custom di dalam Pie
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name }: any) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? "start" : "end"} dominantBaseline="central">
-      {`${name} ${(percent * 100).toFixed(0)}%`}
-    </text>
-  );
-};
-
 export default function TopLanguagesChart() {
   const [data, setData] = useState<LanguageData[]>([]);
 
@@ -31,23 +17,22 @@ export default function TopLanguagesChart() {
       const res = await fetch("/api/github/topLanguages");
       const data = await res.json();
       setData(data);
-      // console.log(data);
     };
-    fetchDataLanguages(); // << ini wajib biar jalan
+    fetchDataLanguages();
   }, []);
 
   return (
-    <div className="flex flex-col items-center ">
+    <div className="flex flex-col items-center">
       <PieChart width={400} height={350}>
         <Pie
           data={data}
           cx="50%"
           cy="50%"
-          labelLine={false}
-          // label={renderCustomizedLabel}
           outerRadius={120}
           fill="#8884d8"
           dataKey="value"
+          label={false} // label dimatikan
+          labelLine={false}
         >
           {data.map((entry, index) => (
             <Cell key={index} fill={entry.color || "#ccc"} />

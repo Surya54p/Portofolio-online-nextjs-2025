@@ -22,6 +22,19 @@ const QUERY = `
     }
   }
 `;
+interface LanguageNode {
+  node: {
+    name: string;
+    color: string | null;
+  };
+  size: number;
+}
+
+interface Repo {
+  languages: {
+    edges: LanguageNode[];
+  };
+}
 
 export async function GET() {
   const res = await fetch(GITHUB_API, {
@@ -34,16 +47,22 @@ export async function GET() {
     cache: "no-store",
   });
 
-  const json = await res.json();
-  // debug
-  // console.log(JSON.stringify(json, null, 2));
+  const json: {
+    data?: {
+      user?: {
+        repositories?: {
+          nodes: Repo[];
+        };
+      };
+    };
+  } = await res.json();
 
   const repos = json.data?.user?.repositories?.nodes ?? [];
 
   const langStats: Record<string, { size: number; color: string | null }> = {};
 
-  repos.forEach((repo: any) => {
-    repo.languages.edges.forEach((lang: any) => {
+  repos.forEach((repo) => {
+    repo.languages.edges.forEach((lang) => {
       const { name, color } = lang.node;
       if (!langStats[name]) {
         langStats[name] = { size: 0, color };
