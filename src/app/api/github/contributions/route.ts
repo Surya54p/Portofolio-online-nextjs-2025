@@ -1,12 +1,4 @@
 import { NextResponse } from "next/server";
-interface ContributionDay {
-  date: string;
-  contributionCount: number;
-}
-
-interface Week {
-  contributionDays: ContributionDay[];
-}
 
 const GITHUB_API = "https://api.github.com/graphql";
 const USERNAME = "surya54p"; // ganti dengan username GitHub kamu
@@ -34,6 +26,15 @@ function startOfYearIso(year: number) {
 }
 function nowIso() {
   return new Date().toISOString();
+}
+
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
+}
+
+interface Week {
+  contributionDays: ContributionDay[];
 }
 
 export async function GET() {

@@ -33,7 +33,7 @@ export async function GET() {
   return new Response(JSON.stringify({ totalLikes: InfoLikes.length, InfoLikes }), {
     headers: { "Content-Type": "application/json" },
   });
-}
+} 
 
 // simpan data
 export async function POST(req: Request) {

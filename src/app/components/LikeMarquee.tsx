@@ -14,7 +14,7 @@ export default function LikeMarquee() {
       try {
         const res = await fetch("/api/like");
         const data = await res.json();
-        setLikes(data.likes || []);
+        setLikes(data.InfoLikes || []);
       } catch (error) {
         console.error("Gagal ambil data likes:", error);
       }
