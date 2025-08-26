@@ -310,8 +310,23 @@ const Home = () => {
       </div>
 
       {/* contribution chard github */}
-      <div>
+      <div className="border border-gray-300 rounded-xl mb-8 py-8 px-10 gap-5">
+        <div className="flex mb-4 flex-col">
+          <h5 className="text-2xl font-bold  text-center">Github Contribution</h5>
+          Hari-hari reboisasi:)
+        </div>
         <ContributionChart />
+        <div className="">
+          Untuk lihat lebih lengkap, kamu bisa kunjungi profil GitHub saya 🚀 
+          <a
+            href="https://github.com/surya54p"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-blue-500  ms-1"
+          >
+            Click disini!
+          </a>
+        </div>
       </div>
       {/*
       CARD LIKE

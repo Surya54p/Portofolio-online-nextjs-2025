@@ -31,13 +31,13 @@ type categoryPorto = {
   id: number;
   name: string;
 };
-interface EditModalProps {
-  editModal: boolean;
-  editingItem: PortofolioItem | null;
-  handleChangeEditModal: (field: keyof PortofolioItem, value: string) => void;
-  handleSaveEditModal: () => void;
-  closeModal: () => void;
-}
+// interface EditModalProps {
+//   editModal: boolean;
+//   editingItem: PortofolioItem | null;
+//   handleChangeEditModal: (field: keyof PortofolioItem, value: string) => void;
+//   handleSaveEditModal: () => void;
+//   closeModal: () => void;
+// }
 
 export default function Dashboard() {
   // State: Modal
@@ -82,7 +82,6 @@ export default function Dashboard() {
 
   const handleSaveEditModal = () => {
     if (!editingItem) return;
-    // TODO: Kirim data ke backend pake fetch/axios
     console.log("Update data:", editingItem);
     closeModal();
   };

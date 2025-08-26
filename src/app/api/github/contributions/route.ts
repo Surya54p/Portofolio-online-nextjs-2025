@@ -1,4 +1,12 @@
 import { NextResponse } from "next/server";
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
+}
+
+interface Week {
+  contributionDays: ContributionDay[];
+}
 
 const GITHUB_API = "https://api.github.com/graphql";
 const USERNAME = "surya54p"; // ganti dengan username GitHub kamu
@@ -45,8 +53,8 @@ export async function GET() {
 
   const json = await res.json();
 
-  const weeks = json.data.user.contributionsCollection.contributionCalendar.weeks;
-  const days = weeks.flatMap((w: any) => w.contributionDays);
+  const weeks: Week[] = json.data.user.contributionsCollection.contributionCalendar.weeks;
+  const days: ContributionDay[] = weeks.flatMap((w) => w.contributionDays);
 
-  return NextResponse.json(days); 
+  return NextResponse.json(days);
 }
