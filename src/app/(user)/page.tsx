@@ -163,11 +163,11 @@ const Home = () => {
         el,
         {
           y: 0,
-          opacity:1,
-         },
+          opacity: 1,
+        },
         {
           y: -200,
-          opacity:0,
+          opacity: 0,
           ease: "none",
           scrollTrigger: {
             trigger: el,
@@ -180,6 +180,57 @@ const Home = () => {
       );
     });
   }, []);
+
+  const objekRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    if (!objekRef.current) return;
+
+    objekRef.current.forEach((elementObjek) => {
+      if (!elementObjek) return;
+
+      // Fade in saat pertama kali muncul
+      gsap.fromTo(
+        elementObjek,
+        { opacity: 0, y: 0, scale: 0.75 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: elementObjek,
+            start: "top 100%",
+            toggleActions: "play none none reverse",
+            // markers: true,
+          },
+        }
+      );
+
+      // fade out ketika keluar
+      gsap.fromTo(
+        elementObjek,
+        {
+          y: 0,
+          opacity: 1,
+        },
+        {
+          y: -200,
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: elementObjek,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+            // markers: true,
+          },
+        }
+      );
+    });
+  }, []);
+
   return (
     <main className="flex-grow w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
       {/* Hero Section */}
@@ -250,8 +301,8 @@ const Home = () => {
       </div>
       {/* Hard Skill */}
       <div
-        ref={(el) => {
-          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
+        ref={(elementObjek) => {
+          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
         }}
       >
         <div ref={hardContainerRef} className="mb-8">
@@ -261,8 +312,8 @@ const Home = () => {
             {[0, 1, 2, 3].map((_, i) => (
               <div
                 key={i}
-                ref={(el) => {
-                  if (el) hardCardsRef.current[i] = el; // TypeScript safe
+                ref={(elementObjek) => {
+                  if (elementObjek) hardCardsRef.current[i] = elementObjek; // TypeScript safe
                 }}
               >
                 <MiniCard information={minicardDefault} />
@@ -276,8 +327,8 @@ const Home = () => {
       </div>
       {/* Soft Skill */}{" "}
       <div
-        ref={(el) => {
-          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
+        ref={(elementObjek) => {
+          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
         }}
       >
         <div ref={softContainerRef} className="mb-8">
@@ -286,8 +337,8 @@ const Home = () => {
             {[0, 1, 2, 3].map((_, i) => (
               <div
                 key={i}
-                ref={(el) => {
-                  if (el) softCardsRef.current[i] = el; // TypeScript safe
+                ref={(elementObjek) => {
+                  if (elementObjek) softCardsRef.current[i] = elementObjek; // TypeScript safe
                 }}
               >
                 <MiniCard information={minicardDefault} />
@@ -301,8 +352,8 @@ const Home = () => {
       </div>
       {/* Experience */}
       <div
-        ref={(el) => {
-          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
+        ref={(elementObjek) => {
+          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
         }}
       >
         <div className="mb-8 grid">
@@ -343,8 +394,8 @@ const Home = () => {
       </div>
       {/* contribution chard github */}
       <div
-        ref={(el) => {
-          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
+        ref={(elementObjek) => {
+          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
         }}
       >
         <div className="border border-gray-300 rounded-xl mb-8 py-8 px-10">
@@ -376,8 +427,8 @@ const Home = () => {
       CARD LIKE
       */}
       <div
-        ref={(el) => {
-          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
+        ref={(elementObjek) => {
+          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
         }}
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 border border-gray-300 rounded-xl mb-8 py-8 px-10 gap-5">
