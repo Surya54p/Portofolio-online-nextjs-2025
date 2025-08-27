@@ -5,7 +5,7 @@ export default function About() {
       {" "}
       <div>
         <h5 className="text-[48px]">About me</h5>
-        <h5 className="text-[28px]">Discover what I’m passionate about!</h5>
+        {/* <h5 className="text-[28px]">Discover what I’m passionate about!</h5> */}
       </div>
       <div>
         My name is Surya Ario, but you can call me Surya. I&apos;m currently a student at Indo Global Mandiri University,
