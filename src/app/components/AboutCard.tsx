@@ -11,7 +11,7 @@ type aboutCardProps = {
 export default function AboutCard({ title, content }: aboutCardProps) {
   const [visible, setVisible] = useState(false);
   return (
-    <div className="border rounded p-4 mt-4 cursor-pointer" onClick={() => setVisible(!visible)}>
+    <div className="border rounded p-4 mt-4 cursor-pointer h-fit" onClick={() => setVisible(!visible)}>
       <div className="flex justify-between items-center">
         <h2 className="font-semibold ">{title}</h2>
         <FaChevronDown className={`transition-transform duration-300 ${visible ? "ro  tate-180" : "rotate-0"}`} />

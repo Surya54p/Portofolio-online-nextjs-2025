@@ -73,7 +73,7 @@ export default function Navbar() {
                 Home
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/portofolio" className={`${navLinkClass("/portofolio")}`} onClick={() => setOpen(false)}>
                 Portofolio
               </Link>
@@ -82,27 +82,124 @@ export default function Navbar() {
               <Link href="/sertifikat" className={`${navLinkClass("/sertifikat")}`} onClick={() => setOpen(false)}>
                 Sertifikat
               </Link>
-            </li>
+            </li> */}
             <li>
+              <Menu as="div" className="relative inline-block">
+                <MenuButton className="inline-flex w-full  gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+                  My Credentials
+                  <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <div className="py-1">
+                    <MenuItem>
+                      <a
+                        href="/portofolio"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Portofolios
+                      </a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="/sertifikat"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Certificates
+                      </a>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </Menu>
+            </li>
+            {/* <li>
               <Link href="/about" className={`${navLinkClass("/about")}`} onClick={() => setOpen(false)}>
                 About
               </Link>
-            </li>
+            </li> */}
             <li>
-              <Link href="/shop" className={`${navLinkClass("/shop")}`} onClick={() => setOpen(false)}>
-                Shop
-              </Link>
+              <Menu as="div" className="relative inline-block">
+                <MenuButton className="inline-flex w-full  gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+                  Shop
+                  <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <div className="py-1">
+                    <MenuItem>
+                      <a
+                        href="/shop"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Product
+                      </a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Laporkan masalah
+                      </a>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </Menu>
             </li>
-            <li>
+            {/* <li>
               <Link href="/contact" className={`${navLinkClass("/contact")}`} onClick={() => setOpen(false)}>
                 Contact
-              </Link>
+              </Link> */}
+
+            <li>
+              <Menu as="div" className="relative inline-block">
+                <MenuButton className="inline-flex w-full  gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+                  Else
+                  <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <div className="py-1">
+                    <MenuItem>
+                      <a
+                        href="/contact"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Contact
+                      </a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Tools
+                      </a>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </Menu>
             </li>
+            {/* </li> */}
           </ul>
         )}
       </div>
 
-      {/* Desktop Menu */}
+      
+      {/* 
+      
+      Desktop Menu 
+      
+      */}
       <div className="flex justify-between items-center ">
         {/* Logo dan Nama - hanya muncul di desktop */}
         <div className="hidden lg:flex w-fit my-auto items-center gap-3">
@@ -120,20 +217,42 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link href="/portofolio" className={navLinkClass("/portofolio")}>
-                Portofolio
-              </Link>
+              <Menu as="div" className="relative inline-block">
+                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+                  My Credentials
+                  <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <div className="py-1">
+                    <MenuItem>
+                      <a
+                        href="/portofolio"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Portofolios
+                      </a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="/sertifikat"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Certificates
+                      </a>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </Menu>
             </li>
-            <li>
-              <Link href="/sertifikat" className={`${navLinkClass("/sertifikat")}`} onClick={() => setOpen(false)}>
-                Sertifikat
-              </Link>
-            </li>
-            <li>
+            {/* <li>
               <Link href="/about" className={navLinkClass("/about")}>
                 About
               </Link>
-            </li>
+            </li> */}
             <li>
               <Menu as="div" className="relative inline-block">
                 <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
@@ -167,9 +286,36 @@ export default function Navbar() {
               </Menu>
             </li>
             <li>
-              <Link href="/contact" className={navLinkClass("/contact")} onClick={() => setOpen(false)}>
-                Contact
-              </Link>
+              <Menu as="div" className="relative inline-block">
+                <MenuButton className="inline-flex w-full  gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50">
+                  Else
+                  <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg outline-1 outline-black/5 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <div className="py-1">
+                    <MenuItem>
+                      <a
+                        href="/contact"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Contact
+                      </a>
+                    </MenuItem>
+                    <MenuItem>
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                      >
+                        Tools
+                      </a>
+                    </MenuItem>
+                  </div>
+                </MenuItems>
+              </Menu>
             </li>
           </ul>
         </div>

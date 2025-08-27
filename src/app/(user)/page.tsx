@@ -8,8 +8,9 @@ import PrimaryButton from "../components/primaryButton";
 import LikeMarquee from "../components/LikeMarquee";
 import ContributionChart from "@/app/components/chart/ContributionChart";
 import TopLanguagesChart from "@/app/components/chart/TopLanguagePieChart";
+import AboutCard from "../components/AboutCard";
+
 gsap.registerPlugin(ScrollTrigger);
-// import StickyCard from "@/app/components/testComponent/cardParallax";
 
 const Home = () => {
   const [nama, setNama] = useState("");
@@ -297,6 +298,48 @@ const Home = () => {
               Majoring in Informatics Engineering.
             </span>
           </div>
+        </div>
+      </div>
+
+      <div
+        ref={(el) => {
+          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
+        }}
+       className="mb-8">
+        <div>
+          <h5 className="text-[48px]">About me</h5>
+          {/* <h5 className="text-[28px]">Discover what I’m passionate about!</h5> */}
+        </div>
+
+        {/* 
+          about me
+           */}
+
+        <div>
+           I&apos;m currently a student at Indo Global Mandiri
+          University, majoring in Informatics Engineering (Teknik Informatika). During my studies, I&apos;ve been
+          learning various topics in the field of technology, such as machine learning, game development using Roblox
+          Studio, and website development. I&apos;m interested in the world of websites, including front-end, back-end,
+          and even UI/UX design.
+        </div>
+
+        <div className="grid grid-cols-2 gap-5 ">
+          <AboutCard
+            title="Websites"
+            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est1."
+          />
+          <AboutCard
+            title="Machine Learning"
+            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
+          />
+          <AboutCard
+            title="Game Programing"
+            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
+          />
+          <AboutCard
+            title="UI/UX Design"
+            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
+          />
         </div>
       </div>
       {/* Hard Skill */}
