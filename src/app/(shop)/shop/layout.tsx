@@ -15,11 +15,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-gray-50">
         <Navbar />
 
-        <div className="flex lg:flex-row flex-col h-screen">
+        <div className="flex lg:flex-row flex-col ">
           {/* Sidebar */}
 
           {/* Konten */}
-          <div className="flex flex-col justify-between w-full">
+          <div className="flex flex-col justify-between w-full min-h-screen">
             {children}
             <Footer />
           </div>

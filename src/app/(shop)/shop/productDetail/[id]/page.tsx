@@ -43,7 +43,7 @@ export default function ProductDetail() {
 
   return (
     <main className="flex-grow lg:w-[70%] w-[95%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
-      <span className="text-2xl text-[48px]">Product Detail</span>
+      <span className="text-2xl text-[48px] text-center">Product Detail</span>
 
       {loading ? (
         <p className="text-center py-10">Loading...</p>
