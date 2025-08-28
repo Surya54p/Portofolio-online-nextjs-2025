@@ -71,6 +71,9 @@ const SVG_MAP: Record<SvgName, ReactElement> = {
     </svg>
   ),
 };
+function hasGetTotalLength(el: Element): el is SVGGeometryElement & { getTotalLength(): number } {
+  return "getTotalLength" in el && typeof (el as any).getTotalLength === "function";
+}
 
 export default function AnimatedSvg({ name, className }: AnimatedSvgProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -82,7 +85,7 @@ export default function AnimatedSvg({ name, className }: AnimatedSvgProps) {
 
       paths.forEach((p, i) => {
         const el = p as SVGGeometryElement;
-        const len = (el as any).getTotalLength ? el.getTotalLength() : 300;
+        const len = hasGetTotalLength(el) ? el.getTotalLength() : 300;
 
         gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
         gsap.to(el, {
