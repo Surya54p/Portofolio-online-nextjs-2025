@@ -9,7 +9,7 @@ import LikeMarquee from "../components/LikeMarquee";
 import ContributionChart from "@/app/components/chart/ContributionChart";
 import TopLanguagesChart from "@/app/components/chart/TopLanguagePieChart";
 import AboutCard from "../components/AboutCard";
-import AnimatedSvg from "@/app/components/animated/animatedSvg";
+// import AnimatedSvg from "@/app/components/animated/animatedSvg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -227,7 +227,7 @@ const Home = () => {
     <main className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full px-6 py-8">
       {/* Left (25%) */}
       <aside className="lg:col-span-3 hidden lg:block ">
-        <AnimatedSvg name="wave" className="w-[500px] text-green-600" />
+        {/* <AnimatedSvg name="wave" className="w-[500px] text-green-600" /> */}
 
         {/* <AnimatedSvg  /> */}
       </aside>
