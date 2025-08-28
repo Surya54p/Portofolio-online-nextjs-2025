@@ -4,12 +4,15 @@ import { seedViewers } from "./seeds/viewers.seed";
 // import { seedPortofolios } from "./seeds/portofolios.seed";
 import { seedPortfolioCategory } from "./seeds/portofoliosCategory.seed";
 import { seedProduct } from "./seeds/product.seed";
+import { SeedCertificates } from "./seeds/certificates.seed";
+
 async function main() {
   await seedAdmin();
   await seedLike();
   await seedViewers();
   await seedPortfolioCategory();
   await seedProduct();
+  await SeedCertificates();
   // await seedPortofolios();
 }
 

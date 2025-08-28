@@ -20,5 +20,5 @@ export async function GET() {
     })
   );
   const finalData = result.flat();
-  return NextResponse.json(finalData);
+  return NextResponse.json(finalData) ;
 }

@@ -41,6 +41,15 @@ model Portofolios {
   categoryId Int?
 }
 
+model Certificates {
+  id        String   @id @unique @default(cuid())
+  src       String?
+  title     String
+  summary   String
+  category  String
+  createdAt DateTime @default(now())
+}
+
 model PortofolioCategory {
   id          Int           @id @default(autoincrement())
   name        String        @unique

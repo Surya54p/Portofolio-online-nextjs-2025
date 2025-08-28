@@ -1,9 +1,77 @@
 "use client";
+import InformationCard from "@/app/components/InformationCard";
+import InformationCardSkeleton from "@/app/components/skeleton/informationCardSkeleton";
+// import { Certificate } from "crypto";
+import { useEffect, useState } from "react";
+
+interface Info {
+  id: string;
+  src: string;
+  title: string;
+  summary: string;
+  category: string;
+}
 
 export default function Sertifikat() {
+  const [certificate, setCertificate] = useState<Info[]>([]);
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // fetch poprtofolio
+        const resCertificate = await fetch("/api/certificate/userCertificate");
+        const dataCertif = await resCertificate.json();
+
+        setCertificate(dataCertif);
+      } catch (error) {
+        console.error("⚠️ Error fetching data certificate:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
-    <main className="flex-grow w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
-      <h1 className="text-[48px]">Sertifikat</h1>
-    </main>
+    <div className="mx-auto ">
+      <div className="text-center font-semibold  text-[48px]">My Certificate</div>
+      {/* section */}
+      {loading ? (
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 justify-items-center">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <InformationCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : (
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 justify-items-center">
+          {certificate.map((c) => (
+            <Section
+              key={c.id}
+              title={c.title}
+              category={c.category}
+              src={c.src}
+              summary={c.summary || "Tidak ada deskripsi kategori"}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Section({ title, summary, src, category }: { title: string; summary: string; src: string; category: string }) {
+  return (
+    <>
+      <InformationCard
+        info={{
+          src,
+          title,
+          summary,
+          stack: [category], // category dijadikan array biar match prop `stack`
+        }}
+      />
+    </>
   );
 }

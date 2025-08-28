@@ -87,7 +87,7 @@ function Section({ title, description, data }: { title: string; description: str
           {description}
         </fieldset>
       </div>
-      <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 items-start justify-items-center">
+      <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 items-start justify-items-center line-clamp-3">
         {data.map((info, index: number) => (
           <InformationCard
             key={index}
