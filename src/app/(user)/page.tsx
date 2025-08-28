@@ -9,6 +9,7 @@ import LikeMarquee from "../components/LikeMarquee";
 import ContributionChart from "@/app/components/chart/ContributionChart";
 import TopLanguagesChart from "@/app/components/chart/TopLanguagePieChart";
 import AboutCard from "../components/AboutCard";
+import AnimatedSvg from "@/app/components/animated/animatedSvg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,14 +84,12 @@ const Home = () => {
           card,
           {
             rotationY: 0,
-            opacity: 0,
             scale: 0.8,
             transformPerspective: 800,
             transformOrigin: "center",
           },
           {
             rotationY: 360,
-            opacity: 1,
             scale: 1,
             duration: 1.5,
             ease: "power3.out",
@@ -112,14 +111,12 @@ const Home = () => {
         card,
         {
           y: 50,
-          opacity: 0,
           ease: "power3.out",
           stagger: 0.2,
           duration: 1,
         },
         {
           y: 0,
-          opacity: 1,
           scale: 1,
           duration: 1.5,
           ease: "power3.out",
@@ -143,9 +140,8 @@ const Home = () => {
       // Fade in saat pertama kali muncul
       gsap.fromTo(
         el,
-        { opacity: 0, y: 80, scale: 0.95 },
+        {  y: 80, scale: 0.95 },
         {
-          opacity: 1,
           y: 0,
           scale: 1,
           duration: 1,
@@ -164,18 +160,16 @@ const Home = () => {
         el,
         {
           y: 0,
-          opacity: 1,
         },
         {
           y: -200,
-          opacity: 0,
           ease: "none",
           scrollTrigger: {
             trigger: el,
             start: "top top",
             end: "bottom top",
             scrub: true,
-            // markers: true,
+            markers: true,
           },
         }
       );
@@ -193,9 +187,8 @@ const Home = () => {
       // Fade in saat pertama kali muncul
       gsap.fromTo(
         elementObjek,
-        { opacity: 0, y: 0, scale: 0.75 },
+        { y: 0, scale: 0.75 },
         {
-          opacity: 1,
           y: 0,
           scale: 1,
           duration: 1,
@@ -213,12 +206,10 @@ const Home = () => {
       gsap.fromTo(
         elementObjek,
         {
-          y: 0,
-          opacity: 1,
+          y: 1,
         },
         {
           y: -200,
-          opacity: 0,
           ease: "none",
           scrollTrigger: {
             trigger: elementObjek,
@@ -233,278 +224,289 @@ const Home = () => {
   }, []);
 
   return (
-    <main className="flex-grow w-full sm:w-[80%] md:max-w-[70%] lg:max-w-[50%] mx-auto p-7 rounded box-shadow-paper-effect-3d hover:shadow-none">
-      {/* Hero Section */}
-      <div
-        ref={(el) => {
-          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
-        }}
-      >
-        <div>
-          <div className="border rounded flex   w-fit ">
-            <div className="px-2 py-1 bg-black text-white">Total Likes </div>
-            <div className="px-2 py-1">{totalLikes !== null ? totalLikes : "Loading..."}</div>
-          </div>
-        </div>
-        <div className="flex items-center justify-between mb-10">
-          <div className="flex justify-center flex-col">
-            <div className="mb-3">
-              <span className="text-xl lg:text-4xl">Welcome to my</span>
-              <br />
-              <span className="lg:text-6xl text-3xl italic font-bold">Portofolio</span>
-            </div>
+    <main className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full px-6 py-8">
+      {/* Left (25%) */}
+      <aside className="lg:col-span-3 hidden lg:block ">
+        <AnimatedSvg name="wave" className="w-[500px] text-green-600" />
 
-            <span className="lg:text-[1.3rem] text-[1rem]">From this website you will know more about me! :)</span>
-            <div className="mt-5">
-              <a href="about" className="border px-3 rounded-[25px] py-3">
-                About me
-              </a>
+        {/* <AnimatedSvg  /> */}
+      </aside>
+      <section className="lg:col-span-6 bg-white rounded p-7 box-shadow-paper-effect-3d hover:shadow-none">
+        <div
+          ref={(el) => {
+            if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
+          }}
+        >
+          <div>
+            <div className="border rounded flex   w-fit ">
+              <div className="px-2 py-1 bg-black text-white">Total Likes </div>
+              <div className="px-2 py-1">{totalLikes !== null ? totalLikes : "Loading..."}</div>
             </div>
           </div>
-          <Image
-            src="/img/foto-santai-1.webp"
-            alt="Image Description"
-            width={400}
-            height={400}
-            className="w-[40%] h-[40%] lg:w-[30%] lg:h-[30%] rounded-[15px]"
-          />
-        </div>
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex justify-center flex-col">
+              <div className="mb-3">
+                <span className="text-xl lg:text-4xl">Welcome to my</span>
+                <br />
+                <span className="lg:text-6xl text-3xl italic font-bold">Portofolio</span>
+              </div>
 
-        {/* About Me */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-10">
-          {/* Image */}
-          <div className="w-full flex justify-center">
+              <span className="lg:text-[1.3rem] text-[1rem]">From this website you will know more about me! :)</span>
+              <div className="mt-5">
+                <a href="about" className="border px-3 rounded-[25px] py-3">
+                  About me
+                </a>
+              </div>
+            </div>
             <Image
-              src="/img/foto-gaya-2.webp"
+              src="/img/foto-santai-1.webp"
               alt="Image Description"
-              width={300}
-              height={300}
-              className="max-w-[300px] rounded-[15px]"
+              width={400}
+              height={400}
+              className="w-[40%] h-[40%] lg:w-[30%] lg:h-[30%] rounded-[15px]"
             />
           </div>
 
-          {/* Text */}
-          <div className="w-full flex justify-center text-center flex-col">
-            <span className="lg:text-4xl text-2xl">Hello there!</span>
-            <span className="lg:text-lg text-sm">
-              My name’s Surya Ario Pratama
-              <br />
-              But you can call me sur :)
-              <br />
-              I’m currently a student from
-              <br />
-              University of Indo Global Mandiri
-              <br />
-              Majoring in Informatics Engineering.
-            </span>
+          {/* About Me */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-10">
+            {/* Image */}
+            <div className="w-full flex justify-center">
+              <Image
+                src="/img/foto-gaya-2.webp"
+                alt="Image Description"
+                width={300}
+                height={300}
+                className="max-w-[300px] rounded-[15px]"
+              />
+            </div>
+
+            {/* Text */}
+            <div className="w-full flex justify-center text-center flex-col">
+              <span className="lg:text-4xl text-2xl">Hello there!</span>
+              <span className="lg:text-lg text-sm">
+                My name’s Surya Ario Pratama
+                <br />
+                But you can call me sur :)
+                <br />
+                I’m currently a student from
+                <br />
+                University of Indo Global Mandiri
+                <br />
+                Majoring in Informatics Engineering.
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+        <div
+          ref={(elementObjek) => {
+            if (elementObjek && !infosRef.current.includes(elementObjek)) infosRef.current.push(elementObjek);
+          }}
+          className="mb-8"
+        >
+          <div>
+            <h5 className="text-[48px]">About me</h5>
+            {/* <h5 className="text-[28px]">Discover what I’m passionate about!</h5> */}
+          </div>
 
-      <div
-        ref={(el) => {
-          if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
-        }}
-       className="mb-8">
-        <div>
-          <h5 className="text-[48px]">About me</h5>
-          {/* <h5 className="text-[28px]">Discover what I’m passionate about!</h5> */}
-        </div>
-
-        {/* 
+          {/* 
           about me
            */}
 
-        <div>
-           I&apos;m currently a student at Indo Global Mandiri
-          University, majoring in Informatics Engineering (Teknik Informatika). During my studies, I&apos;ve been
-          learning various topics in the field of technology, such as machine learning, game development using Roblox
-          Studio, and website development. I&apos;m interested in the world of websites, including front-end, back-end,
-          and even UI/UX design.
-        </div>
-
-        <div className="grid grid-cols-2 gap-5 ">
-          <AboutCard
-            title="Websites"
-            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est1."
-          />
-          <AboutCard
-            title="Machine Learning"
-            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
-          />
-          <AboutCard
-            title="Game Programing"
-            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
-          />
-          <AboutCard
-            title="UI/UX Design"
-            content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
-          />
-        </div>
-      </div>
-      {/* Hard Skill */}
-      <div
-        ref={(elementObjek) => {
-          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-        }}
-      >
-        <div ref={hardContainerRef} className="mb-8">
-          <h2 className="text-center text-2xl font-bold mb-8">Skill / Tech stack</h2>
-
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            {[0, 1, 2, 3].map((_, i) => (
-              <div
-                key={i}
-                ref={(elementObjek) => {
-                  if (elementObjek) hardCardsRef.current[i] = elementObjek; // TypeScript safe
-                }}
-              >
-                <MiniCard information={minicardDefault} />
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-center">
-            <PrimaryButton buttonText="See more" />
-          </div>
-        </div>
-      </div>
-      {/* Soft Skill */}{" "}
-      <div
-        ref={(elementObjek) => {
-          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-        }}
-      >
-        <div ref={softContainerRef} className="mb-8">
-          <h2 className="text-center text-2xl font-bold mb-8">Soft Skill</h2>
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            {[0, 1, 2, 3].map((_, i) => (
-              <div
-                key={i}
-                ref={(elementObjek) => {
-                  if (elementObjek) softCardsRef.current[i] = elementObjek; // TypeScript safe
-                }}
-              >
-                <MiniCard information={minicardDefault} />
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-center">
-            <PrimaryButton buttonText="See more" />
-          </div>
-        </div>
-      </div>
-      {/* Experience */}
-      <div
-        ref={(elementObjek) => {
-          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-        }}
-      >
-        <div className="mb-8 grid">
-          <span className="text-2xl font-bold mb-4 block">Experience</span>
-          <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-            <span className="col-span-4">Event Lead – UI/UX Design Workshop: “Interactive UI & User-Friendly UX”</span>
-            <span className="flex items-center justify-end">2025</span>
+          <div>
+            I&apos;m currently a student at Indo Global Mandiri University, majoring in Informatics Engineering (Teknik
+            Informatika). During my studies, I&apos;ve been learning various topics in the fielementObjekd of
+            technology, such as machine learning, game development using Roblox Studio, and website development.
+            I&apos;m interested in the world of websites, including front-end, back-end, and even UI/UX design.
           </div>
 
-          <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-            <span className="col-span-4">Head of Teknova (IT) division</span>
-            <span className="flex items-center justify-end">2025</span>
-          </div>
-
-          <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-            <span className="col-span-4">Participant in Bank Indonesia Hackathon</span>
-            <span className="flex items-center justify-end">2024</span>
-          </div>
-        </div>
-        {/* Project */}
-        <div className="mb-8">
-          <span className="text-2xl font-bold mb-4 block">Project</span>
-          <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-            <span className="col-span-4">Website Pendaftarakan Skripsi Teknik Informatika UIGM (proyek KP)</span>
-            <span className="flex items-center justify-end">2025</span>
-          </div>
-
-          <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-            <span className="col-span-4">Bank Soal Kating</span>
-            <span className="flex items-center justify-end">2024</span>
-          </div>
-
-          <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
-            <span className="col-span-4">Coming soon</span>
-            <span className="flex items-center justify-end">Coming soon</span>
+          <div className="grid lg:grid-cols-2 grid-cols-1lg:gap-5 gap-2 ">
+            <AboutCard
+              title="Websites"
+              content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est1."
+            />
+            <AboutCard
+              title="Machine Learning"
+              content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
+            />
+            <AboutCard
+              title="Game Programing"
+              content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
+            />
+            <AboutCard
+              title="UI/UX Design"
+              content="Ex aliqua fugiat laborum excepteur est enim laboris minim duis. Consequat nulla sunt ex amet. Anim exercitation et anim anim qui sint dolor excepteur pariatur aliquip est."
+            />
           </div>
         </div>
-      </div>
-      {/* contribution chard github */}
-      <div
-        ref={(elementObjek) => {
-          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-        }}
-      >
-        <div className="border border-gray-300 rounded-xl mb-8 py-8 px-10">
-          <div className="flex mb-4 flex-col">
-            <h3 className="text-2xl font-bold mb-3 text-center">Github Activity</h3>
-            <h5 className="font-bold mb-2">Github Contribution</h5>
-            <span>Hari-hari reboisasi :)</span>
-            <div className="">
-              Untuk lihat lebih lengkap, kamu bisa kunjungi profil GitHub saya 🚀
-              <a
-                href="https://github.com/surya54p"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline text-blue-500  ms-1"
-              >
-                Click disini!
-              </a>
+        {/* Hard Skill */}
+        <div
+          ref={(elementObjek) => {
+            if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+          }}
+        >
+          <div ref={hardContainerRef} className="mb-8">
+            <h2 className="text-center text-2xl font-bold mb-8">Skill / Tech stack</h2>
+
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
+              {[0, 1, 2, 3].map((_, i) => (
+                <div
+                  key={i}
+                  ref={(elementObjek) => {
+                    if (elementObjek) hardCardsRef.current[i] = elementObjek; // TypeScript safe
+                  }}
+                >
+                  <MiniCard information={minicardDefault} />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center">
+              <PrimaryButton buttonText="See more" />
             </div>
           </div>
-          <ContributionChart />
-          <div>
-            <h5 className="font-bold mb-2">Top Language</h5>
-            <span>The most language i used in my project. 🦾</span>
-          </div>
-          <TopLanguagesChart />
         </div>
-      </div>
-      {/*
+        {/* Soft Skill */}{" "}
+        <div
+          ref={(elementObjek) => {
+            if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+          }}
+        >
+          <div ref={softContainerRef} className="mb-8">
+            <h2 className="text-center text-2xl font-bold mb-8">Soft Skill</h2>
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
+              {[0, 1, 2, 3].map((_, i) => (
+                <div
+                  key={i}
+                  ref={(elementObjek) => {
+                    if (elementObjek) softCardsRef.current[i] = elementObjek; // TypeScript safe
+                  }}
+                >
+                  <MiniCard information={minicardDefault} />
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center">
+              <PrimaryButton buttonText="See more" />
+            </div>
+          </div>
+        </div>
+        {/* Experience */}
+        <div
+          ref={(elementObjek) => {
+            if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+          }}
+        >
+          <div className="mb-8 grid">
+            <span className="text-2xl font-bold mb-4 block">Experience</span>
+            <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+              <span className="col-span-4">
+                Event Lead – UI/UX Design Workshop: “Interactive UI & User-Friendly UX”
+              </span>
+              <span className="flex items-center justify-end">2025</span>
+            </div>
+
+            <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+              <span className="col-span-4">Head of Teknova (IT) division</span>
+              <span className="flex items-center justify-end">2025</span>
+            </div>
+
+            <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+              <span className="col-span-4">Participant in Bank Indonesia Hackathon</span>
+              <span className="flex items-center justify-end">2024</span>
+            </div>
+          </div>
+          {/* Project */}
+          <div className="mb-8">
+            <span className="text-2xl font-bold mb-4 block">Project</span>
+            <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+              <span className="col-span-4">Website Pendaftarakan Skripsi Teknik Informatika UIGM (proyek KP)</span>
+              <span className="flex items-center justify-end">2025</span>
+            </div>
+
+            <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+              <span className="col-span-4">Bank Soal Kating</span>
+              <span className="flex items-center justify-end">2024</span>
+            </div>
+
+            <div className="grid grid-cols-5 border-b border-dotted border-gray-400 py-2">
+              <span className="col-span-4">Coming soon</span>
+              <span className="flex items-center justify-end">Coming soon</span>
+            </div>
+          </div>
+        </div>
+        {/* contribution chard github */}
+        <div
+          ref={(elementObjek) => {
+            if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+          }}
+        >
+          <div className="border border-gray-300 rounded-xl mb-8 py-8 px-10">
+            <div className="flex mb-4 flex-col">
+              <h3 className="text-2xl font-bold mb-3 text-center">Github Activity</h3>
+              <h5 className="font-bold mb-2">Github Contribution</h5>
+              <span>Hari-hari reboisasi :)</span>
+              <div className="">
+                Untuk lihat lebih lengkap, kamu bisa kunjungi profil GitHub saya 🚀
+                <a
+                  href="https://github.com/surya54p"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-blue-500  ms-1"
+                >
+                  Click disini!
+                </a>
+              </div>
+            </div>
+            <ContributionChart />
+            <div>
+              <h5 className="font-bold mb-2">Top Language</h5>
+              <span>The most language i used in my project. 🦾</span>
+            </div>
+            <TopLanguagesChart />
+          </div>
+        </div>
+        {/*
       CARD LIKE
       */}
-      <div
-        ref={(elementObjek) => {
-          if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-        }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 border border-gray-300 rounded-xl mb-8 py-8 px-10 gap-5">
-          {/* Kiri: teks */}
-          <div className="flex flex-col items-start w-fit mb-5 lg:mb-0 lg:w-100">
-            <span className="text-2xl font-bold mb-3 block">Like kalau kamu suka🚀</span>
-            <span>
-              Kalau kamu mau kasih like masukin aja namamu, kalau komentar boleh pribadi lewat ig @surya54p_ 😁
-            </span>
+        <div
+          ref={(elementObjek) => {
+            if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+          }}
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 border border-gray-300 rounded-xl mb-8 py-8 px-10 lg:gap-15 gap-3">
+            {/* Kiri: teks */}
+            <div className="flex flex-col items-start w-fit mb-5 lg:mb-0 lg:w-100 ">
+              <span className="text-2xl font-bold mb-3 block">Like kalau kamu suka🚀</span>
+              <span>
+                Kalau kamu mau kasih like masukin aja namamu, kalau komentar boleh pribadi lewat ig @surya54p_ 😁
+              </span>
+            </div>
+            {/* form like */}
+            <form onSubmit={handleSubmit} className="flex flex-col grid- items-center gap-4 w-full  " method="post">
+              <input
+                type="text"
+                value={nama}
+                onChange={(e) => setNama(e.target.value)}
+                placeholder="Input nama untuk like"
+                className="px-6 py-3 bg-[#fff]  rounded-full w-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
+              />
+              <PrimaryButton type="submit" buttonText="Submit" className="w-full" />
+            </form>
           </div>
-          {/* form like */}
-          <form onSubmit={handleSubmit} className="flex flex-col grid- items-center gap-4 w-full  " method="post">
-            <input
-              type="text"
-              value={nama}
-              onChange={(e) => setNama(e.target.value)}
-              placeholder="Input nama untuk like"
-              className="px-6 py-3 bg-[#fff]  rounded-full w-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
-            />
-            <PrimaryButton type="submit" buttonText="Submit" className="w-full" />
-          </form>
-        </div>
-        {showToast && (
-          <div
-            className={`toast-anim border-2 px-4 py-2 rounded
+          {showToast && (
+            <div
+              className={`toast-anim border-2 px-4 py-2 rounded
     ${toastType ? "bg-green-100 text-green-800 border-green-500" : "bg-red-100 text-red-800 border-red-500"}
   `}
-          >
-            {toastMsg}
-          </div>
-        )}
-        <LikeMarquee />
-      </div>
+            >
+              {toastMsg}
+            </div>
+          )}
+          <LikeMarquee />
+        </div>
+      </section>
+
+      {/* Right (25%) */}
+      <aside className="lg:col-span-3 hidden lg:block"></aside>
     </main>
   );
 };
