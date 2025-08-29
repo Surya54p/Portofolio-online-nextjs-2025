@@ -37,6 +37,9 @@ export default function SidebarNav() {
           <Link href="/admin/portofolioManagement" className={navLinkClass("/admin/portofolioManagement")}>
             Portofolio Management
           </Link>
+          <Link href="/admin/certificateManagement" className={navLinkClass("/admin/certificateManagement")}>
+            Certificate Management
+          </Link>
           <Link href="/admin/likeManagement" className={navLinkClass("/admin/likeManagement")}>
             Like Management
           </Link>
@@ -92,6 +95,9 @@ export default function SidebarNav() {
           </Link>
           <Link href="/admin/portofolioManagement" className="px-4 py-2 hover:bg-gray-100 rounded">
             Portofolio Management
+          </Link>{" "}
+          <Link href="/admin/certificateManagement" className="px-4 py-2 hover:bg-gray-100 rounded">
+            Certificate Management
           </Link>
           <Link href="/admin/likeManagement" className="px-4 py-2 hover:bg-gray-100 rounded">
             Like Management

@@ -257,13 +257,14 @@ export default function Dashboard() {
       TABEL AKSI
       */}
       <div className="   p-4 bg-white shadow-lg rounded-2xl">
-        <Table className="px-3">
+        <Table className="px-3 w-full align-top">
           <TableCaption>A list of your portofolios.</TableCaption>
 
           <TableHeader>
             <TableRow>
+              <TableHead className="w-[5%]">No</TableHead>
               <TableHead className="w-[15%]">Title</TableHead>
-              <TableHead className="w-[25%]">Src</TableHead>
+              <TableHead className="w-[20%]">Src</TableHead>
               <TableHead className="w-[15%]">Stack</TableHead>
               <TableHead className="w-[25%]">Summary</TableHead>
               <TableHead className="w-[10%]">Created At</TableHead>
@@ -272,14 +273,16 @@ export default function Dashboard() {
           </TableHeader>
 
           <TableBody>
-            {portofolioCategoryManagementTable.map((item) => (
-              <TableRow key={item.id}>
+            {portofolioCategoryManagementTable.map((item, index) => (
+              <TableRow key={item.id} className="align-top ">
+                <TableCell className="px-2 py-2">{index + 1}</TableCell>
+
                 <TableCell className="px-2 py-2 break-words  truncate ">{item.title}</TableCell>
                 <TableCell className="px-2 py-2 break-words max-w-[250px] truncate ">{item.src}</TableCell>
                 <TableCell className="px-2 py-2 break-words  truncate ">
                   {Array.isArray(item.stack) ? item.stack.join(", ") : item.stack}
                 </TableCell>
-                <TableCell className="px-2 py-2 break-words  truncate ">{item.summary}</TableCell>
+                <TableCell className="px-2 py-2 break-words whitespace-normal max-w-[250px]">{item.summary}</TableCell>
                 <TableCell className="px-2 py-2 ">{new Date(item.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell className="px-2 py-2">
                   <div className="flex flex-row gap-2">
