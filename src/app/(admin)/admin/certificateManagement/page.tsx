@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "@/app/components/primaryButton";
 import Swal from "sweetalert2";
+import { useRef } from "react";
 import {
   Table,
   TableBody,
@@ -173,101 +174,95 @@ export default function Dashboard() {
   // --------------------------------------
 
   function AddCertifModal() {
-    {
-      if (!addModal) return null;
-      return (
-        <div className="fixed inset-0 bg-gray-100/50  flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg w-[800px] border border-gray-400 flex flex-col max-h-[90vh]">
-            <div className="mb-3">
-              <div
-                className="flex justify-between items-center 
-          "
-              >
-                <h2 className="text-[32px] font-bold ">Tambah Portofolio</h2>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                  onClick={handleCloseModal}
-                >
-                  <path
-                    fill="none"
-                    stroke="#000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M18 6L6 18M6 6l12 12"
-                  />
-                </svg>
-              </div>
-              <p className="italic">Isi form dibawah</p>
-            </div>
-            {/*
-          -------------------------
-          FORM INPUT
-          -------------------------
-          */}
-            <form
-              action="POST"
-              onSubmit={submitCertificate}
-              className=" rounded-lg flex flex-col gap-4 max-h-[90vh] overflow-y-auto pb-3"
-            >
-              <div className="rounded-lg flex flex-col gap-4">
-                <div>
-                  {/* title */}
-                  <span>Portofolio Title</span>
-                  <input
-                    name="title"
-                    value={title}
-                    type="text"
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <span>Summary</span>
-                  <input
-                    name="summary"
-                    value={summary}
-                    type="text"
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    onChange={(e) => setSummary(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <span>Category</span>
-                  <input
-                    name="category"
-                    value={category}
-                    type="text"
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    onChange={(e) => setCategory(e.target.value)}
-                  />
-                </div>
+    const titleRef = useRef<HTMLInputElement>(null);
 
-                <div>
-                  <span>Upload Gambar</span>
-                  <input
-                    type="file"
-                    name="image"
-                    accept="image/*"
-                    className="border border-gray-400 p-2 rounded-lg w-full"
-                    onChange={(e) => setImage(e.target.files?.[0] || null)}
-                  />
-                  <small className="text-gray-500 text-xs">
-                    Maksimal ukuran file: <b>1 MB</b>
-                  </small>
-                </div>
-              </div>
-              <div className="flex justify-between">
-                <PrimaryButton buttonText="Close" onClick={handleCloseModal} />
-                <PrimaryButton buttonText="Submit" type="submit" />
-              </div>
-            </form>
+    useEffect(() => {
+      if (addModal) titleRef.current?.focus();
+    }, [addModal]);
+
+    return (
+      <div
+        className={`fixed inset-0 bg-gray-100/50 flex items-center justify-center z-50 transition-opacity ${
+          addModal ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="bg-white p-6 rounded shadow-lg w-[90%] max-w-[800px] border border-gray-400 flex flex-col max-h-[90vh] overflow-hidden">
+          <div className="mb-3 flex justify-between items-center">
+            <h2 className="text-[32px] font-bold">Tambah Portofolio</h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              onClick={handleCloseModal}
+            >
+              <path
+                fill="none"
+                stroke="#000"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M18 6L6 18M6 6l12 12"
+              />
+            </svg>
           </div>
+          <p className="italic mb-4">Isi form dibawah</p>
+
+          <form onSubmit={submitCertificate} className="flex flex-col gap-4 overflow-y-auto pb-3">
+            <div className="flex flex-col gap-4">
+              <div>
+                <span>Portofolio Title</span>
+                <input
+                  ref={titleRef}
+                  name="title"
+                  value={title}
+                  type="text"
+                  className="border border-gray-400 p-2 rounded-lg w-full"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+              <div>
+                <span>Summary</span>
+                <input
+                  name="summary"
+                  value={summary}
+                  type="text"
+                  className="border border-gray-400 p-2 rounded-lg w-full"
+                  onChange={(e) => setSummary(e.target.value)}
+                />
+              </div>
+              <div>
+                <span>Category</span>
+                <input
+                  name="category"
+                  value={category}
+                  type="text"
+                  className="border border-gray-400 p-2 rounded-lg w-full"
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+              </div>
+              <div>
+                <span>Upload Gambar</span>
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  className="border border-gray-400 p-2 rounded-lg w-full"
+                  onChange={(e) => setImage(e.target.files?.[0] || null)}
+                />
+                <small className="text-gray-500 text-xs">
+                  Maksimal ukuran file: <b>1 MB</b>
+                </small>
+              </div>
+            </div>
+
+            <div className="flex justify-between mt-4">
+              <PrimaryButton buttonText="Close" onClick={handleCloseModal} type="button" />
+              <PrimaryButton buttonText="Submit" type="submit" />
+            </div>
+          </form>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
