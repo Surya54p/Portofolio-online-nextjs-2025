@@ -169,14 +169,9 @@ export default function Dashboard() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-
     if (selectedFile) {
-      // const ext = selectedFile.name.split(".").pop(); // ambil ekstensi
-      // const uniqueName = crypto.randomUUID() + "." + ext; // bikin nama unik
-      // formData.append("src", uniqueName); // kirim nama file unik
       formData.append("file", selectedFile); // file asli
     }
-
     formData.append("title", title);
     formData.append("summary", summary);
     formData.append("categoryId", selectedCategory); // Make sure backend expects "categoryId"
@@ -192,13 +187,8 @@ export default function Dashboard() {
         console.error("Server error detail:", errorData);
         throw new Error(`Gagal submit data portofolio: ${errorData.error || "Unknown error"}`);
       }
-
-      // const result = await response.json();
-      // console.log("✅ Submit sukses:", result);
-
       // ✅ Tutup modal
       handleCloseModal();
-
       // ✅ Reset form
       setTitle("");
       setSummary("");
@@ -206,7 +196,6 @@ export default function Dashboard() {
       setSelectedFile(null);
       setPreview("");
       setSelectedCategory("");
-
       // ✅ Tampilkan SweetAlert sukses
       Swal.fire({
         icon: "success",
