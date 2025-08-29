@@ -418,7 +418,7 @@ export default function Dashboard() {
           -------------------------
           */}
           <form
-            action="POST"
+            // action="POST"
             onSubmit={handleSubmit}
             className=" rounded-lg flex flex-col gap-4 max-h-[90vh] overflow-y-auto pb-3"
           >

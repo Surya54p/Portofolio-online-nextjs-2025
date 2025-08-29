@@ -56,15 +56,7 @@ export default function Dashboard() {
 
   const submitCertificate = async (e: React.FormEvent) => {
     e.preventDefault();
-    // cek ukuran gambar
-    if (image && image.size > 1024 * 1024) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Ukuran gambar maksimal 1 MB!",
-      });
-      return;
-    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("summary", summary);
@@ -117,6 +109,7 @@ export default function Dashboard() {
 
   return (
     <div>
+      
       <span className="text-[26px] italic">Certificate Management</span>
       <div className="flex space-x-4 my-4">
         <PrimaryButton buttonText="Add Certificate" onClick={handleOpenModal} />
@@ -163,8 +156,8 @@ export default function Dashboard() {
           </TableBody>
         </Table>
         {/* <RenderModalEditPortofolios /> */}
+        {AddCertifModal()}
       </div>
-      <AddCertifModal />
     </div>
   );
 
@@ -179,10 +172,7 @@ export default function Dashboard() {
         <div className="fixed inset-0 bg-gray-100/50  flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg w-[800px] border border-gray-400 flex flex-col max-h-[90vh]">
             <div className="mb-3">
-              <div
-                className="flex justify-between items-center 
-          "
-              >
+              <div className="flex justify-between items-center">
                 <h2 className="text-[32px] font-bold ">Tambah Portofolio</h2>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +199,6 @@ export default function Dashboard() {
           -------------------------
           */}
             <form
-              action="POST"
               onSubmit={submitCertificate}
               className=" rounded-lg flex flex-col gap-4 max-h-[90vh] overflow-y-auto pb-3"
             >
@@ -260,11 +249,11 @@ export default function Dashboard() {
                   </small>
                 </div>
               </div>
+              <div className="flex justify-between">
+                <PrimaryButton buttonText="Close" onClick={handleCloseModal} />
+                <PrimaryButton buttonText="Submit" type="submit" />
+              </div>
             </form>
-            <div className="flex justify-between">
-              <PrimaryButton buttonText="Close" onClick={handleCloseModal} />
-              <PrimaryButton buttonText="Submit" type="submit" />
-            </div>
           </div>
         </div>
       );
