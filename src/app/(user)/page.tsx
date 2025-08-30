@@ -226,6 +226,10 @@ const Home = () => {
   return (
     <main className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full px-6 py-8">
       {/* Left (25%) */}
+      "use client";
+
+    
+
       <aside className="lg:col-span-3 hidden lg:block ">
         {/* <AnimatedSvg name="wave" className="w-[500px] text-green-600" /> */}
 
@@ -237,6 +241,25 @@ const Home = () => {
             if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
           }}
         >
+          <div className="flex w-[420px] border border-black rounded-md overflow-hidden">
+      {/* Bagian kiri */}
+      <div className="flex-1 flex flex-col justify-center items-center p-4">
+        <span className="text-sm">Total commit keseluruhan</span>
+        <span className="text-6xl font-bold">1202</span>
+      </div>
+
+      {/* Bagian kanan */}
+      <div className="flex flex-col w-[140px] border-l border-black">
+        <div className="flex-1 border-b border-black flex flex-col items-center justify-center">
+          <span className="text-sm">Tahun ini</span>
+          <span className="text-2xl font-bold">422</span>
+        </div>
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <span className="text-sm">Bulan ini</span>
+          <span className="text-2xl font-bold">122</span>
+        </div>
+      </div>
+    </div>
           <div>
             <div className="border rounded flex   w-fit ">
               <div className="px-2 py-1 bg-black text-white">Total Likes </div>
