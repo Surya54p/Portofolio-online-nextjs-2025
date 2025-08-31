@@ -21,9 +21,11 @@ query($from: DateTime!, $to: DateTime!) {
 }
 `;
 
-
 function startOfYearIso(year: number) {
   return new Date(Date.UTC(year, 0, 1)).toISOString();
+}
+function startOfMonthIso(year: number, month: number) {
+  return new Date(Date.UTC(year, month, 1)).toISOString();
 }
 function nowIso() {
   return new Date().toISOString();
@@ -42,6 +44,7 @@ export async function GET() {
   const year = new Date().getFullYear();
   const from = startOfYearIso(year);
   const to = nowIso();
+  const now = new Date();
 
   const res = await fetch(GITHUB_API, {
     method: "POST",
@@ -58,5 +61,22 @@ export async function GET() {
   const weeks: Week[] = json.data.user.contributionsCollection.contributionCalendar.weeks;
   const days: ContributionDay[] = weeks.flatMap((w) => w.contributionDays);
 
-  return NextResponse.json(days);
+  const total = days.reduce((sum, d) => sum + d.contributionCount, 0);
+  const monthStart = startOfMonthIso(year, now.getMonth());
+  const yearStart = startOfYearIso(year);
+
+  const thisYear = days
+    .filter((d) => d.date >= yearStart && d.date <= nowIso())
+    .reduce((sum, d) => sum + d.contributionCount, 0);
+
+  const thisMonth = days
+    .filter((d) => d.date >= monthStart && d.date <= nowIso())
+    .reduce((sum, d) => sum + d.contributionCount, 0);
+
+  return NextResponse.json({
+    days,
+    thisMonth,
+    thisYear,
+    total,
+  });
 }

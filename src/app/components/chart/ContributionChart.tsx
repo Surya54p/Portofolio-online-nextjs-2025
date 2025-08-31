@@ -18,7 +18,7 @@ export default function ContributionBarChart() {
   useEffect(() => {
     fetch("/api/github/contributions")
       .then((res) => res.json())
-      .then((d) => setData(d));
+      .then((data) => setData(data.days));
   }, []);
 
   const getColor = (count: number) => {
@@ -29,11 +29,12 @@ export default function ContributionBarChart() {
 
   return (
     <ResponsiveContainer width="100%" height={300}>
+      {/* ambil data dari use effect */}
       <BarChart data={data}>
         <XAxis
           dataKey="date"
-          tickFormatter={(d) => {
-            const date = new Date(d);
+          tickFormatter={(days) => {
+            const date = new Date(days);
             return date.getDate() === 1
               ? date.toLocaleDateString("id-ID", { month: "short" })
               : "";
@@ -41,8 +42,8 @@ export default function ContributionBarChart() {
         />
         <YAxis allowDecimals={false} />
         <Tooltip
-          labelFormatter={(d) =>
-            new Date(d).toLocaleDateString("id-ID", {
+          labelFormatter={(days) =>
+            new Date(days).toLocaleDateString("id-ID", {
               weekday: "short",
               year: "numeric",
               month: "short",

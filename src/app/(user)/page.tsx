@@ -9,7 +9,9 @@ import LikeMarquee from "../components/LikeMarquee";
 import ContributionChart from "@/app/components/chart/ContributionChart";
 import TopLanguagesChart from "@/app/components/chart/TopLanguagePieChart";
 import AboutCard from "../components/AboutCard";
+import GithubContributionCard from "../components/GithubCard";
 // import AnimatedSvg from "@/app/components/animated/animatedSvg";
+import Script from "next/script";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +47,9 @@ const Home = () => {
     setNama("");
   };
 
+  //
   // Get like
+  //
   useEffect(() => {
     const fetchLikes = async () => {
       const response = await fetch("/api/like");
@@ -71,6 +75,9 @@ const Home = () => {
     },
   ];
 
+  //
+  // ANIMATION EFFECT
+  //
   const hardContainerRef = useRef<HTMLDivElement>(null);
   const softContainerRef = useRef<HTMLDivElement>(null);
 
@@ -140,7 +147,7 @@ const Home = () => {
       // Fade in saat pertama kali muncul
       gsap.fromTo(
         el,
-        {  y: 80, scale: 0.95 },
+        { y: 80, scale: 0.95 },
         {
           y: 0,
           scale: 1,
@@ -226,13 +233,18 @@ const Home = () => {
   return (
     <main className="grid grid-cols-1 lg:grid-cols-12 gap-4 w-full px-6 py-8">
       {/* Left (25%) */}
-      "use client";
-
-    
-
       <aside className="lg:col-span-3 hidden lg:block ">
         {/* <AnimatedSvg name="wave" className="w-[500px] text-green-600" /> */}
-
+        {/* Google Analytics */}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX`} strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXX');
+          `}
+        </Script>
         {/* <AnimatedSvg  /> */}
       </aside>
       <section className="lg:col-span-6 bg-white rounded p-7 box-shadow-paper-effect-3d hover:shadow-none">
@@ -241,25 +253,6 @@ const Home = () => {
             if (el && !infosRef.current.includes(el)) infosRef.current.push(el);
           }}
         >
-          <div className="flex w-[420px] border border-black rounded-md overflow-hidden">
-      {/* Bagian kiri */}
-      <div className="flex-1 flex flex-col justify-center items-center p-4">
-        <span className="text-sm">Total commit keseluruhan</span>
-        <span className="text-6xl font-bold">1202</span>
-      </div>
-
-      {/* Bagian kanan */}
-      <div className="flex flex-col w-[140px] border-l border-black">
-        <div className="flex-1 border-b border-black flex flex-col items-center justify-center">
-          <span className="text-sm">Tahun ini</span>
-          <span className="text-2xl font-bold">422</span>
-        </div>
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <span className="text-sm">Bulan ini</span>
-          <span className="text-2xl font-bold">122</span>
-        </div>
-      </div>
-    </div>
           <div>
             <div className="border rounded flex   w-fit ">
               <div className="px-2 py-1 bg-black text-white">Total Likes </div>
@@ -456,35 +449,59 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/* contribution chard github */}
-        <div
-          ref={(elementObjek) => {
-            if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-          }}
-        >
-          <div className="border border-gray-300 rounded-xl mb-8 py-8 px-10">
-            <div className="flex mb-4 flex-col">
-              <h3 className="text-2xl font-bold mb-3 text-center">Github Activity</h3>
-              <h5 className="font-bold mb-2">Github Contribution</h5>
-              <span>Hari-hari reboisasi :)</span>
-              <div className="">
-                Untuk lihat lebih lengkap, kamu bisa kunjungi profil GitHub saya 🚀
-                <a
-                  href="https://github.com/surya54p"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline text-blue-500  ms-1"
-                >
-                  Click disini!
-                </a>
+
+        {/* 
+        contribution chard github 
+        */}
+
+        <div className="mb-8 grid">
+          <span className="text-2xl font-bold mb-4 block">Github Activity</span>
+
+          <div
+            ref={(elementObjek) => {
+              if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+            }}
+          >
+            <div className="border border-gray-300 rounded-xl mb-8 py-8 px-10">
+              <div className="flex mb-4 flex-col">
+                <h3 className="text-2xl font-bold mb-3 text-center">Contribution</h3>
+                <h5 className="font-bold mb-2">Github Contribution</h5>
+                <span>Hari-hari reboisasi :)</span>
+                <div className="">
+                  Untuk lihat lebih lengkap, kamu bisa kunjungi profil GitHub saya 🚀
+                  <a
+                    href="https://github.com/surya54p"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-blue-500  ms-1"
+                  >
+                    Click disini!
+                  </a>
+                </div>
               </div>
+              <ContributionChart />
             </div>
-            <ContributionChart />
-            <div>
-              <h5 className="font-bold mb-2">Top Language</h5>
-              <span>The most language i used in my project. 🦾</span>
+
+            <div className="grid grid-cols-3 gap-5">
+              <GithubContributionCard title="In Total" timeType="total"/>
+              <GithubContributionCard title="This Year" timeType="thisYear"/>
+              <GithubContributionCard title="This Month" timeType="thisMonth"/>
             </div>
-            <TopLanguagesChart />
+            {/* 
+            top language chart
+            */}
+            <div
+              ref={(elementObjek) => {
+                if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+              }}
+              className="border border-gray-300 rounded-xl mb-8 py-8 px-10"
+            >
+              <div>
+                <h3 className="text-2xl font-bold mb-3 text-center">Top Language</h3>
+                <span>The most language i used in my project. 🦾</span>
+              </div>
+              <TopLanguagesChart />
+            </div>
           </div>
         </div>
         {/*
@@ -527,7 +544,6 @@ const Home = () => {
           <LikeMarquee />
         </div>
       </section>
-
       {/* Right (25%) */}
       <aside className="lg:col-span-3 hidden lg:block"></aside>
     </main>
