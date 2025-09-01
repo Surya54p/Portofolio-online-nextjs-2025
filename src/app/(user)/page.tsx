@@ -312,13 +312,13 @@ const Home = () => {
               </span>
             </div>
           </div>
-        </div>
-        <div
+          {/* </div> */}
+          {/* <div
           ref={(elementObjek) => {
             if (elementObjek && !infosRef.current.includes(elementObjek)) infosRef.current.push(elementObjek);
           }}
           className="mb-8"
-        >
+        > */}
           <div>
             <h5 className="text-[48px]">About me</h5>
             {/* <h5 className="text-[28px]">Discover what I’m passionate about!</h5> */}
@@ -449,11 +449,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-
         {/* 
         contribution chard github 
         */}
-
         <div className="mb-8 grid">
           <span className="text-2xl font-bold mb-4 block">Github Activity</span>
 
@@ -464,8 +462,7 @@ const Home = () => {
           >
             <div className="border border-gray-300 rounded-xl mb-8 py-8 px-10">
               <div className="flex mb-4 flex-col">
-                <h3 className="text-2xl font-bold mb-3 text-center">Contribution</h3>
-                <h5 className="font-bold mb-2">Github Contribution</h5>
+                <h3 className="text-2xl font-bold mb-3 text-center">Github Contribution</h3>
                 <span>Hari-hari reboisasi :)</span>
                 <div className="">
                   Untuk lihat lebih lengkap, kamu bisa kunjungi profil GitHub saya 🚀
@@ -481,27 +478,34 @@ const Home = () => {
               </div>
               <ContributionChart />
             </div>
+          </div>
 
-            <div className="grid grid-cols-3 gap-5">
-              <GithubContributionCard title="In Total" timeType="total"/>
-              <GithubContributionCard title="This Year" timeType="thisYear"/>
-              <GithubContributionCard title="This Month" timeType="thisMonth"/>
+          <div
+            ref={(elementObjek) => {
+              if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+            }}
+            className="border border-gray-300 rounded-xl mb-8  p-10"
+          >
+            <div className="grid lg:grid-cols-3 gap-5">
+              <GithubContributionCard title="In Total" timeType="total" />
+              <GithubContributionCard title="This Year" timeType="thisYear" />
+              <GithubContributionCard title="This Month" timeType="thisMonth" />
             </div>
-            {/* 
+          </div>
+          {/* 
             top language chart
             */}
-            <div
-              ref={(elementObjek) => {
-                if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-              }}
-              className="border border-gray-300 rounded-xl mb-8 py-8 px-10"
-            >
-              <div>
-                <h3 className="text-2xl font-bold mb-3 text-center">Top Language</h3>
-                <span>The most language i used in my project. 🦾</span>
-              </div>
-              <TopLanguagesChart />
+          <div
+            ref={(elementObjek) => {
+              if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
+            }}
+            className="border border-gray-300 rounded-xl mb-8 py-8 px-10"
+          >
+            <div>
+              <h3 className="text-2xl font-bold mb-3 text-center">Top Language</h3>
+              <span>The most language i used in my project. 🦾</span>
             </div>
+            <TopLanguagesChart />
           </div>
         </div>
         {/*

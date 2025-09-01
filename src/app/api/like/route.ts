@@ -1,7 +1,7 @@
 export const runtime = "nodejs";
 
 import { PrismaClient } from "@prisma/client";
-
+import nodemailer from "nodemailer";
 const prisma = new PrismaClient();
 
 // ambil data total likes
@@ -25,7 +25,7 @@ function generateId() {
 
 export async function GET() {
   const InfoLikes = await prisma.like.findMany({
-    select: { id: true, nama: true , createdAt:true},
+    select: { id: true, nama: true, createdAt: true },
     orderBy: { createdAt: "desc" },
   });
 
@@ -33,7 +33,7 @@ export async function GET() {
   return new Response(JSON.stringify({ totalLikes: InfoLikes.length, InfoLikes }), {
     headers: { "Content-Type": "application/json" },
   });
-} 
+}
 
 // simpan data
 export async function POST(req: Request) {
@@ -70,6 +70,25 @@ export async function POST(req: Request) {
       );
     }
     await prisma.like.create({ data: { id: generateId(), nama } });
+
+    // === SETUP NODEMAILER ===
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+
+    // kirim email
+    await transporter.sendMail({
+      from: `"Notifikasi Like" <${process.env.GMAIL_USER}>`,
+      to: process.env.GMAIL_USER, // bisa juga dikirim ke email lain
+      subject: "Like Baru 🚀",
+      text: `Ada like dari: ${nama}`,
+      html: `<p><strong>${nama}</strong> baru saja memberikan like! 🔥</p>`,
+    });
+
     return new Response(
       JSON.stringify({
         nameAlreadyLiked: false,

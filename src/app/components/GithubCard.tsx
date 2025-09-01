@@ -37,11 +37,11 @@ export default function GithubContributionCard({ title, timeType }: GithubContri
   }, []);
   
   if (!data) {
-    return <div className="border border-gray-300 rounded-xl mb-8 p-3 text-center">Loading...</div>;
+    return <div className="border border-gray-300 rounded-xl p-3 text-center">Loading...</div>;
   }
 
   return (
-    <div className="border border-gray-300 rounded-xl mb-8 p-3">
+    <div className="border border-gray-300 rounded-xl p-3">
       <div className="flex flex-col">
         <span className="text-2xl">{title}</span>
         <span className="text-end text-5xl font-bold">{data[timeType]}</span>
