@@ -298,7 +298,7 @@ const Home = () => {
 
             {/* Text */}
             <div className="w-full flex justify-center text-center flex-col">
-              <span className="lg:text-4xl text-2xl">Hello there!</span>
+              <span className="lg:text-[48px] text-2xl">Hello there!</span>
               <span className="lg:text-lg text-sm">
                 My name’s Surya Ario Pratama
                 <br />
@@ -475,7 +475,7 @@ const Home = () => {
                     Click disini!
                   </a>
                 </div>
-                <div className="grid lg:grid-cols-3 mt-2 gap-2 lg:gap-5">
+                <div className="grid lg:grid-cols-3 mt-2 lg:mt-3 gap-2 lg:gap-5">
                   <GithubContributionCard title="In Total" timeType="total" />
                   <GithubContributionCard title="This Year" timeType="thisYear" />
                   <GithubContributionCard title="This Month" timeType="thisMonth" />

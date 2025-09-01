@@ -18,7 +18,6 @@ export interface GithubContributionCardProps {
   timeType: keyof ContributionSummary;
 }
 
-
 export default function GithubContributionCard({ title, timeType }: GithubContributionCardProps) {
   const [data, setData] = useState<ContributionSummary | null>(null);
 
@@ -35,7 +34,7 @@ export default function GithubContributionCard({ title, timeType }: GithubContri
     }
     fetchData();
   }, []);
-  
+
   if (!data) {
     return <div className="border border-gray-300 rounded-xl p-3 text-center">Loading...</div>;
   }
@@ -43,7 +42,7 @@ export default function GithubContributionCard({ title, timeType }: GithubContri
   return (
     <div className="border border-gray-300 rounded-xl p-3">
       <div className="flex flex-col">
-        <span className="text-2xl">{title}</span>
+        <span className="">{title}</span>
         <span className="text-end text-5xl font-bold">{data[timeType]}</span>
       </div>
     </div>
