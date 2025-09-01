@@ -83,12 +83,29 @@ export async function POST(req: Request) {
     // kirim email
     await transporter.sendMail({
       from: `"Notifikasi Like" <${process.env.GMAIL_USER}>`,
-      to: process.env.GMAIL_USER, // bisa juga dikirim ke email lain
-      subject: "Like Baru 🚀",
-      text: `Ada like dari: ${nama}`,
-      html: `<p><strong>${nama}</strong> baru saja memberikan like! 🔥</p>`,
-    });
+      to: process.env.GMAIL_USER,
+      subject: "Like Baru dari Website Portofolio🚀",
+      html: `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 8px; background: #f9f9f9;">
+      
+      <h2 style="text-align: center; color: #333; margin-bottom: 20px;">📢 Notifikasi Like Baru</h2>
 
+      <div style="padding: 15px; background: #fff; border: 1px solid #ddd; border-radius: 6px; text-align: center;">
+        <span style="display: inline-block; background: #4caf50; color: #fff; padding: 8px 16px; border-radius: 20px; font-weight: bold; margin-bottom: 10px;">
+          LIKE
+        </span>
+        <p style="font-size: 16px; color: #333;">
+          <strong>${nama}</strong> baru saja memberikan like! 🔥
+        </p>
+      </div>
+
+      <p style="font-size: 12px; color: #777; text-align: center; margin-top: 30px;">
+        Email ini otomatis dikirim oleh sistem Next.js Nodemailer kamu.<br/>
+        Jangan dibalas ya 😁
+      </p>
+    </div>
+  `,
+    });
     return new Response(
       JSON.stringify({
         nameAlreadyLiked: false,

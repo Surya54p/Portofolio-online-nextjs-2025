@@ -1,63 +1,70 @@
 "use client";
-import { useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  Cell,
-} from "recharts";
+import React, { useEffect, useState } from "react";
+import { Treemap, ResponsiveContainer } from "recharts";
 
-type Day = { date: string; contributionCount: number };
-
-export default function ContributionBarChart() {
-  const [data, setData] = useState<Day[]>([]);
-
-  useEffect(() => {
-    fetch("/api/github/contributions")
-      .then((res) => res.json())
-      .then((data) => setData(data.days));
-  }, []);
-
-  const getColor = (count: number) => {
-    if (count < 3) return "#bbf770"; // hijau muda
-    if (count < 6) return "#4ade80"; // hijau normal
-    return "#166534"; // hijau tua
-  };
+// Komponen custom biar bisa style rect + label
+const CustomizedContent = (props: any) => {
+  const { x, y, width, height, name, size } = props;
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      {/* ambil data dari use effect */}
-      <BarChart data={data}>
-        <XAxis
-          dataKey="date"
-          tickFormatter={(days) => {
-            const date = new Date(days);
-            return date.getDate() === 1
-              ? date.toLocaleDateString("id-ID", { month: "short" })
-              : "";
-          }}
-        />
-        <YAxis allowDecimals={false} />
-        <Tooltip
-          labelFormatter={(days) =>
-            new Date(days).toLocaleDateString("id-ID", {
-              weekday: "short",
-              year: "numeric",
-              month: "short",
-              day: "2-digit",
-            })
-          }
-          formatter={(v) => [`${v}`, "Contributions"]}
-        />
-        <Bar dataKey="contributionCount">
-          {data.map((entry, idx) => (
-            <Cell key={`cell-${idx}`} fill={getColor(entry.contributionCount)} />
-          ))}
-        </Bar>
-      </BarChart>
+    <g>
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        style={{
+          fill: "#22c55e", // hijau solid
+          stroke: "#fff",
+        }}
+      />
+      {width > 60 && height > 30 && (
+        <text
+          x={x + width / 2}
+          y={y + height / 2}
+          textAnchor="middle"
+          fill="#fff"
+          fontSize={14}
+          fontWeight={100} // setara extralight
+        >
+          {name}: {size}
+        </text>
+      )}
+    </g>
+  );
+};
+
+export default function ContributionChart() {
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/github/contributions");
+      const json = await res.json();
+
+      // kumpulin kontribusi per bulan
+      const byMonth: Record<string, number> = {};
+
+      json.days.forEach((d: any) => {
+        const month = new Date(d.date).toLocaleDateString("id-ID", { month: "short" });
+        byMonth[month] = (byMonth[month] || 0) + d.contributionCount;
+      });
+
+      const formatted = Object.entries(byMonth).map(([month, commits]) => ({
+        name: month,
+        size: commits,
+        color: "#22c55e", // hijau semua
+      }));
+
+      setData(formatted);
+    };
+
+    fetchData();
+  }, []);
+
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <Treemap data={data} dataKey="size" aspectRatio={4 / 3} stroke="#fff" content={<CustomizedContent />} />
     </ResponsiveContainer>
   );
 }

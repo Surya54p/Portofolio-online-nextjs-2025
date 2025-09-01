@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PrimaryButton from "../components/primaryButton";
 import LikeMarquee from "../components/LikeMarquee";
-import ContributionChart from "@/app/components/chart/ContributionChart";
+// import ContributionChart from "@/app/components/chart/ContributionChart";
 import TopLanguagesChart from "@/app/components/chart/TopLanguagePieChart";
 import AboutCard from "../components/AboutCard";
 import GithubContributionCard from "../components/GithubCard";
@@ -452,7 +452,7 @@ const Home = () => {
         {/* 
         contribution chard github 
         */}
-        <div className="mb-8 grid">
+        <div className="mb-8">
           <span className="text-2xl font-bold mb-4 block">Github Activity</span>
 
           <div
@@ -475,23 +475,16 @@ const Home = () => {
                     Click disini!
                   </a>
                 </div>
+                <div className="grid lg:grid-cols-3 mt-2 gap-2 lg:gap-5">
+                  <GithubContributionCard title="In Total" timeType="total" />
+                  <GithubContributionCard title="This Year" timeType="thisYear" />
+                  <GithubContributionCard title="This Month" timeType="thisMonth" />
+                </div>
               </div>
-              <ContributionChart />
+              {/* <ContributionChart /> */}
             </div>
           </div>
 
-          <div
-            ref={(elementObjek) => {
-              if (elementObjek && !objekRef.current.includes(elementObjek)) objekRef.current.push(elementObjek);
-            }}
-            className="border border-gray-300 rounded-xl mb-8  p-10"
-          >
-            <div className="grid lg:grid-cols-3 gap-5">
-              <GithubContributionCard title="In Total" timeType="total" />
-              <GithubContributionCard title="This Year" timeType="thisYear" />
-              <GithubContributionCard title="This Month" timeType="thisMonth" />
-            </div>
-          </div>
           {/* 
             top language chart
             */}
