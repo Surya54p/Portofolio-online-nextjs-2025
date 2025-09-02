@@ -17,7 +17,7 @@ declare module "midtrans-client" {
     credit_card?: {
       secure?: boolean;
     };
-    [key: string]: any;
+    [key: string]: unknown;
   }
 
   interface TransactionResponse {

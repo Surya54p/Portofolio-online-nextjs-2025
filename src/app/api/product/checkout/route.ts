@@ -76,8 +76,9 @@ export async function POST(req: Request) {
       redirect_url: transaction.redirect_url,
       orderId: order.id,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Checkout API Error:", error);
-    return NextResponse.json({ error: "Checkout failed", details: error.message }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Unexpected error";
+    return NextResponse.json({ error: "Checkout failed", detail:message }, { status: 500 });
   }
 }
