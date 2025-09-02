@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import PrimaryButton from "./primaryButton";
 
@@ -9,12 +9,6 @@ interface Product {
   description?: string;
   image?: string;
   price?: number;
-}
-
-interface ModalProps {
-  open: boolean;
-  onCloSe: () => void;
-  onSubmit: (data: { name: string; email: string; noTelp: string }) => void;
 }
 
 export default function ProductCard({ item }: { item: Product }) {
@@ -64,15 +58,15 @@ export default function ProductCard({ item }: { item: Product }) {
 
       const data = await res.json();
       if (data.token) {
-        // @ts-ignore karena snap gak ada type
+        // @ts-expect-error: snap object tidak punya type definition
         window.snap.pay(data.token, {
-          onSuccess: function (result: any) {
+          onSuccess: function (result: unknown) {
             console.log("Success:", result);
           },
-          onPending: function (result: any) {
+          onPending: function (result: unknown) {
             console.log("Pending:", result);
           },
-          onError: function (result: any) {
+          onError: function (result: unknown) {
             console.error("Error:", result);
           },
           onClose: function () {
