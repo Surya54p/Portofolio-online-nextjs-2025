@@ -26,6 +26,9 @@ export async function POST(req: Request) {
       data: {
         status: "PENDING",
         amount: grossAmount,
+        username: customer.first_name,
+        email: customer.email,
+        phone_number: customer.phone,
         items: {
           create: [
             {
@@ -75,9 +78,6 @@ export async function POST(req: Request) {
     });
   } catch (error: any) {
     console.error("Checkout API Error:", error);
-    return NextResponse.json(
-      { error: "Checkout failed", details: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Checkout failed", details: error.message }, { status: 500 });
   }
 }

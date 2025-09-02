@@ -71,11 +71,14 @@ model Product {
 
 model Order {
   id            String      @id @default(cuid())
+  username      String      @default("unknown")
+  email         String      @default("unknown@example.com")
+  phone_number  String      @default("0000000000")
   status        String      @default("pending")
-  amount        Int
-  paymentType   String?
-  transactionId String?
-  items         OrderItem[]
+  amount        Int // total harga semua item
+  paymentType   String? // metode pembayaran
+  transactionId String? // ID transaksi dari Midtrans
+  items         OrderItem[] // daftar produk yang dibeli
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }
@@ -87,5 +90,5 @@ model OrderItem {
   productId String
   product   Product @relation(fields: [productId], references: [id])
   quantity  Int     @default(1)
-  price     Int // snapshot harga saat order (biar nggak berubah kalau harga produk diupdate)
+  price     Int // snapshot harga saat order dibuat
 }
