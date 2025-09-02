@@ -1,5 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import PrimaryButton from "./primaryButton";
 
 interface Product {
@@ -13,8 +14,62 @@ interface Product {
 export default function ProductCard({ item }: { item: Product }) {
   const router = useRouter();
 
+  // inject script Snap Midtrans ke frontend
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+    script.setAttribute("data-client-key", process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY!);
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   function detailProduct(idProduct: string) {
     router.push(`/shop/productDetail/${idProduct}`);
+  }
+
+  async function handleBuy(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation(); // biar gak ikut klik card
+
+    try {
+      const res = await fetch("/api/product/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: item.id,
+          quantity: 1,
+          customer: {
+            first_name: "Test User",
+            email: "test@example.com",
+            phone: "081234567890",
+          },
+        }),
+      });
+
+      const data = await res.json();
+      if (data.token) {
+        // @ts-ignore karena snap gak ada type
+        window.snap.pay(data.token, {
+          onSuccess: function (result: any) {
+            console.log("Success:", result);
+          },
+          onPending: function (result: any) {
+            console.log("Pending:", result);
+          },
+          onError: function (result: any) {
+            console.error("Error:", result);
+          },
+          onClose: function () {
+            console.warn("Customer closed the popup without finishing payment");
+          },
+        });
+      } else {
+        console.error("Checkout gagal:", data);
+      }
+    } catch (err) {
+      console.error("HandleBuy error:", err);
+    }
   }
 
   return (
@@ -43,7 +98,7 @@ export default function ProductCard({ item }: { item: Product }) {
 
         <div className="flex flex-col gap-2 text-lg mt-2">
           <span>Rp {item.price?.toLocaleString("id-ID")}</span>
-          <PrimaryButton buttonText="Buy" className="rounded-md" />
+          <PrimaryButton buttonText="Buy" className="rounded-md" onClick={handleBuy} />
         </div>
       </div>
 

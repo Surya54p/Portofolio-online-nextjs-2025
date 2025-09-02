@@ -60,10 +60,32 @@ model PortofolioCategory {
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  name        String   @unique
+  id          String      @id @default(cuid())
+  name        String      @unique
   description String?
   price       Int?
   image       String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime    @default(now())
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  status        String      @default("pending")
+  amount        Int
+  paymentType   String?
+  transactionId String?
+  items         OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+  price     Int // snapshot harga saat order (biar nggak berubah kalau harga produk diupdate)
 }

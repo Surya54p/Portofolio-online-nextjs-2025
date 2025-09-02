@@ -6,7 +6,7 @@ import Link from "next/link";
 interface PrimaryButtonProps {
   buttonText: string;
   href?: string; // kalau ada → jadi link
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; // ⚡ perbaiki di sini
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
   className?: string;
