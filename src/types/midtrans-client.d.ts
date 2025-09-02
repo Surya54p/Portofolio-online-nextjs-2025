@@ -18,6 +18,7 @@ declare module "midtrans-client" {
       secure?: boolean;
     };
     [key: string]: unknown;
+    
   }
 
   interface TransactionResponse {
