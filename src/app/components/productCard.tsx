@@ -42,7 +42,7 @@ export default function ProductCard({ item }: { item: Product }) {
   async function HandleBuy(e: React.FormEvent) {
     e.preventDefault();
     try {
-      const res = await fetch("/api/product/checkout", {
+      const res = await fetch("/api/midtrans/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -62,15 +62,15 @@ export default function ProductCard({ item }: { item: Product }) {
         window.snap.pay(data.token, {
           onSuccess: function (result: unknown) {
             console.log("Success:", result);
-            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
           },
           onPending: function (result: unknown) {
             console.log("Pending:", result);
-            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
           },
           onError: function (result: unknown) {
             console.error("Error:", result);
-            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
           },
           onClose: function () {
             console.warn("Customer closed the popup without finishing payment");
@@ -94,7 +94,7 @@ export default function ProductCard({ item }: { item: Product }) {
           />
         </div>
         <div className="mx-4 my-4 flex flex-col gap-2 ">
-          <h2 className="text-3xl line-clamp-2">{item.name}</h2>
+          <h2 className="text-2xl line-clamp-2">{item.name}</h2>
           <span className="text-xl ">Rp {item.price?.toLocaleString("id-ID")}</span>
           <p className="text-gray-700  line-clamp-5 text-md">{item.description}</p>
           <PrimaryButton buttonText="Buy" className="rounded-md w-full text-lg" onClick={HandleOpenModal} />
