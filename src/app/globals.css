@@ -42,13 +42,7 @@
 
 body {
   font-family: var(--font-lora), Helvetica, sans-serif;
-  scrollbar-width: auto;
-  /* biar scroll normal */
-   overflow: scroll; /* tetap bisa scroll */
-  scrollbar-width: none; /* Firefox */
-  overflow-y: scroll;
-    /* overflow: hidden; */
-
+  
 }
 
 @keyframes gradientShift {
@@ -178,7 +172,7 @@ body {
 }
 
 .marqueVertical-container {
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 8rem;
   position: relative;
 }
@@ -215,6 +209,7 @@ body {
     transform: translateY(0%);
   }
 }
+
 /* @keyframes marquee-horizontal {
   0%   { transform: translateX(-150%); }
   100% { transform: translateX(50vw); }
@@ -302,6 +297,7 @@ body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
