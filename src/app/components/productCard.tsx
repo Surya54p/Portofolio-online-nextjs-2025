@@ -84,43 +84,23 @@ export default function ProductCard({ item }: { item: Product }) {
     }
   }
   return (
-    <div
-      className="bg-gray-50 rounded-lg p-6 lg:grid lg:grid-cols-2 hover:shadow-xl w-[555px] h-fit border border-gray-300 cursor-pointer shadow-xl lg:shadow-none"
-      // function untuk ke halaman detail product
-      // onClick={() => detailProduct(item.id)}
-    >
-      {/* Kiri: Info Produk */}
-      <div className="flex flex-col justify-between pr-3">
-        <div>
-          <h2 className="text-2xl font-light mb-2 line-clamp-2">{item.name}</h2>
-
-          {/* Gambar Mobile */}
-          {item.image ? (
-            <div className="lg:hidden rounded-lg overflow-hidden">
-              <img src={item.image} alt={item.name} className="object-contain w-full h-40" />
-            </div>
-          ) : (
-            <div className="lg:hidden rounded-lg overflow-hidden">
-              <img src="/img/still-under-construction.png" alt="default image" className="object-contain w-full h-40" />
-            </div>
-          )}
-
-          <p className="text-gray-700 text-sm line-clamp-5 mt-3">{item.description}</p>
+    <div className="bg-gray-50 border border-gray-300 rounded-lg h-fit">
+      <div className=" flex flex-col ">
+        <div className="rounded-lg  w-full h-64">
+          <img
+            src={item.image ?? "/img/still-under-construction.png"}
+            alt={item.name}
+            className="w-full h-full object-cover"
+          />
         </div>
-
-        <div className="flex flex-col gap-2 text-lg mt-2">
-          <span>Rp {item.price?.toLocaleString("id-ID")}</span>
-          <PrimaryButton buttonText="Buy" className="rounded-md" onClick={HandleOpenModal} />
+        <div className="mx-4 my-4 flex flex-col gap-2 ">
+          <h2 className="text-3xl line-clamp-2">{item.name}</h2>
+          <span className="text-xl ">Rp {item.price?.toLocaleString("id-ID")}</span>
+          <p className="text-gray-700  line-clamp-5 text-md">{item.description}</p>
+          <PrimaryButton buttonText="Buy" className="rounded-md w-full text-lg" onClick={HandleOpenModal} />
         </div>
       </div>
-      {/* Gambar Desktop */}
-      <div className="hidden lg:flex items-center justify-center rounded-lg overflow-hidden">
-        <img
-          src={item.image ?? "/img/still-under-construction.png"}
-          alt={item.name}
-          className="object-contain w-64 h-64"
-        />
-      </div>
+
       {openModal && (
         <div className="fixed inset-0 bg-gray-100/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg w-[800px] border border-gray-400 flex flex-col max-h-[90vh]">

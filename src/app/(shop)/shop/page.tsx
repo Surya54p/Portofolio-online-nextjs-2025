@@ -40,7 +40,7 @@ export default function ShopPage() {
           ))}
         </div>
       ) : (
-        <div className="flex justify-between flex-wrap gap-6 py-6">
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-10 py-6">
           {products.map((item) => (
             <ProductCard key={item.id} item={item} />
           ))}
