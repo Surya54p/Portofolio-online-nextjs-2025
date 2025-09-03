@@ -8,15 +8,8 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const {
-      order_id,
-      transaction_status,
-      payment_type,
-      transaction_id,
-      gross_amount,
-      status_code,
-      signature_key,
-    } = body;
+    const { order_id, transaction_status, payment_type, transaction_id, gross_amount, status_code, signature_key } =
+      body;
 
     // Validasi signature biar aman
     const serverKey = process.env.MIDTRANS_SERVER_KEY!;
@@ -48,8 +41,9 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ message: "Notification processed", status: newStatus });
-  } catch (err: any) {
-    console.error("Notif error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (error) {
+    console.log("Eror: ", error);
+    const message = error instanceof Error ? error.message : "Unexpected error";
+    return NextResponse.json({ error: "Checkout failed", detail: message }, { status: 500 });
   }
 }
