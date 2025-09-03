@@ -19,7 +19,11 @@ export default function ProductCard({ item }: { item: Product }) {
   const [emailUser, setEmailUser] = useState("");
   const [noTelpUser, setNoTelpUser] = useState("");
   const [quantityProduct, setQuantityProduct] = useState(0);
-
+  const [modalNotification, setModalNotification] = useState<{ open: boolean; status: string; message: string }>({
+    open: false,
+    status: "",
+    message: "",
+  });
   // inject script Snap Midtrans ke frontend
   useEffect(() => {
     const script = document.createElement("script");
@@ -62,18 +66,20 @@ export default function ProductCard({ item }: { item: Product }) {
         window.snap.pay(data.token, {
           onSuccess: function (result: unknown) {
             console.log("Success:", result);
-            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            setModalNotification({ open: true, status: "success", message: "Pembayaran berhasil 🎉" });
           },
           onPending: function (result: unknown) {
             console.log("Pending:", result);
-            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            setModalNotification({ open: true, status: "pending", message: "Menunggu pembayaran ⏳" });
           },
           onError: function (result: unknown) {
             console.error("Error:", result);
-            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            setModalNotification({ open: true, status: "error", message: "Pembayaran gagal ❌" });
           },
           onClose: function () {
-            console.warn("Customer closed the popup without finishing payment");
+            console.warn("Popup ditutup user");
+            setModalNotification({ open: true, status: "closed", message: "Popup ditutup sebelum bayar 🛑" });
           },
         });
       } else {
@@ -181,6 +187,20 @@ export default function ProductCard({ item }: { item: Product }) {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {modalNotification.open && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] text-center">
+            <h2 className="text-xl font-bold capitalize">{modalNotification.status}</h2>
+            <p className="mt-2">{modalNotification.message}</p>
+            <button
+              onClick={() => setModalNotification({ ...modalNotification, open: false })}
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded"
+            >
+              Tutup
+            </button>
           </div>
         </div>
       )}
