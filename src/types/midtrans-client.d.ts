@@ -18,7 +18,6 @@ declare module "midtrans-client" {
       secure?: boolean;
     };
     [key: string]: unknown;
-    
   }
 
   interface TransactionResponse {
@@ -30,5 +29,17 @@ declare module "midtrans-client" {
     constructor(options: { isProduction: boolean; serverKey: string; clientKey?: string });
     createTransaction(params: TransactionParameter): Promise<TransactionResponse>;
     createTransactionToken(params: TransactionParameter): Promise<string>;
+  }
+
+  export class CoreApi {
+    constructor(options: { isProduction: boolean; serverKey: string; clientKey?: string });
+
+    charge(params: Record<string, unknown>): Promise<any>;
+    transaction: {
+      status(orderId: string): Promise<any>;
+      approve(orderId: string): Promise<any>;
+      cancel(orderId: string): Promise<any>;
+      expire(orderId: string): Promise<any>;
+    };
   }
 }

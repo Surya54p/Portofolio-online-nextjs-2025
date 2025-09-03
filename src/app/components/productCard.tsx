@@ -62,15 +62,15 @@ export default function ProductCard({ item }: { item: Product }) {
         window.snap.pay(data.token, {
           onSuccess: function (result: unknown) {
             console.log("Success:", result);
-            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
           },
           onPending: function (result: unknown) {
             console.log("Pending:", result);
-            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
           },
           onError: function (result: unknown) {
             console.error("Error:", result);
-            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
           },
           onClose: function () {
             console.warn("Customer closed the popup without finishing payment");

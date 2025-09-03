@@ -1,6 +1,7 @@
+// src/app/api/midtrans/notification/route.ts
 import { NextResponse } from "next/server";
+import midtransClient from "midtrans-client";
 import { PrismaClient } from "@prisma/client";
-import crypto from "crypto";
 
 const prisma = new PrismaClient();
 
@@ -8,42 +9,29 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const { order_id, transaction_status, payment_type, transaction_id, gross_amount, status_code, signature_key } =
-      body;
+    // inisialisasi midtrans core API
+    const core = new midtransClient.CoreApi({
+      isProduction: false,
+      serverKey: process.env.MIDTRANS_SERVER_KEY!,
+      clientKey: process.env.MIDTRANS_CLIENT_KEY!,
+    });
 
-    // Validasi signature biar aman
-    const serverKey = process.env.MIDTRANS_SERVER_KEY!;
-    const validSignature = crypto
-      .createHash("sha512")
-      .update(order_id + status_code + gross_amount + serverKey)
-      .digest("hex");
+    // ambil status transaksi langsung ke Midtrans (buat validasi)
+    const statusResponse = await core.transaction.status(body.order_id);
 
-    if (signature_key !== validSignature) {
-      return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
-    }
-
-    // Tentukan status baru
-    let newStatus = "PENDING";
-    if (transaction_status === "capture" || transaction_status === "settlement") {
-      newStatus = "SUCCESS";
-    } else if (transaction_status === "deny" || transaction_status === "expire" || transaction_status === "cancel") {
-      newStatus = "FAILED";
-    }
-
-    // Update order di DB
+    // update status order di database
     await prisma.order.update({
-      where: { id: order_id },
+      where: { id: body.order_id },
       data: {
-        status: newStatus,
-        paymentType: payment_type,
-        transactionId: transaction_id,
+        status: statusResponse.transaction_status, // "capture", "settlement", "pending", "deny"
+        paymentType: statusResponse.payment_type,
+        transactionId: statusResponse.transaction_id,
       },
     });
 
-    return NextResponse.json({ message: "Notification processed", status: newStatus });
-  } catch (error) {
-    console.log("Eror: ", error);
-    const message = error instanceof Error ? error.message : "Unexpected error";
-    return NextResponse.json({ error: "Checkout failed", detail: message }, { status: 500 });
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("Midtrans notif error:", err);
+    return NextResponse.json({ error: "Failed to process notification" }, { status: 500 });
   }
 }
