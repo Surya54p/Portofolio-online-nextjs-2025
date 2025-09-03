@@ -1,75 +1,73 @@
-// src/app/api/midtrans/notification/route.ts
 import { NextResponse } from "next/server";
-import midtransClient from "midtrans-client";
-import prisma from "@/lib/prisma";
+import { PrismaClient } from "@prisma/client";
+import crypto from "crypto";
 
-export const dynamic = "force-dynamic"; // jaga2 biar gak di-cache
+const prisma = new PrismaClient();
 
-const core = new midtransClient.CoreApi({
-  isProduction: false,
-  serverKey: process.env.MIDTRANS_SERVER_KEY!,
-  clientKey: process.env.MIDTRANS_CLIENT_KEY!, // opsional, tapi gak masalah
-});
-
-// (opsional) health check
-export async function GET() {
-  return NextResponse.json({ ok: true });
+interface MidtransNotification {
+  order_id: string;
+  transaction_status: "capture" | "settlement" | "pending" | "deny" | "expire" | "cancel";
+  payment_type: string;
+  transaction_id: string;
+  gross_amount: string;
+  status_code: string;
+  signature_key: string;
 }
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    console.log("[MIDTRANS NOTIF] raw body:", body);
+    const body: MidtransNotification = await req.json();
 
-    // **Minimal**: butuh order_id dari Midtrans
-    const orderId = body.order_id as string;
-    if (!orderId) {
-      return NextResponse.json({ error: "order_id missing" }, { status: 400 });
-    }
+    const {
+      order_id,
+      transaction_status,
+      payment_type,
+      transaction_id,
+      gross_amount,
+      status_code,
+      signature_key,
+    } = body;
 
-    // (Best practice) verifikasi signature (opsional tapi bagus)
-    // signature_key = sha512(order_id + status_code + gross_amount + serverKey)
-    const crypto = await import("crypto");
-    const expect = crypto
+    // === VALIDASI SIGNATURE ===
+    const serverKey = process.env.MIDTRANS_SERVER_KEY!;
+    const validSignature = crypto
       .createHash("sha512")
-      .update(orderId + body.status_code + body.gross_amount + process.env.MIDTRANS_SERVER_KEY!)
+      .update(order_id + status_code + gross_amount + serverKey)
       .digest("hex");
-    if (body.signature_key && body.signature_key !== expect) {
-      console.warn("[MIDTRANS NOTIF] signature mismatch");
-      // boleh return 401, tapi saat dev seringkali signature kosong saat test manual Postman
-      // return NextResponse.json({ error: "invalid signature" }, { status: 401 });
+
+    if (signature_key !== validSignature) {
+      return NextResponse.json({ error: "Invalid signature" }, { status: 403 });
     }
 
-    // Tarik status resmi dari Midtrans (anti-spoof)
-    const statusRes = await core.transaction.status(orderId);
-    console.log("[MIDTRANS STATUS]:", statusRes);
+    // === MAPPING STATUS ===
+    const newStatus =
+      transaction_status === "capture" || transaction_status === "settlement"
+        ? "SUCCESS"
+        : transaction_status === "deny" ||
+          transaction_status === "expire" ||
+          transaction_status === "cancel"
+        ? "FAILED"
+        : "PENDING";
 
-    // Map status Midtrans → status di DB
-    // settlement/success → "success"
-    // pending → "pending"
-    // expire/cancel/deny → "failed"
-    const mapStatus = (s: string) => {
-      if (s === "settlement" || s === "capture") return "success";
-      if (s === "pending") return "pending";
-      return "failed";
-    };
-
-    const updated = await prisma.order.update({
-      where: { id: orderId },
+    // === UPDATE DATABASE ===
+    await prisma.order.update({
+      where: { id: order_id },
       data: {
-        status: mapStatus(statusRes.transaction_status),
-        paymentType: statusRes.payment_type ?? null,
-        transactionId: statusRes.transaction_id ?? null,
-        amount: Number(statusRes.gross_amount ?? 0) || undefined,
+        status: newStatus,
+        paymentType: payment_type,
+        transactionId: transaction_id,
       },
     });
 
-    console.log("[ORDER UPDATED]:", updated.id, updated.status);
-
-    // IMPORTANT: balas 200 ke Midtrans, kalau tidak akan di-retry
-    return NextResponse.json({ ok: true });
-  } catch (err) {
-    console.error("Midtrans notif error:", err);
-    return NextResponse.json({ error: "Notification failed" }, { status: 500 });
+    return NextResponse.json({
+      message: "Notification processed",
+      status: newStatus,
+    });
+  } catch (error) {
+    console.error("Midtrans Notification Error:", error);
+    return NextResponse.json(
+      { error: "Notification failed" },
+      { status: 500 }
+    );
   }
 }
