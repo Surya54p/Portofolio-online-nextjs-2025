@@ -4,8 +4,7 @@ import Link from "next/link";
 
 export default function PaymentSuccess() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
-      {/* Ilustrasi SVG */}
+    <div className=" flex flex-col items-center justify-center my-15">
       <img
         src="https://fcvxlaktnywouergtdwp.supabase.co/storage/v1/object/public/bucket-images/thanks.webp"
         alt=""
