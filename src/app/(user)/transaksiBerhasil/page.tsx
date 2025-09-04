@@ -13,8 +13,8 @@ export default function PaymentSuccess() {
       <div className="mt-5 text-center">
         <h1 className="text-2xl font-bold mb-2">Pembayaran Berhasil!</h1>
         <p className="text-gray-600 mb-6 text-center">
-          Pesananmu sedang diproses dan akan dihubungi jika sudah siap. <br />
-          Anda bisa hubungi kontak berikut untuk detail dan status pesanan anda Terima kasih telah melakukan pembayaran.
+          Terima kasih telah melakukan pembayaran. <br />Pesananmu sedang diproses dan akan dihubungi jika sudah siap. <br />
+          Anda bisa hubungi kontak berikut untuk detail dan status pesanan anda 
         </p>
       </div>
       <div className="flex flex-col gap-2 mt-1">
