@@ -4,12 +4,6 @@ import { PrismaClient } from "@prisma/client";
 import nodemailer from "nodemailer";
 const prisma = new PrismaClient();
 
-// ambil data total likes
-// export async function GET() {
-//   try {
-//     const total_likes = await prisma.likes.count();
-//   }
-// }
 function generateId() {
   const now = new Date();
   return (

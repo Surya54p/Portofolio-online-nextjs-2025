@@ -92,3 +92,16 @@ model OrderItem {
   quantity  Int     @default(1)
   price     Int // snapshot harga saat order dibuat
 }
+
+model Skill {
+  id          String   @id @default(cuid())
+  name        String // nama skill
+  src         String? // opsional, bisa taruh URL/icon
+  category    Category // enum → aman, gak bisa input sembarangan
+  description String? // opsional
+}
+
+enum Category {
+  SoftSkill
+  HardSkill
+}

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import midtransClient from "midtrans-client";
 import { PrismaClient } from "@prisma/client";
+import nodemailer from "nodemailer";
 
 const prisma = new PrismaClient();
 
@@ -41,6 +42,7 @@ export async function POST(req: Request) {
       },
     });
 
+    
     // Konfigurasi Midtrans (pake server key sandbox dulu)
     const snap = new midtransClient.Snap({
       isProduction: false,
@@ -79,6 +81,6 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error("Checkout API Error:", error);
     const message = error instanceof Error ? error.message : "Unexpected error";
-    return NextResponse.json({ error: "Checkout failed", detail:message }, { status: 500 });
+    return NextResponse.json({ error: "Checkout failed", detail: message }, { status: 500 });
   }
 }

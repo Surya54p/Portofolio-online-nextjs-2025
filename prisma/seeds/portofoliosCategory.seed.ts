@@ -32,5 +32,5 @@ export async function seedPortfolioCategory() {
     });
   }
 
-  console.log("✅ Portofolio categories seeded successfully!");
+  console.log("✅ Portofolio categories seed selesai!");
 }

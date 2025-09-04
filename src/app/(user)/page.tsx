@@ -375,9 +375,9 @@ const Home = () => {
                 </div>
               ))}
             </div>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <PrimaryButton buttonText="See more" />
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Soft Skill */}{" "}
@@ -400,9 +400,9 @@ const Home = () => {
                 </div>
               ))}
             </div>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <PrimaryButton buttonText="See more" />
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Experience */}
