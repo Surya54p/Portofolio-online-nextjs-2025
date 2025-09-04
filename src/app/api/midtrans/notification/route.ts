@@ -120,9 +120,7 @@ export async function POST(req: Request) {
         <p>Total: Rp ${order.amount.toLocaleString()}</p>
       `;
     }
-    console.log("📦 Order ID:", order.id);
-    console.log("💳 Transaction Status:", transaction_status);
-    console.log("👤 Email:", order.email);
+    
 
     // Update order di DB
     await prisma.order.update({

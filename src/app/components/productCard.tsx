@@ -10,6 +10,13 @@ interface Product {
   image?: string;
   price?: number;
 }
+interface SnapResult {
+  order_id: string;
+  transaction_id: string;
+  transaction_status: string;
+  payment_type: string;
+  gross_amount: number;
+}
 
 export default function ProductCard({ item }: { item: Product }) {
   // const router = useRouter();
@@ -67,12 +74,16 @@ export default function ProductCard({ item }: { item: Product }) {
       if (data.token) {
         // @ts-expect-error: snap object tidak punya type definition
         window.snap.pay(data.token, {
-          onSuccess: function (result: unknown) {
+          onSuccess: function (result: SnapResult) {
             console.log("Success:", result);
-            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/shop";
+
+            const orderId = result.order_id; // aman, sudah typed
+            window.location.href = `https://portofolio-online-nextjs-2025.vercel.app/transaksiBerhasil?order_id=${orderId}`;
+
             setModalNotification({ open: true, status: "success", message: "Pembayaran berhasil 🎉" });
             setLoading(false);
           },
+
           onPending: function (result: unknown) {
             console.log("Pending:", result);
             setModalNotification({ open: true, status: "pending", message: "Menunggu pembayaran ⏳" });
