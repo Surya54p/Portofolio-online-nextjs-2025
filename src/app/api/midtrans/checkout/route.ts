@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import midtransClient from "midtrans-client";
 import { PrismaClient } from "@prisma/client";
-import nodemailer from "nodemailer";
+// import nodemailer from "nodemailer";
 
 const prisma = new PrismaClient();
 
@@ -42,7 +42,29 @@ export async function POST(req: Request) {
       },
     });
 
-    
+    // const transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   auth: {
+    //     user: process.env.GMAIL_USER,
+    //     pass: process.env.GMAIL_PASS,
+    //   },
+    // });
+
+    // await transporter.sendMail({
+    //   from: `"Tokoh Suyra", <${process.env.GMAI_USER}>`,
+    //   to: customer.email,
+    //   subject: "Pesanan berhasil dibuat🚀",
+    //   html: `
+    //     <h2>Halo ${customer.first_name},</h2>
+    //     <p>Terima kasih sudah memesan di <b>Toko Surya</b>.</p>
+    //     <p><b>Produk:</b> ${product.name}</p>
+    //     <p><b>Jumlah:</b> ${quantity}</p>
+    //     <p><b>Total:</b> Rp ${grossAmount.toLocaleString()}</p>
+    //     <p>ID Pesanan: <b>${order.id}</b></p>
+    //     <br/>
+    //     <p>Silakan lanjutkan pembayaran melalui Midtrans.</p>
+    //   `,
+    // });
     // Konfigurasi Midtrans (pake server key sandbox dulu)
     const snap = new midtransClient.Snap({
       isProduction: false,
