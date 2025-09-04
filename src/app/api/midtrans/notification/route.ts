@@ -68,14 +68,21 @@ export async function POST(req: Request) {
       <div style="margin: 20px 0; padding: 15px; background: #f0f8ff; border-left: 4px solid #4caf50; color: #333;">
         <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 17px;">Detail Pesanan:</h3>
         <ul style="padding-left: 20px; margin: 0; list-style-type: disc;">
-          ${order.items
-            .map(
-              (item) =>
-                `<li style="margin-bottom: 5px;">${item.product.name} x ${item.quantity} — <strong>Rp ${(
-                  item.price * item.quantity
-                ).toLocaleString("id-ID")}</strong></li>`
-            )
-            .join("")}
+         ${order.items
+           .map((item) => {
+             // Batasi deskripsi ke max 100 karakter (anggap clamp 3 baris)
+             const truncatedDesc =
+               (item.product.description ?? "").slice(0, 100) + (item.product.description ? "..." : "");
+             return `
+      <li style="margin-bottom: 10px; list-style:none; border-bottom:1px solid #ddd; padding:8px 0;">
+        <strong>${item.product.name}</strong><br/>
+        <span style="color:#555; font-size:14px;">${truncatedDesc}</span><br/>
+        Jumlah: ${item.quantity} <br/>
+        <strong>Rp ${(item.price * item.quantity).toLocaleString("id-ID")}</strong>
+      </li>
+    `;
+           })
+           .join("")}
         </ul>
         <p style="font-size: 16px; font-weight: bold; margin-top: 15px; margin-bottom: 0; border-top: 1px solid #ddd; padding-top: 10px;">
           Total Pembayaran: Rp ${order.amount.toLocaleString("id-ID")}
