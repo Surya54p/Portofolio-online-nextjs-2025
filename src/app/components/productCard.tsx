@@ -24,6 +24,8 @@ export default function ProductCard({ item }: { item: Product }) {
     status: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+
   // inject script Snap Midtrans ke frontend
   useEffect(() => {
     const script = document.createElement("script");
@@ -46,6 +48,7 @@ export default function ProductCard({ item }: { item: Product }) {
   async function HandleBuy(e: React.FormEvent) {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await fetch("/api/midtrans/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -66,29 +69,40 @@ export default function ProductCard({ item }: { item: Product }) {
         window.snap.pay(data.token, {
           onSuccess: function (result: unknown) {
             console.log("Success:", result);
-            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/";
+            // window.location.href = "https://portofolio-online-nextjs-2025.vercel.app/shop";
             setModalNotification({ open: true, status: "success", message: "Pembayaran berhasil 🎉" });
+            setLoading(false);
           },
           onPending: function (result: unknown) {
             console.log("Pending:", result);
             setModalNotification({ open: true, status: "pending", message: "Menunggu pembayaran ⏳" });
+            setLoading(false);
           },
           onError: function (result: unknown) {
             console.error("Error:", result);
             setModalNotification({ open: true, status: "error", message: "Pembayaran gagal ❌" });
+            setLoading(false);
           },
           onClose: function () {
             console.warn("Popup ditutup user");
             setModalNotification({ open: true, status: "closed", message: "Popup ditutup sebelum bayar 🛑" });
+            setLoading(false);
           },
         });
       } else {
         console.error("Checkout gagal:", data);
+        setLoading(false); // <- jangan lupa
       }
     } catch (err) {
       console.error("HandleBuy error:", err);
+      setLoading(false); // <- jangan lupa
     }
   }
+
+  const Spinner = () => (
+    <div className="w-5 h-5 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+  );
+
   return (
     <div className="bg-gray-50 border border-gray-300 rounded-lg h-fit">
       <div className=" flex flex-col ">
@@ -182,8 +196,13 @@ export default function ProductCard({ item }: { item: Product }) {
                 <button type="button" onClick={HandleModalClose} className="px-4 py-2 border rounded">
                   Batal
                 </button>
-                <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">
-                  Lanjut Bayar
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-green-600 text-white rounded flex items-center justify-center gap-2"
+                  disabled={loading}
+                >
+                  {loading && <Spinner />}
+                  {loading ? "Loading..." : "Lanjut Bayar"}
                 </button>
               </div>
             </form>

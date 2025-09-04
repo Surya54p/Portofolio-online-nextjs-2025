@@ -91,6 +91,7 @@ export async function POST(req: Request) {
         email: customer.email,
         phone: customer.phone,
       },
+      finish_redirect_url: `https://portofolio-online-nextjs-2025.vercel.app/shop/transaksiBerhasil?order_id=${order.id}`,
     };
 
     const transaction = await snap.createTransaction(parameter);
