@@ -14,11 +14,10 @@ interface ToolCardProps {
 
 export default function SomeTools() {
   const [tools, setTools] = useState<ToolCardProps[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   // ambil data di database dengan api
   useEffect(() => {
     const fetchTools = async () => {
-      setLoading(true);
       try {
         const res = await fetch("/api/someTools");
         if (!res.ok) throw new Error("❌ Fetch failed");
@@ -58,19 +57,21 @@ export default function SomeTools() {
         {/* Tools Buttons Section */}
         <div className="flex justify-center  items-center">
           <div className=" grid grid-cols-2  gap-6 w-full max-w-3xl">
-            {!tools.length ? (
+            {loading ? (
               <p>Loading...</p>
-            ) : (
+            ) : tools.length > 0 ? (
               tools.map((tool) => (
                 <HorizontalCardWithImage
                   key={tool.id}
                   name={tool.name}
-                  desc={tool.desc}
+                  desc={tool.desc ?? "Tidak ada deskripsi"}
                   techStack={tool.techStack}
                   img={tool.img ?? "/img/placeholder.png"}
-                  link={tool.link}
+                  link={tool.link ?? "#"}
                 />
               ))
+            ) : (
+              "data tidak ada"
             )}
           </div>
         </div>
