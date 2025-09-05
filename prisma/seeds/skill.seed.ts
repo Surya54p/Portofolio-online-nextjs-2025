@@ -31,7 +31,7 @@ export async function seedSkill() {
         name: skill.title,
         description: skill.description,
         category,
-        src: skill.src,
+        img: skill.img,
       },
     });
   }

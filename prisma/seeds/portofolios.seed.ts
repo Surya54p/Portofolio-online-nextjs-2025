@@ -21,7 +21,7 @@ export async function seedPortofolios() {
   await prisma.portofolios.upsert({
     where: { id: item.id },
     update: {
-      src: item.src,
+      img: item.img,
       title: item.title,
       stack: item.stack,
       summary: item.summary,
@@ -29,7 +29,7 @@ export async function seedPortofolios() {
       // createdAt: new Date(item.createdAt),
     },
     create: {
-      src: item.src,
+      img: item.img,
       id: item.id,
       title: item.title,
       stack: item.stack,

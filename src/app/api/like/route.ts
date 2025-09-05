@@ -1,5 +1,4 @@
 export const runtime = "nodejs";
-
 import { PrismaClient } from "@prisma/client";
 import nodemailer from "nodemailer";
 const prisma = new PrismaClient();

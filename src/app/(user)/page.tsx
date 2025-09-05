@@ -278,7 +278,7 @@ const Home = () => {
 
               <span className="lg:text-[1.3rem] text-[1rem]">From this website you will know more about me! :)</span>
               <div className="mt-5">
-                <a href="about" className="border px-3 rounded-[25px] py-3">
+                <a href="#about" className="border hover:border-blue-500 px-3 rounded-[25px] py-3 hover:bg-blue-500 hover:text-white">
                   About me
                 </a>
               </div>
@@ -293,7 +293,7 @@ const Home = () => {
           </div>
 
           {/* About Me */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-10">
+          <div id="about" className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-10">
             {/* Image */}
             <div className="w-full flex justify-center">
               <Image

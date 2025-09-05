@@ -21,22 +21,38 @@ export default function Contact() {
         button koneksi media sosial 
         ================*/}
         <div className="lg:grid lg:grid-cols-2 flex flex-col gap-3">
-          <button title="Kunjungi LinkedIn saya"  className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#0A66C2] hover:bg-[#004182] transition-colors duration-200 active:scale-95">
+          <button
+            title="Kunjungi LinkedIn saya"
+            className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#0A66C2] hover:bg-[#004182] transition-transform duration-150 hover:translate-y-[-2px] active:scale-95"
+            onClick={() => openLink("https://www.linkedin.com/in/surya-ario-pratama-354431285")}
+          >
             <FaLinkedin size={18} />
             LinkedIn
           </button>
 
-          <button title="Hubungi saya lewat email" className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#EA4335] hover:bg-[#C5221F] transition-colors duration-200 active:scale-95">
+          <button
+            title="Hubungi saya lewat email"
+            className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#EA4335] hover:bg-[#C5221F] transition-transform duration-150 hover:translate-y-[-2px] active:scale-95"
+            onClick={() => (window.location.href = "mailto:suryaarioprrama@gmail.com")}
+          >
             <FaEnvelope size={18} />
             Email
           </button>
 
-          <button title="Kunjungi Instagram saya" className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#E4405F] hover:bg-[#C13584] transition-colors duration-200 active:scale-95">
+          <button
+            title="Kunjungi Instagram saya"
+            className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#E4405F] hover:bg-[#C13584] transition-transform duration-150 hover:translate-y-[-2px] active:scale-95 "
+            onClick={() => openLink("https://www.instagram.com/surya54p_")}
+          >
             <FaInstagram size={18} />
             Instagram
           </button>
 
-          <button title="Kunjungi Github saya" className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#181717] hover:bg-[#000000] transition-colors duration-200 active:scale-95">
+          <button
+            title="Kunjungi Github saya"
+            className="flex items-center justify-center gap-2 w-full py-2 rounded text-white bg-[#181717] hover:bg-[#000000] transition-transform duration-150 hover:translate-y-[-2px] active:scale-95"
+            onClick={() => openLink("https://github.com/Surya54p")}
+          >
             <FaGithub size={18} />
             GitHub
           </button>

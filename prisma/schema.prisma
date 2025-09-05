@@ -30,7 +30,7 @@ model Viewers {
 
 model Portofolios {
   id        String   @id @default(cuid())
-  src       String?
+  img       String?
   title     String
   stack     String[]
   summary   String
@@ -43,7 +43,7 @@ model Portofolios {
 
 model Certificates {
   id        String   @id @unique @default(cuid())
-  src       String?
+  img       String?
   title     String
   summary   String
   category  String
@@ -96,12 +96,21 @@ model OrderItem {
 model Skill {
   id          String   @id @default(cuid())
   name        String // nama skill
-  src         String? // opsional, bisa taruh URL/icon
+  img         String? // opsional, bisa taruh URL/icon
   category    Category // enum → aman, gak bisa input sembarangan
   description String? // opsional
 }
 
 enum Category {
   SoftSkill
-  HardSkill
+  HardSkill 
+}
+
+model SomeTools {
+  id          String   @id @default(cuid())
+  name        String
+  techStack   String[]
+  img         String
+  description String
+  link        String
 }

@@ -1,12 +1,11 @@
 import { seedAdmin } from "./seeds/admin.seed";
 import { seedLike } from "./seeds/like.seed";
 import { seedViewers } from "./seeds/viewers.seed";
-// import { seedPortofolios } from "./seeds/portofolios.seed";
 import { seedPortfolioCategory } from "./seeds/portofoliosCategory.seed";
 import { seedProduct } from "./seeds/product.seed";
 import { SeedCertificates } from "./seeds/certificates.seed";
 import { seedSkill } from "./seeds/skill.seed";
-
+import { SeedSomeTools } from "./seeds/someTools.seed";
 async function main() {
   await seedAdmin();
   await seedLike();
@@ -16,6 +15,7 @@ async function main() {
   await SeedCertificates();
   await seedLike();
   await seedSkill();
+  await SeedSomeTools();
   // await seedPortofolios();
 }
 

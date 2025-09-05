@@ -16,7 +16,7 @@ export async function seedViewers() {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const viewersSeed = JSON.parse(fileContent);
 
-  for (const view of viewersSeed) {
+  for (const view of   viewersSeed) {
     await prisma.viewers.upsert({
       where: { id: view.id },
       update: {},

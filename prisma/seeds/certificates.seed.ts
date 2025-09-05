@@ -20,13 +20,13 @@ export async function SeedCertificates() {
     await prisma.certificates.upsert({
       where: { id: item.id },
       update: {
-        src: item.src,
+        img: item.img,
         title: item.title,
         summary: item.summary,
         category: item.category,
       },
       create: {
-        src: item.src,
+        img: item.img,
         title: item.title,
         summary: item.summary,
         category: item.category,
