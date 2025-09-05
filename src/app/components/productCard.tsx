@@ -19,8 +19,6 @@ interface SnapResult {
 }
 
 export default function ProductCard({ item }: { item: Product }) {
-  // const router = useRouter();
-
   const [openModal, setOpenModal] = useState(false);
   const [userName, setUserName] = useState("");
   const [emailUser, setEmailUser] = useState("");

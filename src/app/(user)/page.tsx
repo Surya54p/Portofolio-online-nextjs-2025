@@ -21,10 +21,15 @@ const Home = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastType, setToastType] = useState<boolean>(true);
   const [totalLikes, setTotalLikes] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
+  const Spinner = () => (
+    <div className="w-5 h-5 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+  );
 
   // POST like
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     const res = await fetch("/api/like", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,13 +40,17 @@ const Home = () => {
     if (data.status) {
       if (data.nameEmpty) {
         showCustomToast(data.message, data.status);
+        setLoading(false);
         return;
       } else if (data.nameAlreadyLiked) {
+        setLoading(false);
         showCustomToast(data.message, data.status);
       } else {
+        setLoading(false);
         showCustomToast(data.message, data.status);
       }
     } else {
+      setLoading(false);
       showCustomToast(data.message, data.status);
     }
     setNama("");
@@ -526,7 +535,20 @@ const Home = () => {
                 placeholder="Input nama untuk like"
                 className="px-6 py-3 bg-[#fff]  rounded-full w-full shadow-[0px_0.5px_10px_rgba(0,0.5,0,0.25)]"
               />
-              <PrimaryButton type="submit" buttonText="Submit" className="w-full" />
+
+              <PrimaryButton
+                type="submit"
+                buttonText={
+                  loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <Spinner /> Processing
+                    </div>
+                  ) : (
+                    "Submit"
+                  )
+                }
+                className="w-full"
+              />
             </form>
           </div>
           {showToast && (

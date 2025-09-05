@@ -32,7 +32,6 @@ export async function GET() {
 // simpan data
 export async function POST(req: Request) {
   const { nama } = await req.json();
-  console.log("✅ Data nama yang diterima:", nama);
   // console.log("DATABASE_URL =", process.env.DATABASE_URL);
 
   if (nama == null || nama == "") {
@@ -100,6 +99,8 @@ export async function POST(req: Request) {
     </div>
   `,
     });
+    // tampilkan dan simpand data
+    console.log("✅ Data nama yang diterima:", nama);
     return new Response(
       JSON.stringify({
         nameAlreadyLiked: false,

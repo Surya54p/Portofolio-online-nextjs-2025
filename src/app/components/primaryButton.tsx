@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 
 interface PrimaryButtonProps {
-  buttonText: string;
+  buttonText: React.ReactNode; // ✅ bisa string, JSX, fragment, dll
   href?: string; // kalau ada → jadi link
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; // ⚡ perbaiki di sini
   type?: "button" | "submit" | "reset";
