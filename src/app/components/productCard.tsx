@@ -119,7 +119,7 @@ export default function ProductCard({ item }: { item: Product }) {
           <img
             src={item.image ?? "/img/still-under-construction.png"}
             alt={item.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-lg"
           />
         </div>
         <div className="mx-4 my-4 flex flex-col gap-2 ">

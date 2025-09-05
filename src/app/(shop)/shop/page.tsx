@@ -34,7 +34,7 @@ export default function ShopPage() {
 
       {/* Container Product */}
       {loading ? (
-        <div className="flex justify-between flex-wrap gap-6 py-6">
+        <div className="flex justify-center flex-wrap gap-6 py-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <InformationCardSkeleton key={i} />
           ))}
