@@ -7,7 +7,7 @@ import Image from "next/image";
 
 type cardSwiperProps = {
   images: {
-    src: string;
+    img: string;
     alt: string;
   }[];
   ukuran?: number;
@@ -28,7 +28,7 @@ export default function SwiperCard({ images, ukuran = 200 }: cardSwiperProps) {
       >
         {images.map((img, index) => (
           <SwiperSlide key={index}>
-            <Image src={img.src} width={ukuran} height={ukuran} alt={img.alt} className="rounded-lg object-cover" />
+            <Image src={img.img} width={ukuran} height={ukuran} alt={img.alt} className="rounded-lg object-cover" />
           </SwiperSlide>
         ))}
       </Swiper>

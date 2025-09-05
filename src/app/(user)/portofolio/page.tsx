@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 interface Info {
   id: number;
-  src: string;
+  img: string;
   title: string;
   summary: string;
   stack: string[];
@@ -92,7 +92,7 @@ function Section({ title, description, data }: { title: string; description: str
           <InformationCard
             key={index}
             info={{
-              src: info.src,
+              img: info.img,
               title: info.title,
               summary: info.summary,
               stack: info.stack,

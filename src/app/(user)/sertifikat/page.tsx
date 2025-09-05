@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 interface Info {
   id: string;
-  src: string;
+  img: string;
   title: string;
   summary: string;
   category: string;
@@ -51,7 +51,7 @@ export default function Sertifikat() {
               key={c.id}
               title={c.title}
               category={c.category}
-              src={c.src}
+              img={c.img}
               summary={c.summary || "Tidak ada deskripsi kategori"}
             />
           ))}
@@ -61,12 +61,12 @@ export default function Sertifikat() {
   );
 }
 
-function Section({ title, summary, src, category }: { title: string; summary: string; src: string; category: string }) {
+function Section({ title, summary, img, category }: { title: string; summary: string; img: string; category: string }) {
   return (
     <>
       <InformationCard
         info={{
-          src,
+          img,
           title,
           summary,
           stack: [category], // category dijadikan array biar match prop `stack`

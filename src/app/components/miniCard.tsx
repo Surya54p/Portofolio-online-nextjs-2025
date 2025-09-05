@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 type Info = {
-  src: string;
+  img: string;
   alt: string;
   title: string;
 };
@@ -27,7 +27,7 @@ function CardItem({ info }: { info: Info }) {
     <div className="w-40 flex flex-col ">
       <Image
         className="  object-contain"
-        src={info.src.startsWith("/") ? info.src : `/img/${info.src}`}
+        src={info.img.startsWith("/") ? info.img : `/img/${info.img}`}
         alt={info.alt}
         width={160}
         height={160}

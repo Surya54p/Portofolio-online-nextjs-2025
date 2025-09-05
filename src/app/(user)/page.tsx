@@ -78,7 +78,7 @@ const Home = () => {
 
   const minicardDefault = [
     {
-      src: "still-under-construction.png",
+      img: "still-under-construction.png",
       alt: "loroem",
       title: "titel 1",
     },
