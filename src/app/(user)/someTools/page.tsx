@@ -52,12 +52,14 @@ export default function SomeTools() {
             <span className="text-gray-500">Image</span>
           </div>
         </div>
-        {/* button act */}
-
+       
         {/* Tools Buttons Section */}
         <div className="flex justify-center">
           <div className="columns-2 lg:gap-6 gap-1 max-w-3xl w-full">
-            {tools.map((tool) => (
+            {loading ? (
+              <p>Loading...</p>
+            ) : tools.length > 0 ? (
+              tools.map((tool) => (
               <div key={tool.id} className="mb-1 lg:mb-6 break-inside-avoid">
                 <HorizontalCardWithImage
                   name={tool.name}
@@ -67,7 +69,10 @@ export default function SomeTools() {
                   link={tool.link ?? "#"}
                 />
               </div>
-            ))}
+            ))
+            ) : (
+              "data tidak ada"
+            )}
           </div>
         </div>
       </div>
