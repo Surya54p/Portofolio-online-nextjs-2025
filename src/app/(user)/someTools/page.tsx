@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 interface ToolCardProps {
   id: string;
   name: string;
-  desc: string;
+  description: string;
   img: string;
   link: string;
   techStack: string[];
@@ -64,7 +64,7 @@ export default function SomeTools() {
                 <HorizontalCardWithImage
                   key={tool.id}
                   name={tool.name}
-                  desc={tool.desc ?? "Tidak ada deskripsi"}
+                  description={tool.description ?? "Tidak ada deskripsi"}
                   techStack={tool.techStack}
                   img={tool.img ?? "/img/placeholder.png"}
                   link={tool.link ?? "#"}
