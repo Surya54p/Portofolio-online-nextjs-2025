@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         title,
         summary,
         category,
-        src: imageUrl,
+        img: imageUrl,
       },
     });
     //   kembalikan response kalau berhasil

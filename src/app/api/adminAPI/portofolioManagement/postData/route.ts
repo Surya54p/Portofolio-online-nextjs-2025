@@ -45,7 +45,7 @@ export async function POST(req: Request) {
         title,
         summary,
         stack,
-        src: imageUrl,
+        img: imageUrl,
         categoryId: Number(categoryId),
       },
     });
