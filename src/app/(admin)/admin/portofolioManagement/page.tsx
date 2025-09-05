@@ -21,7 +21,7 @@ import {
 interface PortofolioItem {
   id: string;
   title: string;
-  src: string | null; // ✅ bisa string atau null
+  img: string | null; // ✅ bisa string atau null
   stack: string[] | string;
   summary: string;
   createdAt: Date | string;
@@ -253,7 +253,7 @@ export default function Dashboard() {
             <TableRow>
               <TableHead className="w-[5%]">No</TableHead>
               <TableHead className="w-[15%]">Title</TableHead>
-              <TableHead className="w-[20%]">Src</TableHead>
+              <TableHead className="w-[20%]">img</TableHead>
               <TableHead className="w-[15%]">Stack</TableHead>
               <TableHead className="w-[25%]">Summary</TableHead>
               <TableHead className="w-[10%]">Created At</TableHead>
@@ -267,7 +267,7 @@ export default function Dashboard() {
                 <TableCell className="px-2 py-2">{index + 1}</TableCell>
 
                 <TableCell className="px-2 py-2 break-words  truncate ">{item.title}</TableCell>
-                <TableCell className="px-2 py-2 break-words max-w-[250px] truncate ">{item.src}</TableCell>
+                <TableCell className="px-2 py-2 break-words max-w-[250px] truncate ">{item.img}</TableCell>
                 <TableCell className="px-2 py-2 break-words  truncate ">
                   {Array.isArray(item.stack) ? item.stack.join(", ") : item.stack}
                 </TableCell>
@@ -343,8 +343,8 @@ export default function Dashboard() {
             />
             <input
               type="text"
-              value={editingItem?.src ?? ""} // ✅ kalau null, jadi string kosong
-              onChange={(e) => handleChangeEditModal("src", e.target.value)}
+              value={editingItem?.img ?? ""} // ✅ kalau null, jadi string kosong
+              onChange={(e) => handleChangeEditModal("img", e.target.value)}
               placeholder="Source"
               className="border rounded px-3 py-2"
             />
