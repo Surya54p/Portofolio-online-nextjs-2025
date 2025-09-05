@@ -55,24 +55,19 @@ export default function SomeTools() {
         {/* button act */}
 
         {/* Tools Buttons Section */}
-        <div className="flex justify-center  items-center">
-          <div className=" grid grid-cols-2  gap-6 w-full max-w-3xl">
-            {loading ? (
-              <p>Loading...</p>
-            ) : tools.length > 0 ? (
-              tools.map((tool) => (
+        <div className="flex justify-center">
+          <div className="columns-2 lg:gap-6 gap-1 max-w-3xl w-full">
+            {tools.map((tool) => (
+              <div key={tool.id} className="mb-1 lg:mb-6 break-inside-avoid">
                 <HorizontalCardWithImage
-                  key={tool.id}
                   name={tool.name}
                   description={tool.description ?? "Tidak ada deskripsi"}
                   techStack={tool.techStack}
                   img={tool.img ?? "/img/placeholder.png"}
                   link={tool.link ?? "#"}
                 />
-              ))
-            ) : (
-              "data tidak ada"
-            )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
