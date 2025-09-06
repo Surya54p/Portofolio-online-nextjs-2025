@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRef } from "react";
 export type Info = {
-  img: string;
+  img?: string;
   title: string;
   summary: string; // 🔥 ini bukan "summary"
   stack: string[];
@@ -30,7 +30,7 @@ export default function InformationCard({ info }: CardProps) {
   return (
     <div className="w-[270px] h-fit rounded-xl overflow-hidden border shadow bg-white">
       <div className="relative h-[200px] w-full">
-        <Image src={info.img} alt={info.title} fill className="object-cover" />
+        <Image src={info.img ?? "no data"} alt={info.title} fill className="object-cover" />
       </div>
 
       <div className="p-4">

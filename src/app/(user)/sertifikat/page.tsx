@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 interface Info {
   id: string;
-  img: string;
+  img?: string;
   title: string;
   summary: string;
   category: string;
@@ -51,8 +51,11 @@ export default function Sertifikat() {
               key={c.id}
               title={c.title}
               category={c.category}
-              img={c.img}
-              summary={c.summary || "Tidak ada deskripsi kategori"}
+              img={c.img ?? "no data"}
+              summary={
+                c.summary ||
+                "https://fcvxlaktnywouergtdwp.supabase.co/storage/v1/object/public/bucket-images/still-under-construction.webp"
+              }
             />
           ))}
         </div>

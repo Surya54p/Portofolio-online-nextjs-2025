@@ -7,7 +7,7 @@ export default function TicketForm() {
     username: "",
     email: "",
     noTelp: "",
-    name: "",
+    title: "",
     message: "",
     type: "bug",
   });
@@ -16,7 +16,7 @@ export default function TicketForm() {
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.title]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,7 +26,7 @@ export default function TicketForm() {
     setError(null);
 
     try {
-      const res = await fetch("/api/laporkanMasalah", {
+      const res = await fetch("/api/laporkanMasalah/POST", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -37,7 +37,7 @@ export default function TicketForm() {
       }
 
       setSuccess("Keluhan berhasil dikirim! Tim kami akan menghubungi Anda dalam 24 jam.");
-      setForm({ username: "", email: "", noTelp: "", name: "", message: "", type: "bug" });
+      setForm({ username: "", email: "", noTelp: "", title: "", message: "", type: "bug" });
     } catch (err: any) {
       setError(err.message || "Terjadi kesalahan saat mengirim keluhan.");
     } finally {
@@ -55,19 +55,62 @@ export default function TicketForm() {
       </span>
 
       <form className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit}>
-        <input type="text" name="username" placeholder="Username" className="border border-gray-300 rounded px-3 py-2" value={form.username} onChange={handleChange} />
-        <input type="email" name="email" placeholder="Email" className="border border-gray-300 rounded px-3 py-2" value={form.email} onChange={handleChange} />
-        <input type="text" name="noTelp" placeholder="No. Telp" className="border border-gray-300 rounded px-3 py-2" value={form.noTelp} onChange={handleChange} />
-        <input type="text" name="name" placeholder="Judul Masalah" className="border border-gray-300 rounded px-3 py-2" value={form.name} onChange={handleChange} />
-        <textarea name="message" placeholder="Deskripsi Masalah" className="border border-gray-300 rounded px-3 py-2 h-32" value={form.message} onChange={handleChange}></textarea>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          className="border border-gray-300 rounded px-3 py-2"
+          value={form.username}
+          onChange={handleChange}
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="border border-gray-300 rounded px-3 py-2"
+          value={form.email}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="noTelp"
+          placeholder="No. Telp"
+          className="border border-gray-300 rounded px-3 py-2"
+          value={form.noTelp}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="name"
+          placeholder="Judul Masalah"
+          className="border border-gray-300 rounded px-3 py-2"
+          value={form.title}
+          onChange={handleChange}
+        />
+        <textarea
+          name="message"
+          placeholder="Deskripsi Masalah"
+          className="border border-gray-300 rounded px-3 py-2 h-32"
+          value={form.message}
+          onChange={handleChange}
+        ></textarea>
 
         <div className="flex gap-4">
-          <select name="type" value={form.type} onChange={handleChange} className="border border-gray-300 rounded px-3 py-2 flex-1">
+          <select
+            name="type"
+            value={form.type}
+            onChange={handleChange}
+            className="border border-gray-300 rounded px-3 py-2 flex-1"
+          >
             <option value="bug">Bug</option>
             <option value="product">Product</option>
           </select>
 
-          <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700" disabled={loading}>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+            disabled={loading}
+          >
             {loading ? "Mengirim..." : "Submit"}
           </button>
         </div>

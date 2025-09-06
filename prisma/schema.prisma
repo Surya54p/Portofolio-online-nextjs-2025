@@ -127,12 +127,12 @@ enum TicketType {
   product
 }
 
-model Ticket {
+model TicketLaporanMasalah {
   id        Int          @id @default(autoincrement())
   username  String
   email     String
   noTelp    String
-  name      String
+  title      String
   status    TicketStatus @default(pending)
   type      TicketType // bug atau product
   message   String
