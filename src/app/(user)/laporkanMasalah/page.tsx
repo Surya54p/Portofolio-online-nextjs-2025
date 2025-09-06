@@ -38,8 +38,12 @@ export default function TicketForm() {
 
       setSuccess("Keluhan berhasil dikirim! Tim kami akan menghubungi Anda dalam 24 jam.");
       setForm({ username: "", email: "", noTelp: "", title: "", message: "", type: "bug" });
-    } catch (err: any) {
-      setError(err.message || "Terjadi kesalahan saat mengirim keluhan.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Terjadi kesalahan saat mengirim keluhan.");
+      }
     } finally {
       setLoading(false);
     }
