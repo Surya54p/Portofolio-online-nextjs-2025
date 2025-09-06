@@ -1,7 +1,7 @@
 // /api/laporkanMasalah/[id]/route.ts
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { promises } from "dns";
+// import { promises } from "dns";
 
 const prisma = new PrismaClient();
 
