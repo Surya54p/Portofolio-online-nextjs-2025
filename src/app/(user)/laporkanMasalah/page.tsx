@@ -16,7 +16,7 @@ export default function TicketForm() {
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.title]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,6 +54,8 @@ export default function TicketForm() {
         follow-up dengan lebih mudah.
       </span>
 
+      {success && <p className="mt-4 text-green-600">{success}</p>}
+      {error && <p className="mt-4 text-red-600">{error}</p>}
       <form className="flex flex-col gap-4 mt-4" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -62,6 +64,7 @@ export default function TicketForm() {
           className="border border-gray-300 rounded px-3 py-2"
           value={form.username}
           onChange={handleChange}
+          required
         />
         <input
           type="email"
@@ -70,6 +73,7 @@ export default function TicketForm() {
           className="border border-gray-300 rounded px-3 py-2"
           value={form.email}
           onChange={handleChange}
+          required
         />
         <input
           type="text"
@@ -78,14 +82,16 @@ export default function TicketForm() {
           className="border border-gray-300 rounded px-3 py-2"
           value={form.noTelp}
           onChange={handleChange}
+          required
         />
         <input
           type="text"
-          name="name"
+          name="title"
           placeholder="Judul Masalah"
           className="border border-gray-300 rounded px-3 py-2"
           value={form.title}
           onChange={handleChange}
+          required
         />
         <textarea
           name="message"
@@ -93,6 +99,7 @@ export default function TicketForm() {
           className="border border-gray-300 rounded px-3 py-2 h-32"
           value={form.message}
           onChange={handleChange}
+          required
         ></textarea>
 
         <div className="flex gap-4">
@@ -101,6 +108,7 @@ export default function TicketForm() {
             value={form.type}
             onChange={handleChange}
             className="border border-gray-300 rounded px-3 py-2 flex-1"
+            required
           >
             <option value="bug">Bug</option>
             <option value="product">Product</option>
@@ -115,9 +123,6 @@ export default function TicketForm() {
           </button>
         </div>
       </form>
-
-      {success && <p className="mt-4 text-green-600">{success}</p>}
-      {error && <p className="mt-4 text-red-600">{error}</p>}
     </div>
   );
 }

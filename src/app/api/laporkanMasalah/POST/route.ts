@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         message: data.message,
       },
     });
-    return NextResponse.json({ succes: true, data: simpanData });
+    return NextResponse.json({ success: true, data: simpanData });
   } catch (err) {
     console.log("❌ error submit data ke database: ", err);
   }
