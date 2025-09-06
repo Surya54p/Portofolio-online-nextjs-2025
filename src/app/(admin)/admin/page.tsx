@@ -105,7 +105,7 @@ export default function Dashboard() {
           <StatsCardList title="Viewers" amount={loading ? "Loading..." : totalViewers} loading={loading} />
         </div>
         {/* end of card */}
-        <div className="grid lg:grid-cols-3 w-full gap-6">
+        {/* <div className="grid lg:grid-cols-3 w-full gap-6"> */}
           {/* Likes Chart */}
           <div className="h-80">
             {" "}
@@ -121,19 +121,6 @@ export default function Dashboard() {
             </ResponsiveContainer>
           </div>
 
-          {/* Portofolios Chart */}
-          <div className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={allDataPortofolios} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="createdAt" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Area type="monotone" dataKey="count" stroke="#ffc658" fill="#ffc658" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
         {/* main content */}
         {/* table likes */}
         <div className="grid lg:grid-cols-2 grid-cols-1  gap-1 ">
