@@ -26,7 +26,7 @@ export default function TicketForm() {
     setError(null);
 
     try {
-      const res = await fetch("/api/laporkanMasalah/POST", {
+      const res = await fetch("/api/laporkanMasalah/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),

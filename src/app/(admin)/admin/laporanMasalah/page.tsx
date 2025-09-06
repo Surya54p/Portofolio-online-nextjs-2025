@@ -32,7 +32,7 @@ export default function AdminLaporanMasalah() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/laporkanMasalah/GET", { cache: "no-store" });
+        const res = await fetch("/api/laporkanMasalah/", { cache: "no-store", method: "GET" });
         const respon = await res.json();
         setLaporanData(respon);
       } catch (error) {
@@ -45,7 +45,7 @@ export default function AdminLaporanMasalah() {
   }, []);
   async function updateLaporan(ticket: Ticket) {
     try {
-      const res = await fetch(`/api/laporkanMasalah/${ticket.id}/PUT`, {
+      const res = await fetch(`/api/laporkanMasalah/${ticket.id}/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(ticket),
