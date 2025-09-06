@@ -109,8 +109,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      
-      <span className="text-[26px] italic">Certificate Management</span>
+        <span className="text-[26px] italic">Certificate Management</span>
       <div className="flex space-x-4 my-4">
         <PrimaryButton buttonText="Add Certificate" onClick={handleOpenModal} />
       </div>
