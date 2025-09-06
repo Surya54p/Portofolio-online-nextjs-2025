@@ -43,8 +43,10 @@ export default function AdminLaporanMasalah() {
     };
     fetchData();
   }, []);
+
   async function updateLaporan(ticket: Ticket) {
     try {
+      setLoading(true);
       const res = await fetch(`/api/laporkanMasalah/${ticket.id}/`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -54,6 +56,7 @@ export default function AdminLaporanMasalah() {
       if (!res.ok) throw new Error("Gagal update laporan");
 
       const updated = await res.json();
+      setLoading(false);
       return updated;
     } catch (err) {
       console.error("❌ error update:", err);
@@ -216,7 +219,7 @@ export default function AdminLaporanMasalah() {
                     }
                   }}
                 >
-                  Simpan
+                  {loading ? "Loading..." : "Simpan"}
                 </button>
               </div>
             </form>
