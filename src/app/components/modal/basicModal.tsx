@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 
 interface ModalProps {
   ModalTitle: string;
+  description: string;
   isOpen: boolean;
-  onClose: () => void;
   onSubmit?: (data: { id?: string; title: string; src: string | null; summary: string }) => void;
+  onClose: () => void;
+  actions?: React.ReactNode;
   selectedData?: {
     id: string;
     title: string;
@@ -16,53 +18,37 @@ interface ModalProps {
   } | null;
 }
 
-export default function BasicModal({ isOpen, onClose, onSubmit, selectedData, ModalTitle }: ModalProps) {
-  const [title, setTitle] = useState("");
-  const [src, setSrc] = useState<string | null>(null);
-  const [summary, setSummary] = useState("");
+export default function BasicModal({
+  ModalTitle,
+  description,
+  isOpen,
+  onClose,
+  onSubmit,
+  selectedData,
+  actions,
+}: ModalProps) {
+  const [title, setTitle] = useState(selectedData?.title || "");
+  const [src, setSrc] = useState(selectedData?.src || "");
+  const [summary, setSummary] = useState(selectedData?.summary || "");
 
-  // Prefill data kalau ada (mode edit)
   useEffect(() => {
-    if (selectedData) {
-      setTitle(selectedData.title || "");
-      setSrc(selectedData.src || null);
-      setSummary(selectedData.summary || "");
-    } else {
-      setTitle("");
-      setSrc(null);
-      setSummary("");
-    }
+    setTitle(selectedData?.title || "");
+    setSrc(selectedData?.src || "");
+    setSummary(selectedData?.summary || "");
   }, [selectedData]);
 
-  // Tutup modal kalau ESC ditekan
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit?.({ id: selectedData?.id, title, src, summary });
+  };
 
   if (!isOpen) return null;
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (onSubmit) {
-      onSubmit({
-        id: selectedData?.id,
-        title,
-        src,
-        summary,
-      });
-    }
-    onClose();
-  };
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="relative bg-white p-6 rounded-lg shadow-lg w-full max-w-[750px]">
         <div className="flex items-center justify-between ">
-          <h2 className="text-xl font-semibold mb-4">{ModalTitle}</h2>
+          <h2 className="text-xl font-semibold ">{ModalTitle}</h2>
           <button
             type="button"
             onClick={onClose}
@@ -85,7 +71,8 @@ export default function BasicModal({ isOpen, onClose, onSubmit, selectedData, Mo
             </svg>
           </button>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className="mb-4">{description}</div>
+        <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
           {/* Title */}
           <div className="flex flex-col gap-1">
             <label className="font-semibold">Title</label>
@@ -129,14 +116,17 @@ export default function BasicModal({ isOpen, onClose, onSubmit, selectedData, Mo
             </div>
           )}
 
-          {/* Tombol */}
-          <div className="flex justify-between gap-2 mt-4 ">
-            <button type="button" className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-              Delete
-            </button>
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-              Save
-            </button>
+          {/* Actions */}
+          <div className="flex justify-between gap-2 mt-4">
+            {actions ? (
+              actions
+            ) : (
+              <>
+                <button type="button" onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">
+                  Cancel
+                </button>
+              </>
+            )}
           </div>
         </form>
       </div>

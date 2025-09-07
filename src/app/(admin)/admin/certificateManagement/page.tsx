@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/componentsShadcn/ui/table";
+import { error } from "console";
 
 interface CertificateDataType {
   id: string;
@@ -22,6 +23,8 @@ interface CertificateDataType {
 }
 
 export default function Dashboard() {
+  const [loading, setLoading] = useState(true);
+
   // State: Modal
   const [dataViewCertificate, setDataViewCertificate] = useState<CertificateDataType[]>([]);
   const [selectedData, setSelectedData] = useState<CertificateDataType | null>(null);
@@ -42,6 +45,7 @@ export default function Dashboard() {
   // fetch data
   useEffect(() => {
     const fetchDataCertificate = async () => {
+      setLoading(true);
       try {
         const fetchData = await fetch("/api/adminAPI/certificateManagement/view");
         const response = await fetchData.json();
@@ -49,6 +53,8 @@ export default function Dashboard() {
         setDataViewCertificate(response);
       } catch (error) {
         console.log("❌ Terdapat eror: ", error);
+      } finally {
+        setLoading(false); // ✅ selesai loading, baik success/failed
       }
     };
     fetchDataCertificate();
@@ -63,8 +69,12 @@ export default function Dashboard() {
   const [category, setCategory] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
+  // --------------------------------------
+  // INPUT DATA
+  // --------------------------------------
   const submitCertificate = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // ✅ taruh di awal
 
     const formData = new FormData();
     formData.append("title", title);
@@ -109,13 +119,33 @@ export default function Dashboard() {
         title: "Oops...",
         text: "Terjadi kesalahan saat submit.",
       });
+      setLoading(false);
     }
   };
 
   // --------------------------------------
-  // PAGE VIEW
+  // DELETE DATA
   // --------------------------------------
-
+  const deleteData = async (id?: string) => {
+    if (!id) return;
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/certificate/deleteData/${id}/`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("❌ Failed to delete");
+      const result = await res.json();
+      console.log("Data Deleted: ", result);
+      handleCloseModalAction();
+      alert("✅ Berhasil delete data!");
+      window.location.reload();
+    } catch (error: unknown) {
+      console.log("❌ Error found: ", error);
+      alert("Gagal delete data!");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div>
       <span className="text-[26px] italic">Certificate Management</span>
@@ -142,32 +172,60 @@ export default function Dashboard() {
           </TableHeader>
 
           <TableBody>
-            {dataViewCertificate.map((item, index) => (
-              <TableRow key={item.id} className="align-top ">
-                <TableCell className="px-2 py-2">{index + 1}</TableCell>
-
-                <TableCell className="px-2 py-2 break-words  truncate ">{item.title}</TableCell>
-                {/* <TableCell className="px-2 py-2 break-words max-w-[250px] truncate ">{item.src}</TableCell>
-
-                <TableCell className="px-2 py-2 break-words whitespace-normal max-w-[250px]">{item.summary}</TableCell> */}
-                {/* <TableCell className="px-2 py-2 ">{new Date(item.createdAt).toLocaleDateString()}</TableCell> */}
-                <TableCell className="px-2 py-2">
-                  <div className="flex flex-row gap-2">
-                    <button
-                      onClick={() => handleOpenModalAction(item)}
-                      className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm"
-                    >
-                      Detail
-                    </button>
-                  </div>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={3} className="text-center py-6">
+                  Loading data...
                 </TableCell>
               </TableRow>
-            ))}
+            ) : dataViewCertificate.length > 0 ? (
+              dataViewCertificate.map((item, index) => (
+                <TableRow key={item.id} className="align-top ">
+                  <TableCell className="px-2 py-2">{index + 1}</TableCell>
+                  <TableCell className="px-2 py-2 break-words  truncate ">{item.title}</TableCell>
+                  <TableCell className="px-2 py-2">
+                    <div className="flex flex-row gap-2">
+                      <button
+                        onClick={() => handleOpenModalAction(item)}
+                        className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm"
+                      >
+                        Detail
+                      </button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={3} className="text-center py-6 text-gray-500">
+                  Tidak ada data
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
         {/* <RenderModalEditPortofolios /> */}
         {AddCertifModal()}
-        <BasicModal ModalTitle="Edit Certificate:)" isOpen={openModalAction} onClose={handleCloseModalAction} selectedData={selectedData} />
+        <BasicModal
+          description="Incididunt deserunt eu Lorem eiusmod in labore consequat esse laborum.Excepteur occaecat culpa enim anim aliquip in in ad voluptate duis nulla et id."
+          ModalTitle="Edit Data "
+          isOpen={openModalAction}
+          onClose={handleCloseModalAction}
+          selectedData={selectedData}
+          actions={
+            <div className="flex justify-between w-full">
+              <button
+                onClick={() => deleteData(selectedData?.id)}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+              >
+                {loading ? "loading" : "Delete"}
+              </button>
+              <button type="button" className="bg-gray-300 px-4 py-2 rounded">
+                Cancel
+              </button>
+            </div>
+          }
+        />
       </div>
     </div>
   );
