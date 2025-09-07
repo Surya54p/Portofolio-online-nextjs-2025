@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import PrimaryButton from "@/app/components/primaryButton";
 import Swal from "sweetalert2";
+import BasicModal from "@/app/components/modal/basicModal";
 import {
   Table,
   TableBody,
@@ -23,13 +24,21 @@ interface CertificateDataType {
 export default function Dashboard() {
   // State: Modal
   const [dataViewCertificate, setDataViewCertificate] = useState<CertificateDataType[]>([]);
-  // State: Form Utama
-
-  // Handler: Modal
+  const [selectedData, setSelectedData] = useState<CertificateDataType | null>(null);
+  // Handler: actionModal
+  const [openModalAction, setOpenModalAction] = useState(false);
+  const handleOpenModalAction = (data?: CertificateDataType) => {
+    setSelectedData(data || null); // kalau ada data -> edit, kalau null -> add
+    setOpenModalAction(true);
+  };
+  const handleCloseModalAction = (data?: CertificateDataType) => {
+    setSelectedData(data || null); // kalau ada data -> edit, kalau null -> add
+    setOpenModalAction(false);
+  };
+  // Handler: addModal
   const [addModal, setAddModal] = useState(false);
   const handleOpenModal = () => setAddModal(true);
   const handleCloseModal = () => setAddModal(false);
-
   // fetch data
   useEffect(() => {
     const fetchDataCertificate = async () => {
@@ -109,7 +118,7 @@ export default function Dashboard() {
 
   return (
     <div>
-        <span className="text-[26px] italic">Certificate Management</span>
+      <span className="text-[26px] italic">Certificate Management</span>
       <div className="flex space-x-4 my-4">
         <PrimaryButton buttonText="Add Certificate" onClick={handleOpenModal} />
       </div>
@@ -125,9 +134,9 @@ export default function Dashboard() {
             <TableRow>
               <TableHead className="w-[5%]">No</TableHead>
               <TableHead className="w-[15%]">Title</TableHead>
-              <TableHead className="w-[20%]">Src</TableHead>
-              <TableHead className="w-[25%]">Summary</TableHead>
-              <TableHead className="w-[10%]">Created At</TableHead>
+              {/* <TableHead className="w-[20%]">Src</TableHead>
+              <TableHead className="w-[25%]">Summary</TableHead> */}
+              {/* <TableHead className="w-[10%]">Created At</TableHead> */}
               <TableHead className="w-[10%]">Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -138,16 +147,18 @@ export default function Dashboard() {
                 <TableCell className="px-2 py-2">{index + 1}</TableCell>
 
                 <TableCell className="px-2 py-2 break-words  truncate ">{item.title}</TableCell>
-                <TableCell className="px-2 py-2 break-words max-w-[250px] truncate ">{item.src}</TableCell>
+                {/* <TableCell className="px-2 py-2 break-words max-w-[250px] truncate ">{item.src}</TableCell>
 
-                <TableCell className="px-2 py-2 break-words whitespace-normal max-w-[250px]">{item.summary}</TableCell>
-                <TableCell className="px-2 py-2 ">{new Date(item.createdAt).toLocaleDateString()}</TableCell>
+                <TableCell className="px-2 py-2 break-words whitespace-normal max-w-[250px]">{item.summary}</TableCell> */}
+                {/* <TableCell className="px-2 py-2 ">{new Date(item.createdAt).toLocaleDateString()}</TableCell> */}
                 <TableCell className="px-2 py-2">
                   <div className="flex flex-row gap-2">
-                    <button className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm">
-                      Edit
+                    <button
+                      onClick={() => handleOpenModalAction(item)}
+                      className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm"
+                    >
+                      Detail
                     </button>
-                    <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</button>
                   </div>
                 </TableCell>
               </TableRow>
@@ -156,6 +167,7 @@ export default function Dashboard() {
         </Table>
         {/* <RenderModalEditPortofolios /> */}
         {AddCertifModal()}
+        <BasicModal ModalTitle="Edit Certificate:)" isOpen={openModalAction} onClose={handleCloseModalAction} selectedData={selectedData} />
       </div>
     </div>
   );
