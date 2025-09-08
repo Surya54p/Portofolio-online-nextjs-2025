@@ -10,9 +10,9 @@ interface DeleteContext {
   };
 }
 
-export async function DELETE(_req: Request, { params }: DeleteContext) {
+export async function DELETE(_req: Request, context: { params: Promise<{ id: string }> }){
   try {
-    const { id } = params;
+    const { id } = await context.params; // 👈 HARUS di-await
 
     await prisma.certificates.delete({
       where: { id },
