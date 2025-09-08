@@ -7,16 +7,16 @@ import { SeedCertificates } from "./seeds/certificates.seed";
 import { seedSkill } from "./seeds/skill.seed";
 import { SeedSomeTools } from "./seeds/someTools.seed";
 async function main() {
-  // await seedAdmin();
-  // await seedLike();
-  // await seedViewers();
-  // await seedPortfolioCategory();
-  // await seedProduct();
+  await seedAdmin();
+  await seedLike();
+  await seedViewers();
+  await seedPortfolioCategory();
+  await seedProduct();
   await SeedCertificates();
-  // await seedLike();
-  // await seedSkill();
-  // await SeedSomeTools();
-  // // await seedPortofolios();
+  await seedLike();
+  await seedSkill();
+  await SeedSomeTools();
+  // await seedPortofolios();
 }
 
 main()
