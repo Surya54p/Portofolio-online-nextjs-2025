@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/componentsShadcn/ui/table";
-import { error } from "console";
+// import { error } from "console";
 
 interface CertificateDataType {
   id: string;
