@@ -130,17 +130,20 @@ export default function Dashboard() {
     if (!id) return;
     try {
       setLoading(true);
-      const res = await fetch(`/api/certificate/deleteData/${id}/`, {
+      const res = await fetch(`/api/certificate/deleteData/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("❌ Failed to delete");
       const result = await res.json();
       console.log("Data Deleted: ", result);
-      handleCloseModalAction();
       alert("✅ Berhasil delete data!");
-      window.location.reload();
-    } catch (error: unknown) {
-      console.log("❌ Error found: ", error);
+      handleCloseModalAction();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("❌ Error found:", error.message);
+      } else {
+        console.error("❌ Unknown error:", error);
+      }
       alert("Gagal delete data!");
     } finally {
       setLoading(false);
