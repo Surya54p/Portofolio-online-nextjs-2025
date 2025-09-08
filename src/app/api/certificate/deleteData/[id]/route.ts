@@ -3,13 +3,6 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// definisikan context biar gak pakai any
-interface DeleteContext {
-  params: {
-    id: string;
-  };
-}
-
 export async function DELETE(_req: Request, context: { params: Promise<{ id: string }> }){
   try {
     const { id } = await context.params; // 👈 HARUS di-await
