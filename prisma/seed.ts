@@ -6,6 +6,7 @@ import { seedProduct } from "./seeds/product.seed";
 import { SeedCertificates } from "./seeds/certificates.seed";
 import { seedSkill } from "./seeds/skill.seed";
 import { SeedSomeTools } from "./seeds/someTools.seed";
+import { seedPortofolios } from "./seeds/portofolios.seed";
 async function main() {
   await seedAdmin();
   await seedLike();
@@ -16,7 +17,7 @@ async function main() {
   await seedLike();
   await seedSkill();
   await SeedSomeTools();
-  // await seedPortofolios();
+  await seedPortofolios();
 }
 
 main()

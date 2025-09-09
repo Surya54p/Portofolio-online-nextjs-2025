@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import PrimaryButton from "@/app/components/primaryButton";
 import Swal from "sweetalert2";
 import BasicModal from "@/app/components/modal/basicModal";
+import ConfirmationModal from "@/app/components/modal/confirmationModal";
 import {
   Table,
   TableBody,
@@ -12,7 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/componentsShadcn/ui/table";
-// import { error } from "console";
 
 interface CertificateDataType {
   id: string;
@@ -28,21 +28,16 @@ export default function Dashboard() {
   // State: Modal
   const [dataViewCertificate, setDataViewCertificate] = useState<CertificateDataType[]>([]);
   const [selectedData, setSelectedData] = useState<CertificateDataType | null>(null);
-  // Handler: actionModal
-  const [openModalAction, setOpenModalAction] = useState(false);
-  const handleOpenModalAction = (data?: CertificateDataType) => {
-    setSelectedData(data || null); // kalau ada data -> edit, kalau null -> add
-    setOpenModalAction(true);
-  };
-  const handleCloseModalAction = (data?: CertificateDataType) => {
-    setSelectedData(data || null); // kalau ada data -> edit, kalau null -> add
-    setOpenModalAction(false);
-  };
+
   // Handler: addModal
   const [addModal, setAddModal] = useState(false);
   const handleOpenModal = () => setAddModal(true);
   const handleCloseModal = () => setAddModal(false);
-  // fetch data
+
+  // --------------------------------------
+  // AMBIL DATA
+  // --------------------------------------
+
   useEffect(() => {
     const fetchDataCertificate = async () => {
       setLoading(true);
@@ -68,10 +63,6 @@ export default function Dashboard() {
   const [summary, setSummary] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState<File | null>(null);
-
-  // --------------------------------------
-  // INPUT DATA
-  // --------------------------------------
   const submitCertificate = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true); // ✅ taruh di awal
@@ -126,6 +117,31 @@ export default function Dashboard() {
   // --------------------------------------
   // DELETE DATA
   // --------------------------------------
+  // Handler: actionModal
+  const [openModalAction, setOpenModalAction] = useState(false);
+  const [confirmationModal, setConfirmationModal] = useState(false);
+
+  // buka action modal
+  const openActionModal = (data: CertificateDataType) => {
+    setSelectedData(data);
+    setOpenModalAction(true);
+  };
+
+  // tutup action modal
+  const closeActionModal = () => {
+    setSelectedData(null);
+    setOpenModalAction(false);
+  };
+
+  // buka confirmation modal
+  const openConfirmationModal = () => {
+    setConfirmationModal(true);
+  };
+
+  // tutup confirmation modal
+  const closeConfirmationModal = () => {
+    setConfirmationModal(false);
+  };
   const deleteData = async (id?: string) => {
     if (!id) return;
     try {
@@ -137,7 +153,11 @@ export default function Dashboard() {
       const result = await res.json();
       console.log("Data Deleted: ", result);
       alert("✅ Berhasil delete data!");
-      handleCloseModalAction();
+
+      // tutup kedua modal setelah sukses
+      closeActionModal();
+      closeConfirmationModal();
+      setDataViewCertificate((prev) => prev.filter((d) => d.id !== id));
     } catch (error) {
       if (error instanceof Error) {
         console.error("❌ Error found:", error.message);
@@ -149,6 +169,7 @@ export default function Dashboard() {
       setLoading(false);
     }
   };
+
   return (
     <div>
       <span className="text-[26px] italic">Certificate Management</span>
@@ -189,7 +210,7 @@ export default function Dashboard() {
                   <TableCell className="px-2 py-2">
                     <div className="flex flex-row gap-2">
                       <button
-                        onClick={() => handleOpenModalAction(item)}
+                        onClick={() => openActionModal(item)}
                         className="bg-blue-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm"
                       >
                         Detail
@@ -209,22 +230,53 @@ export default function Dashboard() {
         </Table>
         {/* <RenderModalEditPortofolios /> */}
         {AddCertifModal()}
+        {/* 
+        ACTION MODAL
+        */}
         <BasicModal
           description="Incididunt deserunt eu Lorem eiusmod in labore consequat esse laborum.Excepteur occaecat culpa enim anim aliquip in in ad voluptate duis nulla et id."
           ModalTitle="Edit Data "
           isOpen={openModalAction}
-          onClose={handleCloseModalAction}
+          onClose={closeActionModal}
           selectedData={selectedData}
           actions={
             <div className="flex justify-between w-full">
               <button
-                onClick={() => deleteData(selectedData?.id)}
+                // onClick={() => deleteData(selectedData?.id)}
+                onClick={() => openConfirmationModal()}
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
               >
                 {loading ? "loading" : "Delete"}
               </button>
               <button type="button" className="bg-gray-300 px-4 py-2 rounded">
                 Cancel
+              </button>
+            </div>
+          }
+        />
+        {/*         
+        CONFIRMATION MODAL
+        */}
+        <ConfirmationModal
+          ModalTitle="Confirm your action"
+          description={`Write `}
+          isOpen={confirmationModal}
+          onClose={closeConfirmationModal}
+          selectedData={selectedData}
+          onSubmit={({ id }) => {
+            if (id) deleteData(id); // ✅ langsung panggil fungsi hapus di sini
+          }}
+          actions={
+            <div className="flex justify-between w-full">
+              <button type="button" className="bg-gray-300 px-4 py-2 rounded">
+                Cancel
+              </button>
+              <button
+                // onClick={() => deleteData(selectedData?.id)}
+                onClick={() => deleteData(selectedData?.id)}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+              >
+                {loading ? "loading" : "Delete"}
               </button>
             </div>
           }
