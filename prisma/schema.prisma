@@ -14,6 +14,20 @@ model Admin {
   password  String
   role      String   @default("admin")
   createdAt DateTime @default(now())
+
+  // 🔹 Relasi balik ke reset token
+  resetTokens AdminResetToken[]
+}
+
+model AdminResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  adminId   String
+  admin     Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  @@index([token]) // biar pencarian token lebih cepat
 }
 
 model Like {
@@ -132,7 +146,7 @@ model TicketLaporanMasalah {
   username  String
   email     String
   noTelp    String
-  title      String
+  title     String
   status    TicketStatus @default(pending)
   type      TicketType // bug atau product
   message   String

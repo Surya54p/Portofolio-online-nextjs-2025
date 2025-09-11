@@ -3,6 +3,7 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link"; // ⬅️ tambahin ini
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -59,7 +60,12 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-
+          {/* 🔗 Tambahin link reset password */}
+          <div className="mb-6 text-right">
+            <Link href="/forgot-password" className="text-sm text-blue-600 hover:underline">
+              Lupa password?
+            </Link>
+          </div>
           <button
             type="submit"
             disabled={loading}
