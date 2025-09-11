@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 // import { promises } from "dns";
 
 const prisma = new PrismaClient();
-
+  
 export async function PUT(req: Request, context: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await context.params;

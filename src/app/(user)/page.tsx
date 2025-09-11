@@ -61,6 +61,10 @@ const Home = () => {
   //
   useEffect(() => {
     const fetchLikes = async () => {
+      // ini alamat api harus benar karena penyebab 404 hanya alamat yang salah jadi kalau dapet 404 itu alamat di bawah ini yang salah.
+      // kalau misal untuk page atau halaman biasa itu beda lagi karena di react itu ada cara sendiri untuk nentuin alamatnya
+
+      // coba kamu cek nama foldernya lalu page nya juga
       const response = await fetch("/api/like");
       const data = await response.json();
       setTotalLikes(data.totalLikes);

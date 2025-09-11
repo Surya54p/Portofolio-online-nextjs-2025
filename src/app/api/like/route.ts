@@ -1,5 +1,6 @@
 export const runtime = "nodejs";
 import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 const prisma = new PrismaClient();
 
@@ -119,3 +120,96 @@ export async function POST(req: Request) {
     );
   }
 }
+
+export async function PUT(req: Request) {
+  try {
+    const body = await req.json(); // ambil id & nama dari body
+    const { id, nama } = body;
+
+    const update = await prisma.like.update({
+      where: { id },
+      data: { nama },
+    });
+
+    return NextResponse.json({ success: true, data: update });
+  } catch (error: unknown) {
+    console.log("❌ Error found: ", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const body = await req.json(); // ambil id dari body
+    const { id } = body;
+
+    const deleteData = await prisma.like.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true, data: deleteData });
+  } catch (error: unknown) {
+    console.log("❌ Error found: ", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
+  }
+}
+// ROUTE DYNAMIC FUNCTION MENGGUNAKAN PARAMS
+// export async function DELETE(req: Request, context: { params: Promise<{ id: string }> }) {
+//   try {
+//     const { id } = await context.params;
+
+//     const deleteData = await prisma.like.delete({
+//       where: { id: id }, // id tetap string
+//     });
+
+//     return NextResponse.json({ success: true, message: "Delet data berhasil", data: deleteData });
+//   } catch (error: unknown) {
+//     console.log("❌ Error found: ", error);
+//     return NextResponse.json(
+//       {
+//         success: false,
+//         message: "gagal delete data",
+//         error: error instanceof Error ? error.message : "unknown error",
+//       },
+//       { status: 500 }
+//     );
+//   }
+// }
+
+// export async function PUT(req: Request, context: { params: Promise<{ id: string }> }) {
+//   try {
+//     const { id } = await context.params;
+//     const body = await req.json();
+
+//     const update = await prisma.like.update({
+//       where: { id: id },
+//       data: {
+//         nama: body.nama,
+//       },
+//     });
+
+//     return NextResponse.json(update);
+//   } catch (error: unknown) {
+//     console.log("❌ Error found: ", error);
+//     return NextResponse.json(
+//       {
+//         success: false,
+//         message: "Gagal update data",
+//         error: error instanceof Error ? error.message : "unknown error",
+//       },
+//       { status: 500 }
+//     );
+//   }
+// }

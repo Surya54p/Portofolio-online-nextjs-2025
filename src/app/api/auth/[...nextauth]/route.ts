@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 
 const handler = NextAuth({
   debug: true, // Tambah ini
-
   providers: [
     CredentialsProvider({
       name: "Credentials",
