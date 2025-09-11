@@ -34,15 +34,22 @@ export default function Dashboard() {
     setSelectedData(row);
     setIsModalOpen(true);
   };
-  // AMBIL DATA LIKE
+  // AMBIL DATA
   const fetchData = async () => {
     try {
       const response = await fetch("/api/like");
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`Failed to fetch likes: ${response.status} ${response.statusText}`);
+      }
+
+      const data: { InfoLikes: TypeData[]; totalLikes: number } = await response.json();
       setDataLike(data.InfoLikes);
       setDataTotalLike(data.totalLikes);
-      setLoading(false);
-    } catch (error: unknown) {}
+    } catch (error: unknown) {
+      console.error("Error fetching likes:", error);
+    } finally {
+      setLoading(false); 
+    }
   };
 
   useEffect(() => {
