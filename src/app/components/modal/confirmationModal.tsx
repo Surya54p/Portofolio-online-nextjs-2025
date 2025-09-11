@@ -22,7 +22,6 @@ export default function ConfirmationModal({
   onClose,
   onSubmit,
   selectedData,
-  actions,
 }: ModalProps) {
   const [inputValue, setInputValue] = useState("");
   const isMatch = inputValue === selectedData?.title;
