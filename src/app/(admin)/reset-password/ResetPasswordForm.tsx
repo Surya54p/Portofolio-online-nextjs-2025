@@ -45,23 +45,45 @@ export default function ResetPasswordForm({ token }: { token: string }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="password"
-        placeholder="Password baru"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Konfirmasi password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <button type="submit" disabled={loading}>
-        {loading ? "Loading..." : "Reset Password"}
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-6 rounded shadow-md w-full max-w-md"
+    >
+      <h1 className="text-2xl font-bold mb-4">Reset Password</h1>
+
+      {message && <p className="mb-3 text-sm text-blue-600">{message}</p>}
+
+      <div className="mb-3">
+        <label className="block text-sm font-medium">Password Baru</label>
+        <input
+          type="password"
+          className="w-full border p-2 rounded mt-1"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={6}
+        />
+      </div>
+
+      <div className="mb-3">
+        <label className="block text-sm font-medium">Konfirmasi Password</label>
+        <input
+          type="password"
+          className="w-full border p-2 rounded mt-1"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+          minLength={6}
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+      >
+        {loading ? "Mengubah..." : "Reset Password"}
       </button>
-      {message && <p>{message}</p>}
     </form>
   );
 }

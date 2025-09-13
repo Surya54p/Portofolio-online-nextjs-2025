@@ -1,10 +1,16 @@
 import ResetPasswordForm from "./ResetPasswordForm";
 
-export default function ResetPasswordPage({
-  searchParams,
-}: {
-  searchParams: { token?: string };
-}) {
-  const token = searchParams.token ?? ""; // ambil token dari URL
-  return <ResetPasswordForm token={token} />;
+interface ResetPasswordPageProps {
+  searchParams?: Record<string, string | string[] | undefined>;
+}
+
+export default function ResetPasswordPage({ searchParams }: ResetPasswordPageProps) {
+  // Ambil token dari query param
+  const token = (searchParams?.token as string) ?? "";
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <ResetPasswordForm token={token} />
+    </div>
+  );
 }
