@@ -125,7 +125,7 @@ export default function ProductCard({ item }: { item: Product }) {
         <div className="mx-4 my-4 flex flex-col gap-2 ">
           <h2 className="text-2xl line-clamp-2">{item.name}</h2>
           <span className="text-xl ">Rp {item.price?.toLocaleString("id-ID")}</span>
-          <p className="text-gray-700  line-clamp-5 text-md">{item.description}</p>
+          <p className="text-gray-700  line-clamp-5 text-sm">{item.description}</p>
           <PrimaryButton buttonText="Buy" className="rounded-md w-full text-lg" onClick={HandleOpenModal} />
         </div>
       </div>
