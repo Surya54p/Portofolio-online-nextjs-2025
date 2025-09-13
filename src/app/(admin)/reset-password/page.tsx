@@ -1,12 +1,13 @@
 import ResetPasswordForm from "./ResetPasswordForm";
 
-interface ResetPasswordPageProps {
-  searchParams?: Record<string, string | string[] | undefined>;
-}
-
-export default function ResetPasswordPage({ searchParams }: ResetPasswordPageProps) {
-  // Ambil token dari query param
-  const token = (searchParams?.token as string) ?? "";
+export default async function ResetPasswordPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string>>;
+}) {
+  // tunggu searchParams (karena dianggap Promise sama Next.js)
+  const params = await searchParams;
+  const token = params?.token ?? "";
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
