@@ -40,8 +40,12 @@ export default function ResetPasswordPage() {
 
       setMessage("✅ Password berhasil direset, sebentar lagi dialihkan ke login...");
       setTimeout(() => router.push("/login"), 2000);
-    } catch (err: any) {
-      setMessage(err.message || "❌ Terjadi kesalahan.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setMessage(error.message);
+      } else {
+        setMessage("❌ Eror occurred")
+      }
     } finally {
       setLoading(false);
     }
@@ -49,10 +53,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded shadow-md w-full max-w-md"
-      >
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-4">Reset Password</h1>
 
         {message && <p className="mb-3 text-sm text-blue-600">{message}</p>}
