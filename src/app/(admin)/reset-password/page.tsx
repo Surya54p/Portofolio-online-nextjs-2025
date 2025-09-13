@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function ResetPasswordPage() {
-  const searchParams = useSearchParams();
+export default function ResetPasswordPage({ searchParams }: { searchParams: { token?: string } }) {
   const router = useRouter();
-  const token = searchParams.get("token"); // ambil token dari URL
+  const token = searchParams.token ?? "";
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -44,7 +43,7 @@ export default function ResetPasswordPage() {
       if (error instanceof Error) {
         setMessage(error.message);
       } else {
-        setMessage("❌ Eror occurred")
+        setMessage("❌ Eror occurred");
       }
     } finally {
       setLoading(false);
