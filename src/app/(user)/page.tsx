@@ -282,7 +282,10 @@ const Home = () => {
 
               <span className="lg:text-[1.3rem] text-[1rem]">From this website you will know more about me! :)</span>
               <div className="mt-5">
-                <a href="#about" className="border hover:border-blue-500 px-3 rounded-[25px] py-3 hover:bg-blue-500 hover:text-white">
+                <a
+                  href="#about"
+                  className="border hover:border-blue-500 px-3 rounded-[25px] py-3 hover:bg-blue-500 hover:text-white"
+                >
                   About me
                 </a>
               </div>
