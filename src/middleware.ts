@@ -1,12 +1,11 @@
-// middleware.ts
 import { withAuth } from "next-auth/middleware";
 
 export default withAuth({
   pages: {
-    signIn: "/login",
+    signIn: "/login", // redirect otomatis kalau belum login
   },
 });
 
 export const config = {
-  matcher: ["/admin/:path*", "/admin"],
+  matcher: ["/user/:path*", "/user"], // semua route /user dicek session
 };
